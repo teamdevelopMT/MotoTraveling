@@ -4,8 +4,19 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+//Firebase
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import {OPTIONS} from './Config.firebase'
+
+//Facebook
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+
+
 import { MyApp } from './app.component';
 import {LoginPage} from '../pages/login/login'
+import { LoginProvider } from '../providers/login/login';
 
 @NgModule({
   declarations: [
@@ -14,7 +25,10 @@ import {LoginPage} from '../pages/login/login'
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(OPTIONS),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -24,7 +38,9 @@ import {LoginPage} from '../pages/login/login'
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    LoginProvider,
+    Facebook
   ]
 })
 export class AppModule {}

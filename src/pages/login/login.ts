@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+//Firebase
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase'
+
+//Facebook
+import { Platform } from 'ionic-angular';
+import { Facebook, FacebookLoginResponse  } from '@ionic-native/facebook';
+
 
 @IonicPage()
 @Component({
@@ -14,12 +16,48 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+ 
+  facebook: any = {
+    img: ''
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  constructor(public navCtrl: NavController, private _fireAuth: AngularFireAuth, private fb: Facebook,
+    private platform: Platform) {
+
+      _fireAuth.authState.subscribe((user: firebase.User) => {
+        if (!user) {
+          this.facebook.img= '';
+          return;
+        }
+        this.facebook.img = user.photoURL;      
+      });
+
   }
+
+
+
+  loginFacebook() {
+
+    if (this.platform.is('cordova')) {
+      return this.fb.login(['public_profile', 'user_friends', 'email']).then((res: FacebookLoginResponse) => { 
+        const FACEBOOKCREDENTIAL = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+        return firebase.auth().signInWithCredential(FACEBOOKCREDENTIAL);
+      });
+
+    } else {
+      this._fireAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+        .then(res => {
+          // this.facebook.img = res.user.photoURL;
+          console.log(res);
+        })
+    }
+  }
+
+  logoutFacebook() {
+   
+    this._fireAuth.auth.signOut();
+
+  }
+
 
 }
