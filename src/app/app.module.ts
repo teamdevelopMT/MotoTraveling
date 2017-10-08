@@ -18,10 +18,18 @@ import { MyApp } from './app.component';
 import {LoginPage} from '../pages/login/login'
 import { LoginProvider } from '../providers/login/login';
 
+//Components
+import {MapaComponent} from '../Components/Mapa/Mapa.component'
+
+//Google Maps
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { Geolocation } from '@ionic-native/geolocation';
+
 @NgModule({
   declarations: [
     MyApp, 
-    LoginPage
+    LoginPage,
+    MapaComponent
   ],
   imports: [
     BrowserModule,
@@ -33,12 +41,15 @@ import { LoginProvider } from '../providers/login/login';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp, 
-    LoginPage
+    LoginPage,
+    MapaComponent
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    GoogleMaps,
+    Geolocation,
     LoginProvider,
     Facebook
   ]
