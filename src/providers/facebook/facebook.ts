@@ -3,16 +3,16 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 /*
-  Generated class for the LoginProvider provider.
+  Generated class for the FacebookProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
 @Injectable()
-export class LoginProvider {
+export class FacebookProvider {
 
   constructor(public http: Http) {
-    console.log('Hello LoginProvider Provider');
+    console.log('Hello FacebookProvider Provider');
   }
 
 }

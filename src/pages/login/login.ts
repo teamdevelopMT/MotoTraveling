@@ -7,7 +7,8 @@ import * as firebase from 'firebase'
 
 //Facebook
 import { Platform } from 'ionic-angular';
-import { Facebook, FacebookLoginResponse  } from '@ionic-native/facebook';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { TabsPage } from '../tabs/tabs';
 
 
 @IonicPage()
@@ -16,7 +17,7 @@ import { Facebook, FacebookLoginResponse  } from '@ionic-native/facebook';
   templateUrl: 'login.html',
 })
 export class LoginPage {
- 
+
   facebook: any = {
     img: ''
   }
@@ -24,22 +25,24 @@ export class LoginPage {
   constructor(public navCtrl: NavController, private _fireAuth: AngularFireAuth, private fb: Facebook,
     private platform: Platform) {
 
-      _fireAuth.authState.subscribe((user: firebase.User) => {
-        if (!user) {
-          this.facebook.img= '';
-          return;
-        }
-        this.facebook.img = user.photoURL;      
-      });
+    _fireAuth.authState.subscribe((user: firebase.User) => {
+      if (!user) {
+        this.facebook.img = '';
+        return;
+      }
+      this.facebook.img = user.photoURL;
+      navCtrl.push(TabsPage);
+    });
 
   }
 
 
 
   loginFacebook() {
+    console.log('entro');
 
     if (this.platform.is('cordova')) {
-      return this.fb.login(['public_profile', 'user_friends', 'email']).then((res: FacebookLoginResponse) => { 
+      return this.fb.login(['public_profile', 'user_friends', 'email']).then((res: FacebookLoginResponse) => {
         const FACEBOOKCREDENTIAL = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
         return firebase.auth().signInWithCredential(FACEBOOKCREDENTIAL);
       });
@@ -54,7 +57,7 @@ export class LoginPage {
   }
 
   logoutFacebook() {
-   
+
     this._fireAuth.auth.signOut();
 
   }
