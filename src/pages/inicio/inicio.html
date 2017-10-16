@@ -1,5 +1,9 @@
 <ion-content padding>
 
-    <h1>Hola bienvenido</h1>
+    <h1>Hola bienvenido {{usuario}}</h1>
+
+    <button ion-button (click)="CerrarSesionFacebook()" >Cerrar sesión</button>
+
+    <ion-icon name="md-wifi" *ngIf="conexion" ></ion-icon>
 
 </ion-content>

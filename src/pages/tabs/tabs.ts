@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FacebookProvider } from "../../providers/facebook/facebook";
 
 import { InicioPage } from "../inicio/inicio";
 import { RutasPage } from "../rutas/rutas";
