@@ -30,14 +30,21 @@ export class MyApp {
     private _fireAuth: AngularFireAuth,
     private storage: Storage) {
 
+    const AUTENTICACION= _fireAuth.authState.subscribe((user: firebase.User) => {
+
+      if (!user) {
+        this.rootPage = LoginPage;
+        AUTENTICACION.unsubscribe();
+
+      }
+      else {
+        this.rootPage = TabsPage;
+        AUTENTICACION.unsubscribe();
+
+      }
+    });
+
     platform.ready().then(() => {
-
-      _fireAuth.authState.subscribe((user: firebase.User) => {
-
-        if (!user) { this.rootPage = LoginPage; }
-        else { this.rootPage = TabsPage; }
-      });
-
       statusBar.styleDefault();
       splashScreen.hide();
     });

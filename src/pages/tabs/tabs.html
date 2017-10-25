@@ -1,5 +1,19 @@
-<super-tabs>
-    <super-tab icon="ios-home-outline" title="Inicio" [root]="inicio"></super-tab>
-    <super-tab icon="ios-map-outline" title="Rutas" [root]="rutas"></super-tab>
-    <super-tab icon="ios-notifications-outline" title="Notificaciones" [root]="notificaciones"></super-tab>
-  </super-tabs>
+<ion-header>
+  <ion-navbar>
+
+    <ion-buttons end>
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="https://previews.123rf.com/images/arbati6/arbati61508/arbati6150800150/44463195-Firefighter-fireman-icon-Avatar-and-person-illustration-Flat-outlined-colored-styles--Stock-Vector.jpg">
+        </ion-avatar>
+      </ion-item>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-tabs>
+  <ion-tab tabIcon="ios-home-outline" tabTitle="Inicio" [root]="inicio"></ion-tab>
+  <ion-tab tabIcon="ios-map-outline" tabTitle="Rutas" [root]="rutas"></ion-tab>
+  <ion-tab tabIcon="ios-notifications-outline" tabTitle="Notificaciones" [root]="notificaciones"></ion-tab>
+</ion-tabs>

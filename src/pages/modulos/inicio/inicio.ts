@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-
+import { LoginPage } from "../../Inicio de sesion/login/login";
 //Sevicios
 import { CerrarSesionProvider } from "../../../providers/cerrar-sesion/cerrar-sesion";
 
@@ -12,7 +12,7 @@ import { CerrarSesionProvider } from "../../../providers/cerrar-sesion/cerrar-se
   templateUrl: 'inicio.html',
 })
 export class InicioPage {
- 
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private CerrarSesionService: CerrarSesionProvider,
@@ -20,7 +20,11 @@ export class InicioPage {
   }
 
   CerrarSesion() {
-    this.CerrarSesionService.signOut();
+    this.CerrarSesionService.signOut().then(res => {
+      this.navCtrl.setRoot("LoginPage");
+    
+    });
+
   }
 
 }

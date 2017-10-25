@@ -41,37 +41,44 @@ export class GoogleProvider {
 
     loading.present();
 
-    if (this.platform.is('cordova')) {
-      return this.google.login({}).then(res => {
-        loading.dismiss();
-        const GOOGLECREDENTIAL = firebase.auth.GoogleAuthProvider.credential(res.idToken);
-        firebase.auth().signInWithCredential(GOOGLECREDENTIAL);
+    let promesa = new Promise((resolve, reject) => {
+      if (this.platform.is('cordova')) {
+        return this.google.login({}).then(res => {
+          loading.dismiss();
+          const GOOGLECREDENTIAL = firebase.auth.GoogleAuthProvider.credential(res.idToken);
+          firebase.auth().signInWithCredential(GOOGLECREDENTIAL);
+          resolve();
 
-      }).catch(err => {
-        loading.dismiss();
-        this.ErrorSesion();
-      });
+        }).catch(err => {
+          loading.dismiss();
+          this.ErrorSesion();
+        });
 
-    } else {
-      loading.present();
-      this._fireAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
-        loading.dismiss();
+      } else {
+        loading.present();
+        this._fireAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
+          loading.dismiss();
 
-        this.usuario = {
-          nombre: res.user.displayName,
-          correo: res.user.email,
-          foto: res.user.photoURL,
-          telefono: 12345678
-        }
-        this.createUserService.inicializarUsuarioNuevo(this.usuario);
-        this.createUserService.crearUsuario();
+          this.usuario = {
+            nombre: res.user.displayName,
+            correo: res.user.email,
+            foto: res.user.photoURL,
+            telefono: 12345678
+          }
 
-        console.log(res);
-      }).catch(err => {
-        loading.dismiss();
-        this.ErrorSesion();
-      });
-    }
+          this.createUserService.crearUsuario(this.usuario).then(res => {
+            resolve();
+          });
+
+        }).catch(err => {
+          loading.dismiss();
+          this.ErrorSesion();
+        });
+      }
+
+
+    });
+    return promesa;
   }
 
   ErrorSesion(): void {

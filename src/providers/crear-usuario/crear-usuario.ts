@@ -17,36 +17,31 @@ export class CrearUsuarioProvider {
     
   }
 
-  inicializarUsuarioNuevo(usuarioNuevoEntrada: usuario)
-  {
-    this.usuarioNuevo = usuarioNuevoEntrada;
-     this.llaveUsuario = this.usuarioNuevo.correo.replace('@', '').replace('.','');
-    try {
-      this.usuario = this.afDB.object('usuarios/'+this.llaveUsuario.toString()).valueChanges();
-    } catch (error) {
-      this.usuario = null;
-    }
-    
-  }
-  crearUsuario() {
-    console.log(this.usuario);
-    //validar que exista usuario:
-    this.usuario.forEach(respuestaUsuarioFire => {
-      if(respuestaUsuarioFire != null)
-      {
-          console.log("El usuario con el correo: "+respuestaUsuarioFire.correo+" ya se encuentra registrado");
-      }
-      else
-      {
-        this.afDB.list('usuarios').set(this.llaveUsuario, this.usuarioNuevo).then(res => {
-          console.log("usuario guardado correctamente");
-        }).catch(err => {
-          console.error(err);
-        });
-      }
-       
-  });
+  crearUsuario(usuario: usuario) {
+    let idUsuario = usuario.correo.replace('@', '').replace('.', '');
 
+    let promesa = new Promise((resolve, reject) => {
+      const result = this.afDB.object('usuarios/' + idUsuario).valueChanges();
+
+      result.subscribe(res => {
+        if (res == null) {
+          this.afDB.list('usuarios').set(idUsuario, usuario).then(res => {
+            resolve();
+          }).catch(err => {
+            console.error(err);
+          });
+        } else {
+          resolve();
+          console.log("existe usuario");
+        }
+      }, err => {
+        console.error("error" + err);
+      });
+    
+    });
+
+    return promesa;
+    //validar que exista usuario:
   }
 
 }

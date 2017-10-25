@@ -3,7 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { SuperTabsModule } from 'ionic2-super-tabs';
 import { HttpModule } from '@angular/http';
 import { Network } from '@ionic-native/network';
 
@@ -30,7 +29,9 @@ import { RutasPage } from "../pages/modulos/rutas/rutas";
 import { NotificacionesPage } from "../pages/modulos/notificaciones/notificaciones";
 //Components
 import { MapaComponent } from "../Components/Mapa/Mapa.component";
+import { PerfilPage } from '../pages/modulos/perfil/perfil'
 
+//Components
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { FacebookProvider } from '../providers/facebook/facebook';
@@ -48,11 +49,12 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
     RutasPage,
     NotificacionesPage,
     MapaComponent
+    PerfilPage
+
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    SuperTabsModule.forRoot(),
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(OPTIONS),
     AngularFireDatabaseModule,
@@ -68,6 +70,7 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
     RutasPage,
     NotificacionesPage,
     MapaComponent
+    PerfilPage
   ],
   providers: [
     StatusBar,

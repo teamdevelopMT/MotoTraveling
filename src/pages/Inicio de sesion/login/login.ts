@@ -4,6 +4,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 import { TabsPage } from '../../tabs/tabs';
 
+
 //Servicios
 import { FacebookProvider } from "../../../providers/facebook/facebook";
 import { GoogleProvider } from "../../../providers/google/google";
@@ -25,8 +26,11 @@ export class LoginPage {
     this.facebookService.signInWithFacebook();
   }
 
-  LoginGoogle(){
-    this.googleService.signInWithGoogle();
+  LoginGoogle() {
+    this.googleService.signInWithGoogle().then(resp => {
+      this.navCtrl.setRoot(TabsPage);
+    });
+
   }
 
 }
