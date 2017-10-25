@@ -9,7 +9,7 @@ import { usuario } from '../../Interfaces/usuario';
 
 @Injectable()
 export class CrearUsuarioProvider {
-  usuario: Observable<usuario[]>;
+  usuario: Observable<usuario>;
   usuarioExistente: boolean = true;
   usuarioNuevo: usuario;
   llaveUsuario : string = "";
