@@ -10,6 +10,8 @@ import { MensajesPage } from "../modulos/mensajes/mensajes";
 import { PrincipalPage } from "../modulos/tiendas/principal/principal";
 import { NotificacionesPage } from "../modulos/notificaciones/notificaciones";
 
+import { PerfilPage } from "../modulos/perfil/perfil";
+
 @IonicPage()
 @Component({
   selector: 'page-tabs',
@@ -22,7 +24,7 @@ export class TabsPage {
   mensajes: any;
   tiendas: any;
   notificaciones: any;
-
+  perfil: any = PerfilPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.inicio = InicioPage;
@@ -35,6 +37,11 @@ export class TabsPage {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TabsPage');
+  }
+
+  llamarPerfil() {
+    this.navCtrl.push(PerfilPage);
+
   }
 
 }

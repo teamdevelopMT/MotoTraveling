@@ -23,7 +23,9 @@ export class LoginPage {
   }
 
   LoginFacebook() {
-    this.facebookService.signInWithFacebook();
+    this.facebookService.signInWithFacebook().then(res => {
+      this.navCtrl.setRoot(TabsPage);
+    });
   }
 
   LoginGoogle() {

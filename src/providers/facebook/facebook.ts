@@ -5,6 +5,8 @@ import { Platform, AlertController, LoadingController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 
+//servicios
+import { CrearUsuarioProvider } from "../crear-usuario/crear-usuario";
 
 import 'rxjs/add/operator/map';
 
@@ -19,7 +21,7 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 @Injectable()
 export class FacebookProvider {
 
-  usuario:usuario;
+  usuario: usuario;
 
   constructor(public http: Http,
     private platform: Platform,
@@ -28,7 +30,8 @@ export class FacebookProvider {
     private storage: Storage,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
-    private firedb:AngularFireDatabase) {
+    private firedb: AngularFireDatabase,
+    private createUserService: CrearUsuarioProvider) {
 
   }
 
@@ -40,28 +43,50 @@ export class FacebookProvider {
 
     loading.present();
 
-    if (this.platform.is('cordova')) {
-      return this.facebook.login(['public_profile', 'user_friends', 'email']).then((res: FacebookLoginResponse) => {
-        loading.dismiss();
-        const FACEBOOKCREDENTIAL = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-        return firebase.auth().signInWithCredential(FACEBOOKCREDENTIAL);
-      }).catch(err => {
-        loading.dismiss();
-        this.ErrorSesion();
-      });
-
-    } else {
-      this._fireAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
-        .then(res => {
+    let promesa = new Promise((resolve, reject)=>{
+      if (this.platform.is('cordova')) {
+        return this.facebook.login(['public_profile', 'user_friends', 'email']).then((res: FacebookLoginResponse) => {
           loading.dismiss();
-          
-        
-          console.log(res);
+          const FACEBOOKCREDENTIAL = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+          resolve();
+          return firebase.auth().signInWithCredential(FACEBOOKCREDENTIAL);
+
+
         }).catch(err => {
+          resolve();
           loading.dismiss();
           this.ErrorSesion();
         });
-    }
+
+      } else {
+        this._fireAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+          .then(res => {
+
+            this.usuario = {
+              nombre: res.user.displayName,
+              correo: res.user.email,
+              foto: res.user.photoURL,
+              telefono: 12345678
+            }
+  
+            this.createUserService.crearUsuario(this.usuario).then(res => {
+              resolve();
+            });
+
+            loading.dismiss();
+            console.log(res);
+          }).catch(err => {
+            resolve();
+            loading.dismiss();
+            console.error("error:" + err);
+            this.ErrorSesion();
+          });
+      }
+
+    });
+
+    return promesa;
+
   }
 
   ErrorSesion() {

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the PerfilPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+//Sevicios
+import { CerrarSesionProvider } from "../../../providers/cerrar-sesion/cerrar-sesion";
+
+//paginas
+import {LoginPage  } from "../../Inicio de sesion/login/login";
+
 
 @IonicPage()
 @Component({
@@ -15,11 +15,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PerfilPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    private CerrarSesionService:CerrarSesionProvider ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PerfilPage');
   }
 
+  CerrarSesion() {
+    this.CerrarSesionService.signOut().then(res => {
+      this.navCtrl.setRoot(LoginPage);
+    });
+
+  }
 }

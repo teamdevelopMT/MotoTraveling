@@ -28,13 +28,13 @@ import { InicioPage } from "../pages/modulos/inicio/inicio";
 import { RutasPage } from "../pages/modulos/rutas/rutas";
 import { NotificacionesPage } from "../pages/modulos/notificaciones/notificaciones";
 import { MensajesPage } from '../pages/modulos/mensajes/mensajes';
-import { PrincipalPage  } from "../pages/modulos/tiendas/principal/principal";
-
-//Components
-import { MapaComponent } from "../Components/Mapa/Mapa.component";
+import { PrincipalPage } from "../pages/modulos/tiendas/principal/principal";
 import { PerfilPage } from '../pages/modulos/perfil/perfil'
 
 //Components
+import { MapaComponent } from "../Components/Mapa/Mapa.component";
+import { EncabezadoComponent } from "../components/encabezado/encabezado";
+
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { FacebookProvider } from '../providers/facebook/facebook';
@@ -52,6 +52,7 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
     RutasPage,
     NotificacionesPage,
     MapaComponent,
+    EncabezadoComponent,
     PerfilPage,
     PrincipalPage,
     MensajesPage
@@ -75,6 +76,7 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
     RutasPage,
     NotificacionesPage,
     MapaComponent,
+    EncabezadoComponent,
     PerfilPage,
     PrincipalPage,
     MensajesPage
