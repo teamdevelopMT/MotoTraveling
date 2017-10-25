@@ -29,7 +29,7 @@ import { InicioPage } from "../pages/modulos/inicio/inicio";
 import { RutasPage } from "../pages/modulos/rutas/rutas";
 import { NotificacionesPage } from "../pages/modulos/notificaciones/notificaciones";
 //Components
-
+import { MapaComponent } from "../Components/Mapa/Mapa.component";
 
 
 import { Geolocation } from '@ionic-native/geolocation';
@@ -46,8 +46,8 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
     TabsPage,
     InicioPage,
     RutasPage,
-    NotificacionesPage
-
+    NotificacionesPage,
+    MapaComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +66,8 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
     TabsPage,
     InicioPage,
     RutasPage,
-    NotificacionesPage
+    NotificacionesPage,
+    MapaComponent
   ],
   providers: [
     StatusBar,
