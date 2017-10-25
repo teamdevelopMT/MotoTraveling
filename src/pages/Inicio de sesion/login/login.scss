@@ -1,0 +1,30 @@
+page-login {
+  ion-content {
+    // background-color: #000 !important;
+  }
+  ion-list {
+    border: none !important;
+  }
+  ion-item {
+    background-color: transparent !important;
+    border: none !important;
+  }
+  ion-label {
+    // color: #F2F2F2 !important;
+    border: none !important;
+  }
+  ion-input {
+    // color: white !important;
+    font-size: 1.2em;
+    border-bottom: 1px solid white;
+    margin: 8px 0px;
+  }
+  .redes-sociales {
+    padding-top: 30px;
+  }
+  
+  .redes-sociales button {
+    width: 40%;
+  }
+  
+}
