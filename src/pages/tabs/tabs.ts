@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FacebookProvider } from "../../providers/facebook/facebook";
 
-import { InicioPage } from "../inicio/inicio";
-import { RutasPage } from "../rutas/rutas";
-import { NotificacionesPage } from "../notificaciones/notificaciones";
+import { InicioPage } from "../modulos/inicio/inicio";
+import { RutasPage } from "../modulos/rutas/rutas";
+import { NotificacionesPage } from "../modulos/notificaciones/notificaciones";
 
 
 @IonicPage()
@@ -25,7 +25,6 @@ export class TabsPage {
     
     
   }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad TabsPage');
   }

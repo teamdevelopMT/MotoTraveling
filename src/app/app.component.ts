@@ -3,13 +3,10 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { LoginPage } from '../pages/login/login';
+import { LoginPage } from '../pages/Inicio de sesion/login/login';
 import { TabsPage } from "../pages/tabs/tabs";
 import { Storage } from '@ionic/storage';
 
-//service
-import { NetworkProvider } from "../providers/network/network";
-import { ValidarUsuarioProvider } from "../providers/validar-usuario/validar-usuario";
 
 //Firebase
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -31,32 +28,15 @@ export class MyApp {
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     private _fireAuth: AngularFireAuth,
-    private storage: Storage,
-    private network: NetworkProvider,
-    private validarUsuService: ValidarUsuarioProvider) {
+    private storage: Storage) {
 
     platform.ready().then(() => {
-      this.storage.get("userLogin").then((value) => {
-        this.login = value;
-      });
-
-      if (this.login != null) {
-        this.rootPage = TabsPage;
-        return;
-      }
 
       _fireAuth.authState.subscribe((user: firebase.User) => {
-        if (!user) {
-          this.rootPage = LoginPage;
-          return;
-        }
 
-        this.validarUsuService.ConsultarUsuario(user.email.split('@')[0], user.email)
-
-        this.storage.set("userLogin", user.displayName.toString());
-        this.rootPage = TabsPage;
+        if (!user) { this.rootPage = LoginPage; }
+        else { this.rootPage = TabsPage; }
       });
-
 
       statusBar.styleDefault();
       splashScreen.hide();
