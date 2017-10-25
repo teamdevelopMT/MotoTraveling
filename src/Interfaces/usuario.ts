@@ -2,5 +2,6 @@
     nombre: string,
     correo:string,
     telefono?:number,
-    foto?:string
+    foto?:string,
+    estadoConexion : string
  }
