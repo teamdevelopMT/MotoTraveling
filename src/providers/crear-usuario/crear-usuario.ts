@@ -9,31 +9,43 @@ import { usuario } from '../../Interfaces/usuario';
 
 @Injectable()
 export class CrearUsuarioProvider {
-  usuarios: Observable<usuario[]>;
+  usuario: Observable<usuario[]>;
+  usuarioExistente: boolean = true;
+  usuarioNuevo: usuario;
+  llaveUsuario : string = "";
   constructor(private afDB: AngularFireDatabase) {
-
+    
   }
 
-  crearUsuario(usuario: usuario) {
-
+  inicializarUsuarioNuevo(usuarioNuevoEntrada: usuario)
+  {
+    this.usuarioNuevo = usuarioNuevoEntrada;
+     this.llaveUsuario = this.usuarioNuevo.correo.replace('@', '').replace('.','');
+    try {
+      this.usuario = this.afDB.object('usuarios/'+this.llaveUsuario.toString()).valueChanges();
+    } catch (error) {
+      this.usuario = null;
+    }
+    
+  }
+  crearUsuario() {
+    console.log(this.usuario);
     //validar que exista usuario:
-
-    let result = this.afDB.list('usuarios/' + usuario.correo.replace('@', '.')).valueChanges();
-
-    this.usuarios.subscribe(res => {
-      if (res.values != null) {
-        console.log("existe");
-      } else {
-        this.afDB.list('usuarios').set(usuario.correo.replace('@', '.'), usuario).then(res => {
-          console.log("guardo correctamente");
+    this.usuario.forEach(respuestaUsuarioFire => {
+      if(respuestaUsuarioFire != null)
+      {
+          console.log("El usuario con el correo: "+respuestaUsuarioFire.correo+" ya se encuentra registrado");
+      }
+      else
+      {
+        this.afDB.list('usuarios').set(this.llaveUsuario, this.usuarioNuevo).then(res => {
+          console.log("usuario guardado correctamente");
         }).catch(err => {
           console.error(err);
         });
       }
-
-    });
-
-
+       
+  });
 
   }
 

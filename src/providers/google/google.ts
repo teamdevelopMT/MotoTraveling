@@ -63,8 +63,8 @@ export class GoogleProvider {
           foto: res.user.photoURL,
           telefono: 12345678
         }
-
-        this.createUserService.crearUsuario(this.usuario);
+        this.createUserService.inicializarUsuarioNuevo(this.usuario);
+        this.createUserService.crearUsuario();
 
         console.log(res);
       }).catch(err => {
