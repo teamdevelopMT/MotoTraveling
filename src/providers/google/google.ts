@@ -61,8 +61,11 @@ export class GoogleProvider {
           nombre: res.user.displayName,
           correo: res.user.email,
           foto: res.user.photoURL,
-          telefono: 12345678
+          telefono: 12345678,
+          estadoConexion: "On"
         }
+        
+        
         this.createUserService.inicializarUsuarioNuevo(this.usuario);
         this.createUserService.crearUsuario();
 

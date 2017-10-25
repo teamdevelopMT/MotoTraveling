@@ -7,13 +7,17 @@ import { SuperTabsModule } from 'ionic2-super-tabs';
 import { HttpModule } from '@angular/http';
 import { Network } from '@ionic-native/network';
 
+//Local Storage
+import { IonicStorageModule } from '@ionic/storage';
+
 //Firebase
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+
 import { OPTIONS } from './Config.firebase'
-import { IonicStorageModule } from '@ionic/storage';
+
 //Facebook
 import { Facebook } from '@ionic-native/facebook';
 
@@ -30,7 +34,7 @@ import { RutasPage } from "../pages/modulos/rutas/rutas";
 import { NotificacionesPage } from "../pages/modulos/notificaciones/notificaciones";
 //Components
 import { MapaComponent } from "../Components/Mapa/Mapa.component";
-
+import { UsuariosOnlineComponent } from "../Components/UsuariosOnline/UsuariosOnline.component";
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { FacebookProvider } from '../providers/facebook/facebook';
@@ -47,7 +51,8 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
     InicioPage,
     RutasPage,
     NotificacionesPage,
-    MapaComponent
+    MapaComponent,
+    UsuariosOnlineComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +72,8 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
     InicioPage,
     RutasPage,
     NotificacionesPage,
-    MapaComponent
+    MapaComponent,
+    UsuariosOnlineComponent
   ],
   providers: [
     StatusBar,
@@ -78,7 +84,6 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
     Geolocation,
     Facebook,
     GooglePlus,
-    AngularFireDatabase,
     FacebookProvider,
     GoogleProvider,
     CerrarSesionProvider,
