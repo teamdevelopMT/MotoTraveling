@@ -27,6 +27,9 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { InicioPage } from "../pages/modulos/inicio/inicio";
 import { RutasPage } from "../pages/modulos/rutas/rutas";
 import { NotificacionesPage } from "../pages/modulos/notificaciones/notificaciones";
+import { MensajesPage } from '../pages/modulos/mensajes/mensajes';
+import { PrincipalPage  } from "../pages/modulos/tiendas/principal/principal";
+
 //Components
 import { MapaComponent } from "../Components/Mapa/Mapa.component";
 import { PerfilPage } from '../pages/modulos/perfil/perfil'
@@ -48,8 +51,10 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
     InicioPage,
     RutasPage,
     NotificacionesPage,
-    MapaComponent
-    PerfilPage
+    MapaComponent,
+    PerfilPage,
+    PrincipalPage,
+    MensajesPage
 
   ],
   imports: [
@@ -69,8 +74,10 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
     InicioPage,
     RutasPage,
     NotificacionesPage,
-    MapaComponent
-    PerfilPage
+    MapaComponent,
+    PerfilPage,
+    PrincipalPage,
+    MensajesPage
   ],
   providers: [
     StatusBar,

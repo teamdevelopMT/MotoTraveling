@@ -2,9 +2,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { LoginPage } from "../../Inicio de sesion/login/login";
 //Sevicios
 import { CerrarSesionProvider } from "../../../providers/cerrar-sesion/cerrar-sesion";
+
+//paginas
+import {LoginPage  } from "../../Inicio de sesion/login/login";
 
 @IonicPage()
 @Component({
@@ -21,7 +23,7 @@ export class InicioPage {
 
   CerrarSesion() {
     this.CerrarSesionService.signOut().then(res => {
-      this.navCtrl.setRoot("LoginPage");
+      this.navCtrl.setRoot(LoginPage);
     
     });
 

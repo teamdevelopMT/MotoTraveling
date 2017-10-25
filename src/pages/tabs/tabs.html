@@ -1,6 +1,5 @@
 <ion-header>
   <ion-navbar>
-
     <ion-buttons end>
       <ion-item>
         <ion-avatar item-left>
@@ -11,9 +10,12 @@
   </ion-navbar>
 
 </ion-header>
-
-<ion-tabs>
-  <ion-tab tabIcon="ios-home-outline" tabTitle="Inicio" [root]="inicio"></ion-tab>
-  <ion-tab tabIcon="ios-map-outline" tabTitle="Rutas" [root]="rutas"></ion-tab>
-  <ion-tab tabIcon="ios-notifications-outline" tabTitle="Notificaciones" [root]="notificaciones"></ion-tab>
-</ion-tabs>
+<ion-content>
+  <ion-tabs color="dark">
+    <ion-tab tabIcon="ios-home-outline" [root]="inicio"></ion-tab>
+    <ion-tab tabIcon="ios-map-outline" [root]="rutas"></ion-tab>
+    <ion-tab tabIcon="ios-chatbubbles-outline" [root]="mensajes"></ion-tab>
+    <ion-tab tabIcon="ios-pricetags-outline" [root]="tiendan"></ion-tab>
+    <ion-tab tabIcon="ios-notifications-outline" [root]="notificaciones"></ion-tab>
+  </ion-tabs>
+</ion-content>
