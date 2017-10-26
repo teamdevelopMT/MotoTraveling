@@ -7,6 +7,8 @@ import { LoginPage } from '../pages/Inicio de sesion/login/login';
 import { TabsPage } from "../pages/tabs/tabs";
 import { Storage } from '@ionic/storage';
 
+import { invitacionesRuta } from './../Interfaces/invitacionesRuta';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 //Firebase
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -23,12 +25,14 @@ export class MyApp {
 
   login: string;
   connetion: boolean = true;
+  invitacionRuta : invitacionesRuta;
 
   constructor(platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     private _fireAuth: AngularFireAuth,
-    private storage: Storage) {
+    private storage: Storage,
+    private afDB: AngularFireDatabase) {
 
     const AUTENTICACION= _fireAuth.authState.subscribe((user: firebase.User) => {
 
@@ -48,6 +52,21 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+
+
+    let promesa = new Promise((resolve, reject) => {
+      const resultadoConsultaFire = this.afDB.object('invitacionesRuta/teamdevelopmtgmailcom').valueChanges();
+
+      resultadoConsultaFire.subscribe(resp =>{
+          this.invitacionRuta = (resp as invitacionesRuta);
+
+          if(this.invitacionRuta!= null && this.invitacionRuta.estado == "activo")
+          {
+              alert("tienes una invitacion pendiente de "+this.invitacionRuta.usuarioInvitacion);
+          }
+      });
+
+  });
   }
 }
 

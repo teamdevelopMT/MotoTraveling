@@ -3,5 +3,5 @@
     correo:string,
     telefono?:number,
     foto?:string,
-    estadoConexion : string
+    estadoConexion? : string
  }

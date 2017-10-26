@@ -37,12 +37,9 @@ import { PerfilPage } from '../pages/modulos/perfil/perfil'
 
 //Components
 import { MapaComponent } from "../Components/Mapa/Mapa.component";
-<<<<<<< HEAD
 import { EncabezadoComponent } from "../components/encabezado/encabezado";
-
-=======
 import { UsuariosOnlineComponent } from "../Components/UsuariosOnline/UsuariosOnline.component";
->>>>>>> 8ccfc9616e4fa43cddfedad7cfae9ca474a9edbd
+
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { FacebookProvider } from '../providers/facebook/facebook';
@@ -60,15 +57,11 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
     RutasPage,
     NotificacionesPage,
     MapaComponent,
-<<<<<<< HEAD
     EncabezadoComponent,
     PerfilPage,
     PrincipalPage,
-    MensajesPage
-
-=======
+    MensajesPage,
     UsuariosOnlineComponent
->>>>>>> 8ccfc9616e4fa43cddfedad7cfae9ca474a9edbd
   ],
   imports: [
     BrowserModule,
@@ -91,7 +84,8 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
     EncabezadoComponent,
     PerfilPage,
     PrincipalPage,
-    MensajesPage
+    MensajesPage,
+    UsuariosOnlineComponent
   ],
   providers: [
     StatusBar,

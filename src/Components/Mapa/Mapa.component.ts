@@ -10,6 +10,11 @@ import {
   MarkerOptions,
   Marker
  } from '@ionic-native/google-maps';
+ import { AngularFireDatabase } from 'angularfire2/database';
+ import { Observable } from 'rxjs/Observable';
+
+ /*Interfaces*/
+ import { rutas } from "../../Interfaces/rutas";
 
 declare var google;
 
@@ -24,13 +29,14 @@ export class MapaComponent {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   marker: any;
+  marker2: any;
   start="chicago, il";
   end = "los angeles, ca";
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
-  
+  ruta : rutas;
 
-  constructor(public navCtrl: NavController, private geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, private geolocation: Geolocation, private afDB: AngularFireDatabase) {
     let watch = this.geolocation.watchPosition();
     
     this.geolocation.getCurrentPosition().then((data) => {
@@ -49,6 +55,29 @@ export class MapaComponent {
       this.map.setCenter({lat: parseFloat(data.coords.latitude.toString()), lng: parseFloat(data.coords.longitude.toString())});
       this.marker.setPosition({lat: parseFloat(data.coords.latitude.toString()), lng: parseFloat(data.coords.longitude.toString())});
      });
+
+     let promesa = new Promise((resolve, reject) => {
+      const resultadoConsultaFire = this.afDB.object('rutas/josedaniel9_5hotmailcom').valueChanges();
+
+      resultadoConsultaFire.subscribe(resp =>{
+          this.ruta = (resp as rutas);
+          
+          this.marker2 = new google.maps.Marker({
+            title: 'otro Usuario',
+            animation: 'DROP',
+            map: this.map,
+            position: {
+              lat: 4.510885,
+              lng: -74.1159012
+            }
+          });
+
+
+          this.marker2.setPosition({lat: parseFloat("4.5109422"), lng: parseFloat("-74.1194116")});
+          
+      });
+
+  });
 
   }
 
