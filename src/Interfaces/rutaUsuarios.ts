@@ -1,3 +1,5 @@
 export interface rutaUsuarios{
-    nombreUsuario: string
+    nombre: string,
+    latitud: string,
+    longitud: string
  }

@@ -8,10 +8,7 @@
   
   
   <ion-content>
-      Latitud:<ion-input [(ngModel)]="latitudActual" type="text"></ion-input>
-      <br/>
-      Longitud:<ion-input [(ngModel)]="longitudActual" type="text"></ion-input>
-      <button (click)="testCambioUbicacion()" ion-button color="light">cambiar ubicacion</button>
+    
     <div id="floating-panel">
       <b>Punto inicial: </b>
       <select  id="start" (change)="calculateAndDisplayRoute()">
