@@ -1,5 +1,5 @@
-export interface rutaUsuarios{
-    nombre: string,
-    latitud: string,
-    longitud: string
+export class rutaUsuarios{
+    nombre: string;
+    latitud: string;
+    longitud: string;
  }
