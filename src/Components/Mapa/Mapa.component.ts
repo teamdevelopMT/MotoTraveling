@@ -44,9 +44,13 @@ export class MapaComponent {
   ubicacionActual : ubicacionUsuarios = new ubicacionUsuarios();;
   ubicacionActualGuardar : ubicacionUsuarios = new ubicacionUsuarios();
   nombreUsuarioSession:string;
+  mapaCreado: boolean = false;
+  marcadoresCreados : boolean = false;
   constructor(public navCtrl: NavController, private geolocation: Geolocation, private afDB: AngularFireDatabase, private storage: Storage) {
     
     const watch = this.geolocation.watchPosition();
+
+  
 
     storage.get('nombreUsuario').then((val) => {
       this.nombreUsuarioSession = val;
@@ -70,10 +74,14 @@ export class MapaComponent {
                   resultadoRutasFire.subscribe(resp =>{
                     this.ruta = (resp as rutas);
                     var parent = this;
-                    console.log('antes de crear mapa');
-                    this.crearMapa(data.coords.latitude, data.coords.longitude);
+                  
+                    if(!this.mapaCreado)
+                    {
+                        this.crearMapa(data.coords.latitude, data.coords.longitude);
+                    }
+                  
         
-        
+                    
                   const resultadoRutasUsuarios = this.afDB.list('rutas/josedaniel9_5hotmailcom/rutaUsuarios').valueChanges();
                   resultadoRutasUsuarios.subscribe(rutasUs =>{
                     this.rutaUsuarios = (rutasUs as rutaUsuarios[]);
@@ -81,24 +89,39 @@ export class MapaComponent {
                       if(this.rutaUsuarios != null && this.rutaUsuarios.length != 0)
                         {
                           this.rutaUsuarios.forEach(element => {
-                           var marker2: any;
-                            marker2 = new google.maps.Marker({
-                            title: element.nombre,
-                            animation: 'DROP',
-                            map: this.map,
-                            position: {
-                              lat: parseFloat(element.latitud),
-                              lng: parseFloat(element.longitud)
-                            }
-                            });
+                           
+                            if(!this.marcadoresCreados)
+                            {
+                                this.marker = new google.maps.Marker({
+                                title: element.nombre,
+                                Snippet: element.nombre,
+                                animation: 'DROP',
+                                map: this.map,
+                                position: 
+                                {
+                                  lat: parseFloat(element.latitud),
+                                  lng: parseFloat(element.longitud)
+                                }
+                                });
+                          }
+                          else
+                          {
+                              
+                              var latlng = new google.maps.LatLng(parseFloat(element.latitud), parseFloat(element.longitud));
+                              this.marker.setPosition(latlng);
+
+                          }
                         });
+
+                        this.marcadoresCreados= true;
                       }
                   }
-                
-                  this.directionsDisplay.setMap(this.map);
+
                   
               });
+            
             });
+          
         
           });
           }
@@ -118,7 +141,8 @@ export class MapaComponent {
                 resultadoUbicacionActual.subscribe(resp =>{
                   parent.ubicacionActual = (resp as ubicacionUsuarios);
                   
-                  this.crearMapa(parent.ubicacionActual.latitud, parent.ubicacionActual.longitud);
+                  
+                    this.crearMapa(parent.ubicacionActual.latitud, parent.ubicacionActual.longitud);
 
                   this.marker = new google.maps.Marker({
                     title: 'Mi posición',
@@ -129,8 +153,6 @@ export class MapaComponent {
                       lng: parent.ubicacionActual.longitud
                     }
                   });
-
-                  this.directionsDisplay.setMap(this.map);
 
                 });
 
@@ -155,9 +177,8 @@ export class MapaComponent {
             parent.rutaUsuario.longitud = data.coords.longitude.toString();;
             parent.rutaUsuario.nombre = val;
 
-            console.log(parent.rutaUsuario);
-
             this.afDB.object('rutas/josedaniel9_5hotmailcom/rutaUsuarios/'+val).update(parent.rutaUsuario);
+
 
 
         }
@@ -184,6 +205,8 @@ export class MapaComponent {
       zoom: 19,
       center: {lat: latitud, lng: longitud}
     });
+
+    this.mapaCreado = true;
 
   }
 
