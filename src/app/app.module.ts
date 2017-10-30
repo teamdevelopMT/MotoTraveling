@@ -77,7 +77,15 @@ import { LoginProvider } from '../providers/login/login';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{
+      pageTransition: 'ios-transition',
+      tabsPlacement: 'bottom',
+      platforms: {
+        ios: {
+          tabsPlacement: 'top',
+        }
+      }
+    }),
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(OPTIONS),
     AngularFireDatabaseModule,
