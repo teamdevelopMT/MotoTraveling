@@ -8,11 +8,15 @@ import 'rxjs/add/operator/map';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 
+//Local storage
+import { Storage } from '@ionic/storage';
+
 @Injectable()
 export class CerrarSesionProvider {
 
   constructor(public http: Http,
-    private _fireAuth: AngularFireAuth
+    private _fireAuth: AngularFireAuth,
+    private storage: Storage
   ) {
     console.log('Hello CerrarSesionProvider Provider');
   }
@@ -21,6 +25,7 @@ export class CerrarSesionProvider {
   signOut() {
     let promesa = new Promise((resolve, reject) => {
       this._fireAuth.auth.signOut();
+      this.storage.clear();
       resolve();
     });
 

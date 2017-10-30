@@ -18,6 +18,9 @@ import { CrearUsuarioProvider } from "../crear-usuario/crear-usuario";
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 
+//Local storage
+import { Storage } from '@ionic/storage';
+
 @Injectable()
 export class GoogleProvider {
 
@@ -29,7 +32,8 @@ export class GoogleProvider {
     private google: GooglePlus,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
-    private createUserService: CrearUsuarioProvider) {
+    private createUserService: CrearUsuarioProvider,
+    private storage: Storage) {
     console.log('Hello GoogleProvider Provider');
   }
 
@@ -66,6 +70,11 @@ export class GoogleProvider {
             telefono: 12345678
           }
 
+          /*Se guarda usuario en localStorage*/
+          var nombreUsuario=res.user.email.replace("@","").replace(".","");
+          this.storage.set("nombreUsuario",nombreUsuario);
+
+          /*Se crea usuario en firebase*/
           this.createUserService.crearUsuario(this.usuario).then(res => {
             resolve();
           });

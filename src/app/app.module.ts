@@ -46,8 +46,8 @@ import {Login} from '../Clases/Login/Login.cs'
 //Components
 import { MapaComponent } from "../Components/Mapa/Mapa.component";
 import { EncabezadoComponent } from "../components/encabezado/encabezado";
-
 import { UsuariosOnlineComponent } from "../Components/UsuariosOnline/UsuariosOnline.component";
+
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { FacebookProvider } from '../providers/facebook/facebook';
@@ -99,7 +99,8 @@ import { LoginProvider } from '../providers/login/login';
     EncabezadoComponent,
     PerfilPage,
     PrincipalPage,
-    MensajesPage
+    MensajesPage,
+    UsuariosOnlineComponent
   ],
   providers: [
     StatusBar,

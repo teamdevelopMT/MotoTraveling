@@ -5,6 +5,6 @@
       </ion-thumbnail>
       <h2>{{usuario.nombre}}</h2>
       <p>{{usuario.estadoConexion}}</p>
-      <button ion-button clear item-end>Invitar</button>
+      <button ion-button clear item-end (click)="crearInvitacionMapa(usuario.correo, 1, nombreUsuarioSession)">Invitar</button>
     </ion-item>
   </ion-list>
