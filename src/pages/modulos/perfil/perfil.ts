@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-//Sevicios
-import { CerrarSesionProvider } from "../../../providers/cerrar-sesion/cerrar-sesion";
-
-//paginas
-import {LoginPage  } from "../../Inicio de sesion/login/login";
-
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Login } from "../../../Clases/Login/Login.cs";
+import { RedesSocialesPage } from "../../Login/redes-sociales/redes-sociales";
 
 @IonicPage()
 @Component({
@@ -15,9 +10,10 @@ import {LoginPage  } from "../../Inicio de sesion/login/login";
 })
 export class PerfilPage {
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private CerrarSesionService:CerrarSesionProvider ) {
+    private loadingCtrl: LoadingController,
+    private login: Login) {
   }
 
   ionViewDidLoad() {
@@ -25,9 +21,20 @@ export class PerfilPage {
   }
 
   CerrarSesion() {
-    this.CerrarSesionService.signOut().then(res => {
-      this.navCtrl.setRoot(LoginPage);
+    let cerrar = this.loadingCtrl.create({
+      content: "Cerrando sesión"
     });
+    cerrar.present();
+
+    this.login.CerrarSesion().then(res => {
+      cerrar.dismiss();
+      this.navCtrl.setRoot(RedesSocialesPage);
+    }).catch(err => {
+      cerrar.dismiss();
+      console.error(err);
+    })
+
+
 
   }
 }

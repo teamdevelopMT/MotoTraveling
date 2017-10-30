@@ -1,0 +1,15 @@
+<ion-content padding>
+  <button ion-button outline item-end icon-left color="facebook" (click)="IniciarSesionFacebook()">
+    <ion-icon name="logo-facebook"></ion-icon>
+    Acceder con facebook
+  </button>
+  <button ion-button outline item-end icon-left color="google" (click)="IniciarSesionGoogle()">
+    <ion-icon name="logo-google" ></ion-icon>
+    Acceder con google
+  </button>
+
+  <button ion-button outline item-end icon-left [navPush]="registroPage">
+    <ion-icon name="mail"></ion-icon>
+    Acceder con tu email
+  </button>
+</ion-content>

@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 import { GooglePlus } from "@ionic-native/google-plus";
 
 //interfaces
-import { usuario } from "../../Interfaces/usuario";
+import { IUsuario } from "../../Interfaces/IUsuario";
 
 //servicios
 import { CrearUsuarioProvider } from "../crear-usuario/crear-usuario";
@@ -21,7 +21,7 @@ import * as firebase from 'firebase';
 @Injectable()
 export class GoogleProvider {
 
-  usuario: usuario;
+  usuario: IUsuario;
 
   constructor(public http: Http,
     private platform: Platform,

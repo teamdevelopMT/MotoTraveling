@@ -1,5 +1,5 @@
 import { AngularFireDatabase } from 'angularfire2/database';
-import { usuario } from './../../Interfaces/usuario';
+import { IUsuario } from './../../Interfaces/IUsuario';
 import { Injectable } from '@angular/core';
 import { Platform, AlertController, LoadingController } from 'ionic-angular';
 import { Http } from '@angular/http';
@@ -21,7 +21,7 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 @Injectable()
 export class FacebookProvider {
 
-  usuario: usuario;
+  usuario: IUsuario;
 
   constructor(public http: Http,
     private platform: Platform,
@@ -35,7 +35,7 @@ export class FacebookProvider {
 
   }
 
-  //Inicio de sesion en facebook
+  //Login en facebook
   signInWithFacebook() {
     const loading = this.loadingCtrl.create({
       content: 'Iniciando Sesión'

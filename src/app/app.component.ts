@@ -3,11 +3,8 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { LoginPage } from '../pages/Inicio de sesion/login/login';
-import { TabsPage } from "../pages/tabs/tabs";
-import { Storage } from '@ionic/storage';
-
-
+import { RedesSocialesPage } from '../pages/Login/redes-sociales/redes-sociales';
+import { TabsPage } from '../pages/tabs/tabs'
 //Firebase
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
@@ -21,27 +18,18 @@ import { MapaComponent } from '../Components/Mapa/Mapa.component'
 export class MyApp {
   rootPage: any;
 
-  login: string;
-  connetion: boolean = true;
-
   constructor(platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
-    private _fireAuth: AngularFireAuth,
-    private storage: Storage) {
+    private _fireAuth: AngularFireAuth) {
 
-    const AUTENTICACION= _fireAuth.authState.subscribe((user: firebase.User) => {
-
+    this._fireAuth.authState.subscribe((user: firebase.User) => {
+      console.log("usuario:"+user);
       if (!user) {
-        this.rootPage = LoginPage;
-        AUTENTICACION.unsubscribe();
-
+        this.rootPage = RedesSocialesPage;
+        return;
       }
-      else {
-        this.rootPage = TabsPage;
-        AUTENTICACION.unsubscribe();
-
-      }
+      this.rootPage = TabsPage;
     });
 
     platform.ready().then(() => {

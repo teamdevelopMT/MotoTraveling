@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { LoginPage } from "../../pages/Inicio de sesion/login/login";
+// import { LoginPage } from "../../pages/Login/login/login";
 // import { NavController } from 'ionic-angular';
 
 //firebase

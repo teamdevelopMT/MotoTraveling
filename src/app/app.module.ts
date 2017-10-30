@@ -26,7 +26,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 
 //Paginas
 import { MyApp } from './app.component';
-import { LoginPage } from "../pages/Inicio de sesion/login/login";
+// import { LoginPage } from "../pages/login/login/login";
 import { TabsPage } from "../pages/tabs/tabs";
 import { InicioPage } from "../pages/modulos/inicio/inicio";
 import { RutasPage } from "../pages/modulos/rutas/rutas";
@@ -35,14 +35,19 @@ import { MensajesPage } from '../pages/modulos/mensajes/mensajes';
 import { PrincipalPage } from "../pages/modulos/tiendas/principal/principal";
 import { PerfilPage } from '../pages/modulos/perfil/perfil'
 
+//Login
+import { EmailPage } from "../pages/Login/email/email";
+import { RegistroPage} from '../pages/Login/registro/registro'
+import { RedesSocialesPage } from "../pages/Login/redes-sociales/redes-sociales";
+import { RecordarContrasenaPage } from "../pages/Login/recordar-contrasena/recordar-contrasena";
+
+//clases
+import {Login} from '../Clases/Login/Login.cs'
 //Components
 import { MapaComponent } from "../Components/Mapa/Mapa.component";
-<<<<<<< HEAD
 import { EncabezadoComponent } from "../components/encabezado/encabezado";
 
-=======
 import { UsuariosOnlineComponent } from "../Components/UsuariosOnline/UsuariosOnline.component";
->>>>>>> 8ccfc9616e4fa43cddfedad7cfae9ca474a9edbd
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { FacebookProvider } from '../providers/facebook/facebook';
@@ -50,25 +55,25 @@ import { FacebookProvider } from '../providers/facebook/facebook';
 import { GoogleProvider } from '../providers/google/google';
 import { CerrarSesionProvider } from '../providers/cerrar-sesion/cerrar-sesion';
 import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
+import { LoginProvider } from '../providers/login/login';
 
 @NgModule({
   declarations: [
     MyApp,
-    LoginPage,
+    EmailPage,
+    RedesSocialesPage,
+    RegistroPage,
+    RecordarContrasenaPage,
     TabsPage,
     InicioPage,
     RutasPage,
     NotificacionesPage,
     MapaComponent,
-<<<<<<< HEAD
     EncabezadoComponent,
     PerfilPage,
     PrincipalPage,
-    MensajesPage
-
-=======
+    MensajesPage,
     UsuariosOnlineComponent
->>>>>>> 8ccfc9616e4fa43cddfedad7cfae9ca474a9edbd
   ],
   imports: [
     BrowserModule,
@@ -82,7 +87,10 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    LoginPage,
+    EmailPage,
+    RedesSocialesPage,
+    RegistroPage,
+    RecordarContrasenaPage,
     TabsPage,
     InicioPage,
     RutasPage,
@@ -95,6 +103,7 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
   ],
   providers: [
     StatusBar,
+    Login,
     SplashScreen,
     Network,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -105,7 +114,8 @@ import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
     FacebookProvider,
     GoogleProvider,
     CerrarSesionProvider,
-    CrearUsuarioProvider
+    CrearUsuarioProvider,
+    LoginProvider
   ]
 })
 export class AppModule { }

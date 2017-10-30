@@ -1,7 +1,18 @@
 page-login {
-  ion-content {
-    // background-color: #000 !important;
+ 
+  ion-content::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: .8;
+    content: "";
+    background-image: url(../../../assets/img/fondo.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
   }
+
   ion-list {
     border: none !important;
   }
@@ -22,9 +33,7 @@ page-login {
   .redes-sociales {
     padding-top: 30px;
   }
-  
   .redes-sociales button {
     width: 40%;
   }
-  
 }

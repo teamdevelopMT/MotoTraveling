@@ -1,0 +1,29 @@
+<!--
+  Generated template for the RecordarContrasenaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Recordar contraseña</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <form [formGroup]="formulario" (ngSubmit)="RecordarContrasena()">
+    <ion-list>
+      <ion-item *ngIf="formulario.get('correo').errors && formulario.get('correo').dirty">
+        <p color="danger" ion-text *ngIf="formulario.get('correo').hasError('required')">Ingresa un correo electronico para continuar</p>
+        <p color="danger" ion-text *ngIf="formulario.get('correo').hasError('email')">Ingresa un correo valido</p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Ingresa tu correo</ion-label>
+        <ion-input formControlName="correo" type="email"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button ion-button full type="submit" [disabled]="formulario.invalid"> Envíame un correo</button>
+    </div>
+  </form>
+
+</ion-content>

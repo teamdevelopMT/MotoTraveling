@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { usuario } from './../../Interfaces/usuario';
+import { IUsuario } from './../../Interfaces/IUsuario';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: 'UsuariosOnline.component.html'
 })
 export class UsuariosOnlineComponent {
- listaUsuariosOnline : usuario[];
+ listaUsuariosOnline : IUsuario[];
 
   constructor(private afDB: AngularFireDatabase) {
 
@@ -17,7 +17,7 @@ export class UsuariosOnlineComponent {
         const resultadoConsultaFire = this.afDB.list('usuarios').valueChanges();
 
         resultadoConsultaFire.subscribe(resp =>{
-            this.listaUsuariosOnline = (resp as usuario[]).filter(filtro => filtro.estadoConexion == "On");
+            this.listaUsuariosOnline = (resp as IUsuario[]).filter(filtro => filtro.estadoConexion == "On");
             
         });
 

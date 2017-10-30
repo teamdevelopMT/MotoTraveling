@@ -1,7 +1,7 @@
- export interface usuario{
+ export interface IUsuario{
     nombre: string,
     correo:string,
     telefono?:number,
     foto?:string,
-    estadoConexion : string
+    estadoConexion? : string
  }
