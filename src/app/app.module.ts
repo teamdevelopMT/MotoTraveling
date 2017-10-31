@@ -51,6 +51,7 @@ import { UsuariosOnlineComponent } from "../Components/UsuariosOnline/UsuariosOn
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { FacebookProvider } from '../providers/facebook/facebook';
+import { Gyroscope } from '@ionic-native/gyroscope';
 
 import { GoogleProvider } from '../providers/google/google';
 import { CerrarSesionProvider } from '../providers/cerrar-sesion/cerrar-sesion';
@@ -78,13 +79,13 @@ import { LoginProvider } from '../providers/login/login';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp,{
-      pageTransition: 'ios-transition',
-      tabsPlacement: 'bottom',
       platforms: {
-        ios: {
-          tabsPlacement: 'top',
+        android:{
+          tabsPlacement: 'top', 
+          pageTransition:'md-transition'
         }
       }
+      
     }),
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(OPTIONS),
@@ -124,7 +125,8 @@ import { LoginProvider } from '../providers/login/login';
     GoogleProvider,
     CerrarSesionProvider,
     CrearUsuarioProvider,
-    LoginProvider
+    LoginProvider,
+    Gyroscope
   ]
 })
 export class AppModule { }

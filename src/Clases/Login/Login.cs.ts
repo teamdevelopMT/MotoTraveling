@@ -21,7 +21,6 @@ export class Login {
     RegistrarUsuario(datos: ILogin) {
         let promise = new Promise((resolve, reject) => {
             this.afAuth.auth.createUserWithEmailAndPassword(datos.correo, datos.contrasena).then(res => {
-                console.log(res);
                 resolve();
             }).catch(err => {
                 console.log(err);
@@ -74,9 +73,11 @@ export class Login {
     IniciarSesionFacebook() {
         let promise = new Promise((resolve, reject) => {
             if (this.platform.is('cordova')) {
-                return this.facebook.login(['public_profile', 'user_friends', 'email']).then((res: FacebookLoginResponse) => {
+                this.facebook.login(['public_profile', 'user_friends', 'email']).then((res: FacebookLoginResponse) => {
                     const FACEBOOKCREDENTIAL = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-                    return firebase.auth().signInWithCredential(FACEBOOKCREDENTIAL);
+
+                    firebase.auth().signInWithCredential(FACEBOOKCREDENTIAL);
+                    resolve();
                 }).catch(err => {
                     console.error(err);
                     reject(err);
@@ -97,9 +98,16 @@ export class Login {
     IniciarSesionGoogle() {
         let promesa = new Promise((resolve, reject) => {
             if (this.platform.is('cordova')) {
-                return this.google.login({}).then(res => {
-                    const GOOGLECREDENTIAL = firebase.auth.GoogleAuthProvider.credential(res.idToken);
-                    return firebase.auth().signInWithCredential(GOOGLECREDENTIAL);
+                this.google.login({
+                    'webClientId': '732314916080-ps2bss7aebhv06hcv1j96h1aqmdl2ern.apps.googleusercontent.com',
+                    'offline': true
+                }).then(res => {
+                    firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken)).then(res => {
+                        resolve();
+                    }).catch(err => {
+                        console.error(err);
+                        reject(err);
+                    });
                 }).catch(err => {
                     console.error(err);
                     reject(err);
