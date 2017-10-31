@@ -52,7 +52,28 @@ export class MyApp {
           this.rootPage = RedesSocialesPage;
           return;
         }
+        else
+        {
+         var nombreUsuario=user.email.replace("@","").replace(".","");
+ 
+         /*Subscripcion de invitaciones*/
+         let promesa = new Promise((resolve, reject) => {
+           const resultadoConsultaFire = this.afDB.object('invitacionesRuta/'+nombreUsuario).valueChanges();
+     
+           resultadoConsultaFire.subscribe(resp =>{
+               this.invitacionRuta = (resp as invitacionesRuta);
+     
+               if(this.invitacionRuta!= null && this.invitacionRuta.estado == "pendiente")
+               {
+                   this.mostrarAlertaConfirmacion(this.invitacionRuta);
+               }
+           });
+     
+       });
+        
         this.rootPage = TabsPage;
+        }
+        
       });
 
       platform.ready().then(() => {

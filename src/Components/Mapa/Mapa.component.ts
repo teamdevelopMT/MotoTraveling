@@ -11,7 +11,7 @@ import {
   MarkerOptions,
   Marker
  } from '@ionic-native/google-maps';
- import { AngularFireDatabase } from 'angularfire2/database';
+ import { AngularFireDatabase,AngularFireObject } from 'angularfire2/database';
  import { Observable } from 'rxjs/Observable';
 
  /*Interfaces*/
@@ -31,6 +31,7 @@ export class MapaComponent {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   marker: any;
+  markers: any[] = new Array<any>();
   
   metodoMapa = "ruta";
 
@@ -41,11 +42,12 @@ export class MapaComponent {
   ruta : rutas;
   rutaUsuario : rutaUsuarios = new rutaUsuarios();
   rutaUsuarios : rutaUsuarios[];
-  ubicacionActual : ubicacionUsuarios = new ubicacionUsuarios();;
+  ubicacionActual : ubicacionUsuarios = new ubicacionUsuarios();
   ubicacionActualGuardar : ubicacionUsuarios = new ubicacionUsuarios();
   nombreUsuarioSession:string;
   mapaCreado: boolean = false;
   marcadoresCreados : boolean = false;
+  objRutasCasteoFire : AngularFireObject<rutas>;
   constructor(public navCtrl: NavController, private geolocation: Geolocation, private afDB: AngularFireDatabase, private storage: Storage) {
     
     const watch = this.geolocation.watchPosition();
@@ -69,10 +71,9 @@ export class MapaComponent {
 
 
               let promesa = new Promise((resolve, reject) => {
-                const resultadoRutasFire = this.afDB.object('rutas/josedaniel9_5hotmailcom').valueChanges();
-        
-                  resultadoRutasFire.subscribe(resp =>{
-                    this.ruta = (resp as rutas);
+                
+                    this.objRutasCasteoFire = this.afDB.object('rutas/josedaniel9_5hotmailcom');
+
                     var parent = this;
                   
                     if(!this.mapaCreado)
@@ -90,30 +91,52 @@ export class MapaComponent {
                         {
                           this.rutaUsuarios.forEach(element => {
                            
-                            if(!this.marcadoresCreados)
-                            {
+                          if(!this.marcadoresCreados)
+                          {
+
+
+                            var image = new google.maps.MarkerImage(
+                              '../../assets/img/moto_250.png',
+                              new google.maps.Size(100, 100),
+                              new google.maps.Point(0, 0),
+                              new google.maps.Point(17, 34),
+                              new google.maps.Size(80, 80));
+                              
+
                                 this.marker = new google.maps.Marker({
                                 title: element.nombre,
                                 Snippet: element.nombre,
-                                animation: 'DROP',
                                 map: this.map,
+                                icon : image,
+                                label: element.nombre,
+                                animation: 'DROP',
                                 position: 
                                 {
                                   lat: parseFloat(element.latitud),
                                   lng: parseFloat(element.longitud)
                                 }
                                 });
+
+                                if(this.marker.title != null && this.marker != undefined)
+                                this.markers.push(this.marker);
                           }
                           else
                           {
                               
                               var latlng = new google.maps.LatLng(parseFloat(element.latitud), parseFloat(element.longitud));
-                              this.marker.setPosition(latlng);
+                          
+                            
+                              this.markers.forEach(marcador => {
+                                  if(marcador.title == element.nombre)
+                                    {
+                                      marcador.setPosition(latlng);
+                                    }
+                              });
 
                           }
                         });
-
-                        this.marcadoresCreados= true;
+                            this.marcadoresCreados= true;
+                        
                       }
                   }
 
@@ -122,8 +145,6 @@ export class MapaComponent {
             
             });
           
-        
-          });
           }
           else
           {
@@ -142,12 +163,17 @@ export class MapaComponent {
                   parent.ubicacionActual = (resp as ubicacionUsuarios);
                   
                   
-                    this.crearMapa(parent.ubicacionActual.latitud, parent.ubicacionActual.longitud);
+                  this.crearMapa(parent.ubicacionActual.latitud, parent.ubicacionActual.longitud);
+
+                    
+
 
                   this.marker = new google.maps.Marker({
                     title: 'Mi posición',
                     animation: 'DROP',
                     map: this.map,
+                    icon : 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png',
+                    color: 'blue',
                     position: {
                       lat: parent.ubicacionActual.latitud,
                       lng: parent.ubicacionActual.longitud
