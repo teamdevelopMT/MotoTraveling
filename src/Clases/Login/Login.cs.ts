@@ -10,12 +10,16 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 //Google
 import { GooglePlus } from "@ionic-native/google-plus";
 
+//Local storage
+import { Storage } from '@ionic/storage';
+
 @Injectable()
 export class Login {
     constructor(private afAuth: AngularFireAuth,
         private platform: Platform,
         private facebook: Facebook,
-        private google: GooglePlus) {
+        private google: GooglePlus,
+        private storage: Storage) {
     }
 
     RegistrarUsuario(datos: ILogin) {
@@ -103,6 +107,8 @@ export class Login {
                     'offline': true
                 }).then(res => {
                     firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken)).then(res => {
+                        var nombreUsuario=res.user.email.replace("@","").replace(".","");
+                        this.storage.set("nombreUsuario",nombreUsuario);
                         resolve();
                     }).catch(err => {
                         console.error(err);
@@ -114,6 +120,8 @@ export class Login {
                 });
             } else {
                 this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
+                    var nombreUsuario=res.user.email.replace("@","").replace(".","");
+                    this.storage.set("nombreUsuario",nombreUsuario);
                     resolve();
                 }).catch(err => {
                     console.error(err);
