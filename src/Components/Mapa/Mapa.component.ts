@@ -131,6 +131,11 @@ export class MapaComponent {
                                     {
                                       marcador.setPosition(latlng);
                                     }
+
+                                    if(this.nombreUsuarioSession == element.nombre)
+                                    {
+                                      this.map.setCenter(latlng);
+                                    }
                               });
 
                           }
