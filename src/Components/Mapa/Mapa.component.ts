@@ -109,7 +109,7 @@ export class MapaComponent {
                                 map: this.map,
                                 icon : image,
                                 label: element.nombre,
-                                animation: 'DROP',
+                                animation: 'BOUNCE',
                                 position: 
                                 {
                                   lat: parseFloat(element.latitud),
@@ -178,7 +178,6 @@ export class MapaComponent {
                     animation: 'DROP',
                     map: this.map,
                     icon : 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png',
-                    color: 'blue',
                     position: {
                       lat: parent.ubicacionActual.latitud,
                       lng: parent.ubicacionActual.longitud
