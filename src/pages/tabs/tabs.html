@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-toolbar>
-  
+  <ion-toolbar color="moto">
+
     <ion-buttons end>
 
-      <button ion-button color="primary" [navPush]="perfil"> 
+      <button ion-button color="primary" [navPush]="perfil">
         perfil
       </button>
 
@@ -12,11 +12,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-tabs color="dark">
-    <ion-tab tabIcon="ios-home-outline" tabTitle="Inicio" [root]="inicio"></ion-tab>
-    <ion-tab tabIcon="ios-map-outline" tabTitle="Rutas" [root]="rutas"></ion-tab>
-    <ion-tab tabIcon="ios-chatbubbles-outline" tabTitle="Mensajes" [root]="mensajes"></ion-tab>
-    <ion-tab tabIcon="ios-pricetags-outline" tabTitle="Tiendas" [root]="tiendas"></ion-tab>
-    <ion-tab tabIcon="ios-notifications-outline" tabTitle="Notificaciones" [root]="notificaciones"></ion-tab>
+  <ion-tabs color="asphalt">
+    <ion-tab tabIcon="ios-home-outline" [root]="inicio"></ion-tab>
+    <ion-tab tabIcon="ios-map-outline" [root]="rutas"></ion-tab>
+    <ion-tab tabIcon="ios-chatbubbles-outline" [root]="mensajes"></ion-tab>
+    <ion-tab tabIcon="ios-pricetags-outline" [root]="tiendas"></ion-tab>
+    <ion-tab tabIcon="ios-notifications-outline" [root]="notificaciones"></ion-tab>
   </ion-tabs>
 </ion-content>
