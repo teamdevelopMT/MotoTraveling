@@ -96,7 +96,7 @@ export class MapaComponent {
 
 
                             var image = new google.maps.MarkerImage(
-                              '../../assets/img/moto_250.png',
+                              'assets/img/moto_250.png',
                               new google.maps.Size(100, 100),
                               new google.maps.Point(0, 0),
                               new google.maps.Point(17, 34),
@@ -117,7 +117,7 @@ export class MapaComponent {
                                 }
                                 });
 
-                                if(this.marker.title != null && this.marker != undefined)
+                                if(this.marker.title != null && this.marker.title != undefined)
                                 this.markers.push(this.marker);
                           }
                           else
