@@ -3,6 +3,8 @@ import { Platform } from "ionic-angular";
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app'
 import { Injectable } from '@angular/core';
+import { IUsuario } from '../../Interfaces/IUsuario'
+import { Usuarios } from "../../Clases/Modulos/Usuarios/usuarios.cs";
 
 //Faccebook
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
@@ -19,12 +21,14 @@ export class Login {
         private platform: Platform,
         private facebook: Facebook,
         private google: GooglePlus,
-        private storage: Storage) {
+        private storage: Storage,
+        private usuarios: Usuarios) {
     }
 
     RegistrarUsuario(datos: ILogin) {
         let promise = new Promise((resolve, reject) => {
             this.afAuth.auth.createUserWithEmailAndPassword(datos.correo, datos.contrasena).then(res => {
+                this.storage.set('_correo_', datos.correo);
                 resolve();
             }).catch(err => {
                 console.log(err);
@@ -50,7 +54,10 @@ export class Login {
     IniciarSesionCorreo(usuario: ILogin) {
         let promise = new Promise((resolve, reject) => {
             this.afAuth.auth.signInWithEmailAndPassword(usuario.correo, usuario.contrasena).then(res => {
-                console.log(res);
+                this.storage.set('_correo_', usuario.correo);
+                var nombreUsuario = usuario.correo.replace(/\@/g, '');
+                nombreUsuario = nombreUsuario.replace(/\./g, '');
+                this.storage.set("nombreUsuario", nombreUsuario);
                 resolve();
             }).catch(err => {
                 console.log(err);
@@ -76,19 +83,48 @@ export class Login {
 
     IniciarSesionFacebook() {
         let promise = new Promise((resolve, reject) => {
+
             if (this.platform.is('cordova')) {
                 this.facebook.login(['public_profile', 'user_friends', 'email']).then((res: FacebookLoginResponse) => {
                     const FACEBOOKCREDENTIAL = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+                    firebase.auth().signInWithCredential(FACEBOOKCREDENTIAL).then(res => {
 
-                    firebase.auth().signInWithCredential(FACEBOOKCREDENTIAL);
-                    resolve();
-                }).catch(err => {
-                    console.error(err);
-                    reject(err);
+                        var nombreUsuario = res.email.replace(/\@/g, '');
+                        nombreUsuario = nombreUsuario.replace(/\./g, '');
+                        this.storage.set("nombreUsuario", nombreUsuario);
+
+                        let usuario: IUsuario = {
+                            idUsuario: nombreUsuario,
+                            nombre: res.displayName,
+                            correo: res.email,
+                            foto: res.photoURL,
+                            estadoConexion: true
+                        }
+
+                        this.usuarios.CrearUsuarios(usuario).then(res => {
+                            resolve();
+                        });
+
+                    });
                 });
             } else {
                 return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(res => {
-                    resolve()
+                    var nombreUsuario = res.user.email.replace(/\@/g, '');
+                    nombreUsuario = nombreUsuario.replace(/\./g, '');
+                    this.storage.set("nombreUsuario", nombreUsuario);
+                    
+                    let usuario: IUsuario = {
+                        idUsuario: nombreUsuario,
+                        nombre: res.user.displayName,
+                        correo: res.user.email,
+                        foto: res.user.photoURL,
+                        estadoConexion: true
+                    }
+
+                    this.usuarios.CrearUsuarios(usuario).then(res => {
+                        resolve();
+                    });
+
                 }).catch(err => {
                     console.error(err);
                     reject(err);
@@ -107,9 +143,20 @@ export class Login {
                     'offline': true
                 }).then(res => {
                     firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken)).then(res => {
-                        var nombreUsuario=res.user.email.replace("@","").replace(".","");
-                        this.storage.set("nombreUsuario",nombreUsuario);
-                        resolve();
+                        var nombreUsuario = res.email.replace(/\@/g, '');
+                        nombreUsuario = nombreUsuario.replace(/\./g, '');
+                        this.storage.set("nombreUsuario", nombreUsuario);
+
+                        let usuario: IUsuario = {
+                            idUsuario: nombreUsuario,
+                            nombre: res.displayName,
+                            correo: res.email,
+                            foto: res.photoURL,
+                            estadoConexion: true
+                        }
+                        this.usuarios.CrearUsuarios(usuario).then(res => {
+                            resolve();
+                        });
                     }).catch(err => {
                         console.error(err);
                         reject(err);
@@ -120,9 +167,21 @@ export class Login {
                 });
             } else {
                 this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
-                    var nombreUsuario=res.user.email.replace("@","").replace(".","");
-                    this.storage.set("nombreUsuario",nombreUsuario);
-                    resolve();
+                    var nombreUsuario = res.user.email.replace(/\@/g, '').replace(/\./g, '');
+                    this.storage.set("nombreUsuario", nombreUsuario);
+
+                    let usuario: IUsuario = {
+                        idUsuario: nombreUsuario,
+                        nombre: res.user.displayName,
+                        correo: res.user.email,
+                        foto: res.user.photoURL,
+                        estadoConexion: true
+                    }
+
+                    this.usuarios.CrearUsuarios(usuario).then(res => {
+                        resolve();
+                    });
+
                 }).catch(err => {
                     console.error(err);
                     reject(err);

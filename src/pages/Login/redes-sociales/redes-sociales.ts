@@ -35,7 +35,7 @@ export class RedesSocialesPage {
 
     this.login.IniciarSesionFacebook().then(res => {
       cargando.dismiss();
-      this.navCtrl.setRoot(TabsPage);
+
     }).catch(err => {
       cargando.dismiss();
       console.error("erorrrrr" + err);

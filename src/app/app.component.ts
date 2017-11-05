@@ -6,9 +6,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { RedesSocialesPage } from '../pages/Login/redes-sociales/redes-sociales';
 
 
-
+import { Usuarios } from "../Clases/Modulos/Usuarios/usuarios.cs";
 import { TabsPage } from "../pages/tabs/tabs";
 import { RutasPage } from "../pages/modulos/rutas/rutas";
+import { RegistroUsuarioPage } from "../pages/modulos/registro-usuario/registro-usuario";
 
 import { rutaUsuarios } from './../Interfaces/rutaUsuarios';
 import { invitacionesRuta } from './../Interfaces/invitacionesRuta';
@@ -42,8 +43,8 @@ export class MyApp {
     private _fireAuth: AngularFireAuth,
     private storage: Storage,
     private afDB: AngularFireDatabase,
-    public alertCtrl: AlertController) {
-  
+    public alertCtrl: AlertController,
+    private usuarios: Usuarios) {
 
     const AUTENTICACION = _fireAuth.authState.subscribe((user: firebase.User) => {
 
@@ -53,19 +54,27 @@ export class MyApp {
           this.rootPage = RedesSocialesPage;
           return;
         }
-        else
-        {
+        else {
+          var nombreUsuario = user.email.replace(/\@/g, '');
+          nombreUsuario = nombreUsuario.replace(/\./g, '');
+          this.storage.set('_correo_', user.email);
           
-        this.rootPage = TabsPage;
+          this.usuarios.ValidarUsuarioRegistrado(nombreUsuario).then(res => {
+            if (res == true)
+              this.rootPage = TabsPage;
+            else
+              this.rootPage = RegistroUsuarioPage;
+          });
         }
-        
-      });
 
-      platform.ready().then(() => {
-        statusBar.styleDefault();
-        splashScreen.hide();
-      });
+      })
     });
+
+    platform.ready().then(() => {
+      statusBar.styleDefault();
+      splashScreen.hide();
+    });
+
   }
 
   

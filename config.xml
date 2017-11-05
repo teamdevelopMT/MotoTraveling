@@ -103,5 +103,5 @@
     <plugin name="cordova-plugin-compat" spec="^1.2.0" />
     <plugin name="com.unarin.cordova.beacon" spec="~3.5.2" />
     <plugin name="cordova-plugin-gyroscope" spec="^0.1.4" />
+    <plugin name="cordova-plugin-camera" spec="^2.4.1" />
 </widget>
- 

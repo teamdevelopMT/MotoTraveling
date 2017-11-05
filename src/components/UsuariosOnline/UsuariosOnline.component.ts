@@ -25,7 +25,7 @@ export class UsuariosOnlineComponent {
         const resultadoConsultaFire = this.afDB.list('usuarios').valueChanges();
 
         resultadoConsultaFire.subscribe(resp =>{
-            this.listaUsuariosOnline = (resp as IUsuario[]).filter(filtro => filtro.estadoConexion == "On");
+            this.listaUsuariosOnline = (resp as IUsuario[]).filter(filtro => filtro.estadoConexion == true);
             
         });
 
