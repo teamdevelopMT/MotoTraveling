@@ -1,7 +1,21 @@
  export interface IUsuario{
-    nombre: string,
-    correo:string,
+    idUsuario?:string,
+    nombre?: string,
+    correo?:string,
     telefono?:number,
     foto?:string,
-    estadoConexion? : string
+    estadoConexion? : boolean,
+    Rh?:string,
+    enfermedades?: IEnfermedad [] 
+ }
+
+ export interface IEnfermedad{
+     nombre?:string,
+     descripcion?: string,
+     medicamentos?: IMedicamento [],
+ }
+
+ export interface IMedicamento{
+     nombre?:string,
+     cantidad?:string
  }

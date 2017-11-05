@@ -4,7 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
-import { Network } from '@ionic-native/network';
+import { Keyboard } from "@ionic-native/keyboard";
 
 //Local Storage
 import { IonicStorageModule } from '@ionic/storage';
@@ -26,28 +26,29 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 
 //Paginas
 import { MyApp } from './app.component';
-// import { LoginPage } from "../pages/login/login/login";
+
 import { TabsPage } from "../pages/tabs/tabs";
 import { InicioPage } from "../pages/modulos/inicio/inicio";
 import { RutasPage } from "../pages/modulos/rutas/rutas";
 import { NotificacionesPage } from "../pages/modulos/notificaciones/notificaciones";
 import { MensajesPage } from '../pages/modulos/mensajes/mensajes';
 import { PrincipalPage } from "../pages/modulos/tiendas/principal/principal";
-import { PerfilPage } from '../pages/modulos/perfil/perfil'
+import { PerfilPage } from '../pages/modulos/perfil/perfil';
+import { RegistroUsuarioPage } from "../pages/modulos/registro-usuario/registro-usuario";
 
 //Login
 import { EmailPage } from "../pages/Login/email/email";
-import { RegistroPage} from '../pages/Login/registro/registro'
+import { RegistroPage } from '../pages/Login/registro/registro'
 import { RedesSocialesPage } from "../pages/Login/redes-sociales/redes-sociales";
 import { RecordarContrasenaPage } from "../pages/Login/recordar-contrasena/recordar-contrasena";
 
 //clases
-import {Login} from '../Clases/Login/Login.cs'
+import { Login } from '../Clases/Login/Login.cs'
+import {Usuarios} from '../Clases/Modulos/Usuarios/usuarios.cs'
 //Components
 import { MapaComponent } from "../Components/Mapa/Mapa.component";
 import { EncabezadoComponent } from "../components/encabezado/encabezado";
 import { UsuariosOnlineComponent } from "../Components/UsuariosOnline/UsuariosOnline.component";
-
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { FacebookProvider } from '../providers/facebook/facebook';
@@ -56,7 +57,10 @@ import { Gyroscope } from '@ionic-native/gyroscope';
 import { GoogleProvider } from '../providers/google/google';
 import { CerrarSesionProvider } from '../providers/cerrar-sesion/cerrar-sesion';
 import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
+import {Camera} from '@ionic-native/camera';
 import { LoginProvider } from '../providers/login/login';
+import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
+
 
 @NgModule({
   declarations: [
@@ -66,6 +70,7 @@ import { LoginProvider } from '../providers/login/login';
     RegistroPage,
     RecordarContrasenaPage,
     TabsPage,
+    RegistroUsuarioPage,
     InicioPage,
     RutasPage,
     NotificacionesPage,
@@ -75,17 +80,19 @@ import { LoginProvider } from '../providers/login/login';
     PrincipalPage,
     MensajesPage,
     UsuariosOnlineComponent
+   
   ],
   imports: [
+  
     BrowserModule,
-    IonicModule.forRoot(MyApp,{
+    IonicModule.forRoot(MyApp, {
       platforms: {
-        android:{
-          tabsPlacement: 'top', 
-          pageTransition:'md-transition'
+        android: {
+          tabsPlacement: 'top',
+          pageTransition: 'md-transition'
         }
       }
-      
+
     }),
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(OPTIONS),
@@ -101,6 +108,7 @@ import { LoginProvider } from '../providers/login/login';
     RegistroPage,
     RecordarContrasenaPage,
     TabsPage,
+    RegistroUsuarioPage,
     InicioPage,
     RutasPage,
     NotificacionesPage,
@@ -114,19 +122,22 @@ import { LoginProvider } from '../providers/login/login';
   providers: [
     StatusBar,
     Login,
+    Usuarios,
     SplashScreen,
-    Network,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     GoogleMaps,
     Geolocation,
     Facebook,
     GooglePlus,
+    Keyboard,
     FacebookProvider,
     GoogleProvider,
     CerrarSesionProvider,
     CrearUsuarioProvider,
     LoginProvider,
-    Gyroscope
+    Gyroscope,
+    Camera,
+    SubirFotosProvider
   ]
 })
 export class AppModule { }

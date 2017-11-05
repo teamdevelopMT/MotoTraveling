@@ -1,0 +1,31 @@
+page-registro-usuario {
+  .padding {
+    padding-bottom: 0px !important;
+  }
+  .imagen-perfil {
+    border-radius: 4px;
+    position: relative;
+    height: 160px;
+    width: 130px;
+    margin: auto;
+  }
+  .select-imagen-perfil {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 20px;
+    background-color: #585858;
+    opacity: 0.8;
+    color: white;
+    font-size: 12px;
+    
+  }
+  .imagen-perfil img {
+    width: 100%;
+    height: auto;
+  }
+
+  .galeria {
+      color: #FF9800 !important;
+  }
+}

@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{titulo}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-slides pager>
+
+    <ion-slide>
+      <form [formGroup]="formulario">
+        <ion-item>
+          <ion-label color="primary" floating>Ingresa tu nombre</ion-label>
+          <ion-input type="text" formControlName="nombre" maxlength="25" (focus)="OnFocus()" [(ngModel)]="nombre"></ion-input>
+          <p color="danger" ion-text *ngIf="formulario.get('nombre').hasError('required')">Ingresa tu nombre para continuar</p>
+          <p color="danger" ion-text *ngIf="formulario.get('nombre').hasError('pattern')">Ingresa un nombre valido</p>
+        </ion-item>
+        <div padding>
+          <button ion-button color="moto" (click)="Continuar(); titulo='Foto perfil'" [disabled]="formulario.get('nombre').invalid">Continuar</button>
+        </div>
+      </form>
+    </ion-slide>
+    <ion-slide>
+      <div  class="imagen-perfil" (click)="SeleccionarFoto()">
+        <img [src]="imgPreview">
+        <div class="select-imagen-perfil">
+          <ion-icon name="ios-camera"></ion-icon> Seleccionar
+        </div>
+      </div>
+      <h2>{{nombre}}</h2>
+      <div padding>
+        <button ion-button color="moto" (click)="RegistrarUsuario()">Terminar</button>
+      </div>
+    </ion-slide>
+  
+  </ion-slides>
+
+</ion-content>

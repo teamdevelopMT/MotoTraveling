@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Login } from "../../../Clases/Login/Login.cs";
 import { ILogin } from "../../../Interfaces/ILogin";
 
+
+
 //paginas
 import { EmailPage } from "../email/email";
 
@@ -47,7 +49,6 @@ export class RegistroPage {
 
     this.usuario.correo = this.formulario.get('correo').value;
     this.usuario.contrasena = this.formulario.get('contrasena').value;
-
 
     this.login.RegistrarUsuario(this.usuario).then(res => {
       creandoUsuario.dismiss();

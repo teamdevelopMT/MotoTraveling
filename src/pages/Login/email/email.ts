@@ -7,7 +7,8 @@ import { RecordarContrasenaPage } from "../recordar-contrasena/recordar-contrase
 import { Login } from "../../../Clases/Login/Login.cs";
 import { ILogin } from "../../../Interfaces/ILogin";
 import { TabsPage } from "../../tabs/tabs";
-
+import { RegistroUsuarioPage } from "../../modulos/registro-usuario/registro-usuario";
+import { Usuarios } from "../../../Clases/Modulos/Usuarios/usuarios.cs";
 
 @IonicPage()
 @Component({
@@ -26,7 +27,8 @@ export class EmailPage {
     private login: Login,
     private fb: FormBuilder,
     private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private usuarios: Usuarios
   ) {
 
     this.formulario = this.fb.group({
@@ -50,10 +52,13 @@ export class EmailPage {
 
     this.login.IniciarSesionCorreo(this.usuario).then(res => {
       loading.dismiss();
-      this.navCtrl.setRoot(TabsPage);
+      var idUsuario = this.usuario.correo.replace(/\@/g, '');
+      idUsuario = idUsuario.replace(/\./g, '');
+      this.navParams.data = { "idUsuario": idUsuario, "correo": this.usuario.correo };
+     
     }).catch(err => {
       loading.dismiss();
-      console.error("el error:" + err );
+      console.error("el error:" + err);
       switch (err.code) {
         case "auth/user-not-found":
           this.AlertaError("El correo electronico ingresado no se encuentra registrado");

@@ -6,9 +6,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { RedesSocialesPage } from '../pages/Login/redes-sociales/redes-sociales';
 
 
-
+import { Usuarios } from "../Clases/Modulos/Usuarios/usuarios.cs";
 import { TabsPage } from "../pages/tabs/tabs";
 import { RutasPage } from "../pages/modulos/rutas/rutas";
+import { RegistroUsuarioPage } from "../pages/modulos/registro-usuario/registro-usuario";
 
 import { rutaUsuarios } from './../Interfaces/rutaUsuarios';
 import { invitacionesRuta } from './../Interfaces/invitacionesRuta';
@@ -42,7 +43,8 @@ export class MyApp {
     private _fireAuth: AngularFireAuth,
     private storage: Storage,
     private afDB: AngularFireDatabase,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    private usuarios: Usuarios) {
 
     const AUTENTICACION = _fireAuth.authState.subscribe((user: firebase.User) => {
 
@@ -52,35 +54,41 @@ export class MyApp {
           this.rootPage = RedesSocialesPage;
           return;
         }
-        else
-        {
-         var nombreUsuario=user.email.replace("@","").replace(".","");
- 
-         /*Subscripcion de invitaciones*/
-         let promesa = new Promise((resolve, reject) => {
-           const resultadoConsultaFire = this.afDB.object('invitacionesRuta/'+nombreUsuario).valueChanges();
-     
-           resultadoConsultaFire.subscribe(resp =>{
-               this.invitacionRuta = (resp as invitacionesRuta);
-     
-               if(this.invitacionRuta!= null && this.invitacionRuta.estado == "pendiente")
-               {
-                   this.mostrarAlertaConfirmacion(this.invitacionRuta);
-               }
-           });
-     
-       });
-        
-        this.rootPage = TabsPage;
-        }
-        
-      });
+        else {
+          var nombreUsuario = user.email.replace(/\@/g, '');
+          nombreUsuario = nombreUsuario.replace(/\./g, '');
+          this.storage.set('_correo_', user.email);
 
-      platform.ready().then(() => {
-        statusBar.styleDefault();
-        splashScreen.hide();
-      });
+          /*Subscripcion de invitaciones*/
+          let promesa = new Promise((resolve, reject) => {
+            const resultadoConsultaFire = this.afDB.object('invitacionesRuta/' + nombreUsuario).valueChanges();
+
+            resultadoConsultaFire.subscribe(resp => {
+              this.invitacionRuta = (resp as invitacionesRuta);
+
+              if (this.invitacionRuta != null && this.invitacionRuta.estado == "pendiente") {
+                this.mostrarAlertaConfirmacion(this.invitacionRuta);
+              }
+            });
+
+          });
+
+          this.usuarios.ValidarUsuarioRegistrado(nombreUsuario).then(res => {
+            if (res == true)
+              this.rootPage = TabsPage;
+            else
+              this.rootPage = RegistroUsuarioPage;
+          });
+        }
+
+      })
     });
+
+    platform.ready().then(() => {
+      statusBar.styleDefault();
+      splashScreen.hide();
+    });
+
   }
 
   mostrarAlertaConfirmacion(invitacionRuta) {
