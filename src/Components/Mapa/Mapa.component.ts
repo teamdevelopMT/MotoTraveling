@@ -125,19 +125,44 @@ export class MapaComponent {
                               
                               var latlng = new google.maps.LatLng(parseFloat(element.latitud), parseFloat(element.longitud));
                           
-                            
+                              var marcadoActualizado = false;
                               this.markers.forEach(marcador => {
+
                                   if(marcador.title == element.nombre)
                                     {
                                       marcador.setPosition(latlng);
-                                    }
-
-                                    if(this.nombreUsuarioSession == element.nombre)
-                                    {
-                                      this.map.setCenter(latlng);
+                                      marcadoActualizado = true;
                                     }
                               });
 
+                            if(!marcadoActualizado)
+                            {
+
+                              var image = new google.maps.MarkerImage(
+                                'assets/img/moto_animada.GIF',
+                                new google.maps.Size(100, 100),
+                                new google.maps.Point(0, 0),
+                                new google.maps.Point(17, 34),
+                                new google.maps.Size(80, 80));
+                                
+                              this.marker = new google.maps.Marker({
+                                title: element.nombre,
+                                Snippet: element.nombre,
+                                map: this.map,
+                                icon : image,
+                                label: element.nombre,
+                                animation: 'BOUNCE',
+                                position: 
+                                {
+                                  lat: parseFloat(element.latitud),
+                                  lng: parseFloat(element.longitud)
+                                }
+                                });
+
+                                if(this.marker.title != null && this.marker.title != undefined)
+                                this.markers.push(this.marker);
+
+                            }
                           }
                         });
                             this.marcadoresCreados= true;

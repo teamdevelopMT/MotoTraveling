@@ -54,19 +54,23 @@ crearInvitacionMapa(usuarioInvitado, ruta, usuarioCreadorRuta){
               text: 'Aceptar',
               handler: () => {
                
+                var list : Array<invitacionesRuta> = new Array<invitacionesRuta>();
+
                 var invitacionRutaDTO : invitacionesRuta = new invitacionesRuta();
                 
                   invitacionRutaDTO.estado = "pendiente";
                   invitacionRutaDTO.fecha = new Date().toString();
                   invitacionRutaDTO.usuarioInvitacion = usuarioCreadorRuta;
                   invitacionRutaDTO.ruta = ruta;
+
+                  
+                  list.push(invitacionRutaDTO);
                 
                   let promesa = new Promise((resolve, reject) => {
-                    this.afDB.list('invitacionesRuta').set(usuarioInvitadoIdentidad, invitacionRutaDTO).then(res => {
+                    this.afDB.list('invitacionesRuta/'+usuarioInvitadoIdentidad).push(invitacionRutaDTO).then(res => {
                       resolve();
-                    }).catch(err => {
-                      console.error(err);
                     });
+                    
                   });
     
               }
