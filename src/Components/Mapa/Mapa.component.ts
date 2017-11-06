@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
 import {
@@ -19,6 +19,9 @@ import {
  import { rutaUsuarios } from "../../Interfaces/rutaUsuarios";
  import { ubicacionUsuarios } from "../../Interfaces/ubicacionUsuarios";
 
+ /*Estilo Mapa*/
+ import { estilosMapa } from "../../Clases/Mapa/estilosMapa";
+
 declare var google;
 
 
@@ -32,11 +35,20 @@ export class MapaComponent {
   map: any;
   marker: any;
   markers: any[] = new Array<any>();
+  stilosMapa : estilosMapa = new estilosMapa();
   
+  /*controlar cards de opciones en el mapa*/
+  mostrarCrearRuta : boolean = false;
+  mostrarInvitarUsuarios : boolean = false;
+  mostrarPersonalizarMapa : boolean = false;
+
   metodoMapa = "ruta";
 
   start="chicago, il";
-  end = "los angeles, ca";
+  end = "st louis, mo";
+
+  estiloMapaSeleccion = "defecto";
+
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
   ruta : rutas;
@@ -48,11 +60,9 @@ export class MapaComponent {
   mapaCreado: boolean = false;
   marcadoresCreados : boolean = false;
   objRutasCasteoFire : AngularFireObject<rutas>;
-  constructor(public navCtrl: NavController, private geolocation: Geolocation, private afDB: AngularFireDatabase, private storage: Storage) {
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, private geolocation: Geolocation, private afDB: AngularFireDatabase, private storage: Storage) {
     
     const watch = this.geolocation.watchPosition();
-
-  
 
     storage.get('nombreUsuario').then((val) => {
       this.nombreUsuarioSession = val;
@@ -176,44 +186,7 @@ export class MapaComponent {
             });
           
           }
-          else
-          {
-              //Si se abrio el mapa por solitario se obtiene y actualiza la ubicacion en los datos generales del usuario
-
-              parent.ubicacionActualGuardar.latitud = data.coords.latitude;
-              parent.ubicacionActualGuardar.longitud = data.coords.longitude;
-              parent.ubicacionActualGuardar.fechaUltimaUbicacion = new Date().toString();
-
-              this.afDB.object('ubicacionUsuarios/'+this.nombreUsuarioSession).update(this.ubicacionActualGuardar);
-
-              let promesa = new Promise((resolve, reject) => {
-                const resultadoUbicacionActual = this.afDB.object('ubicacionUsuarios/'+this.nombreUsuarioSession).valueChanges();
-
-                resultadoUbicacionActual.subscribe(resp =>{
-                  parent.ubicacionActual = (resp as ubicacionUsuarios);
-                  
-                  
-                  this.crearMapa(parent.ubicacionActual.latitud, parent.ubicacionActual.longitud);
-
-                    
-
-
-                  this.marker = new google.maps.Marker({
-                    title: 'Mi posición',
-                    animation: 'DROP',
-                    map: this.map,
-                    icon : 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png',
-                    position: {
-                      lat: parent.ubicacionActual.latitud,
-                      lng: parent.ubicacionActual.longitud
-                    }
-                  });
-
-                });
-
-              });
-          }
-
+         
      }).catch((error) => {
         console.log('Error getting location', error);
      });
@@ -258,30 +231,40 @@ export class MapaComponent {
     var parent = this;
     this.map = new google.maps.Map(this.mapElement.nativeElement, {
       zoom: 19,
-      center: {lat: latitud, lng: longitud}
+      center: {lat: latitud, lng: longitud},
+      fullscreenControl:false,
+      zoomControl: true,
+      valueOfstreetViewControl: true,
+      
     });
 
+    // Add a style-selector control to the map.
+
+    // Set the map's style to the initial value of the selector.
+    var styleSelector = document.getElementById('style-selector');
+    this.map.setOptions({styles: this.stilosMapa.styles[this.estiloMapaSeleccion]});
+
+    // Apply new JSON when the user selects a different style.
+    styleSelector.addEventListener('change', function() {
+      parent.map.setOptions({styles: parent.stilosMapa.styles[parent.estiloMapaSeleccion]});
+    });
+
+    this.directionsDisplay.setMap(this.map);
+
     this.mapaCreado = true;
+
 
   }
 
   calculateAndDisplayRoute() {
+    this.cerrarModal();
+
     this.directionsService.route({
       origin: this.start,
       destination: this.end,
-      travelMode: 'DRIVING'
+      travelMode: 'DRIVING',
     }, (response, status) => {
       if (status === 'OK') {
-        var parent = this;
-        this.marker = new google.maps.Marker({
-          title: 'Mi posición',
-          animation: 'DROP',
-          map: this.map,
-          position: {
-            lat: parent.ubicacionActual.latitud,
-            lng: parent.ubicacionActual.longitud
-          }
-        });
 
         this.directionsDisplay.setDirections(response);
       } else {
@@ -290,9 +273,76 @@ export class MapaComponent {
     });
   }
 
+  mostrarCardCrearRuta(){
+   this.mostrarInvitarUsuarios = false;
+   this.mostrarPersonalizarMapa = false;
 
+   if(this.mostrarCrearRuta){
+    this.cambiarColorFondoCardActivo("none");
+    this.mostrarCrearRuta = false;
+  }
+  else
+  {
+    this.cambiarColorFondoCardActivo("cardCrearRuta");
+    this.mostrarCrearRuta = true;
+  }
+  }
 
+  mostrarCardInvitarUsuarios(){
+    this.mostrarPersonalizarMapa = false;
+    this.mostrarCrearRuta = false;
 
+    if(this.mostrarInvitarUsuarios){
+      this.cambiarColorFondoCardActivo("none");
+      this.mostrarInvitarUsuarios = false;
+    }
+    else
+    {
+      this.cambiarColorFondoCardActivo("cardinvitarUsuarios");
+      this.mostrarInvitarUsuarios = true;
+    }
+   }
 
+   mostrarCardPersonalizarMapa(){
+    this.mostrarInvitarUsuarios = false;
+    this.mostrarCrearRuta = false
 
+    if(this.mostrarPersonalizarMapa){
+      this.cambiarColorFondoCardActivo("none");
+      this.mostrarPersonalizarMapa = false;
+    }
+    else
+    {
+      this.cambiarColorFondoCardActivo("cardpersonalizarMapa");
+      this.mostrarPersonalizarMapa = true;
+    }
+   }
+
+   cerrarModal(){
+    this.mostrarInvitarUsuarios = false;
+    this.mostrarCrearRuta = false
+    this.mostrarPersonalizarMapa = false;
+   }
+
+   mostrarToast(mensaje){
+     this.cerrarModal();
+     let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
+   }
+
+   cambiarColorFondoCardActivo(cardActivo){
+    document.getElementById("cardCrearRuta").style.removeProperty("background-color");
+    document.getElementById("cardinvitarUsuarios").style.removeProperty("background-color");
+    document.getElementById("cardpersonalizarMapa").style.removeProperty("background-color");
+
+    if(cardActivo != "none")
+    {
+      console.log(cardActivo);
+      document.getElementById(cardActivo).style.backgroundColor = "rgb(255, 152, 0)";
+    }
+   }
 }

@@ -1,40 +1,92 @@
 
   
   <ion-content>
-    
-    <div id="floating-panel">
-      <b>Punto inicial: </b>
-      <select  id="start" (change)="calculateAndDisplayRoute()">
-        <option value="chicago, il">Chicago</option>
-        <option value="bogota, mo">Bogota</option>
-        <option value="cali, mo">Cali</option>
-        <option value="oklahoma city, ok">Oklahoma City</option>
-        <option value="amarillo, tx">Amarillo</option>
-        <option value="gallup, nm">Gallup, NM</option>
-        <option value="flagstaff, az">Flagstaff, AZ</option>
-        <option value="winona, az">Winona</option>
-        <option value="kingman, az">Kingman</option>
-        <option value="barstow, ca">Barstow</option>
-        <option value="san bernardino, ca">San Bernardino</option>
-        <option value="los angeles, ca">Los Angeles</option>
-      </select><br>
-      <b>Punto final: </b>
-      <select [(ngModel)]="end" id="end" (change)="calculateAndDisplayRoute()">
-        <option value="chicago, il">Chicago</option>
-        <option value="st louis, mo">St Louis</option>
-        <option value="joplin, mo">Joplin, MO</option>
-        <option value="oklahoma city, ok">Oklahoma City</option>
-        <option value="amarillo, tx">Amarillo</option>
-        <option value="gallup, nm">Gallup, NM</option>
-        <option value="flagstaff, az">Flagstaff, AZ</option>
-        <option value="winona, az">Winona</option>
-        <option value="kingman, az">Kingman</option>
-        <option value="barstow, ca">Barstow</option>
-        <option value="san bernardino, ca">San Bernardino</option>
-        <option value="los angeles, ca">Los Angeles</option>
-      </select>
+      
+    <div>
+        <ion-card>
+                <ion-card id="cardCrearRuta" class="CardOpcionMapa" (click)="mostrarCardCrearRuta()">
+                    <ion-icon class="estiloOpcionesMapa" ios="ios-map" md="md-map"></ion-icon>
+                </ion-card>
+                <ion-card id="cardinvitarUsuarios" class="CardOpcionMapa" style="margin-left: -6px;" (click)="mostrarCardInvitarUsuarios()">
+                    <ion-icon class="estiloOpcionesMapa" ios="ios-people" md="md-people"></ion-icon>
+                </ion-card>
+                <ion-card id="cardpersonalizarMapa" class="CardOpcionMapa" style="margin-left: -6px;" (click)="mostrarCardPersonalizarMapa()">
+                  <ion-icon class="estiloOpcionesMapa" ios="ios-create" md="md-create"></ion-icon>
+                </ion-card>
+        </ion-card>
+
+        <ion-card *ngIf="mostrarCrearRuta">
+            <ion-card-header>
+              ¡Crea una ruta y empieza a rodar!
+            </ion-card-header>
+            <ion-card-content>
+                <div id="floating-panel">
+                    <b>Punto inicial: </b>
+                    <select  id="start" (change)="calculateAndDisplayRoute()">
+                      <option value="chicago, il">Chicago</option>
+                      <option value="bogota, mo">Bogota</option>
+                      <option value="cali, mo">Cali</option>
+                      <option value="oklahoma city, ok">Oklahoma City</option>
+                      <option value="amarillo, tx">Amarillo</option>
+                      <option value="gallup, nm">Gallup, NM</option>
+                      <option value="flagstaff, az">Flagstaff, AZ</option>
+                      <option value="winona, az">Winona</option>
+                      <option value="kingman, az">Kingman</option>
+                      <option value="barstow, ca">Barstow</option>
+                      <option value="san bernardino, ca">San Bernardino</option>
+                      <option value="los angeles, ca">Los Angeles</option>
+                    </select><br>
+                    <b>Punto final: </b>
+                    <select [(ngModel)]="end" id="end" (change)="calculateAndDisplayRoute()">
+                      <option value="chicago, il">Chicago</option>
+                      <option value="st louis, mo">St Louis</option>
+                      <option value="joplin, mo">Joplin, MO</option>
+                      <option value="oklahoma city, ok">Oklahoma City</option>
+                      <option value="amarillo, tx">Amarillo</option>
+                      <option value="gallup, nm">Gallup, NM</option>
+                      <option value="flagstaff, az">Flagstaff, AZ</option>
+                      <option value="winona, az">Winona</option>
+                      <option value="kingman, az">Kingman</option>
+                      <option value="barstow, ca">Barstow</option>
+                      <option value="san bernardino, ca">San Bernardino</option>
+                      <option value="los angeles, ca">Los Angeles</option>
+                    </select>
+                    </div>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card *ngIf="mostrarInvitarUsuarios">
+            <ion-card-header>
+              ¡Puedes invitar a tus amigos que se encuentren en linea!
+            </ion-card-header>
+            <ion-card-content>
+              <UsuariosOnline-component (usuarioCreado)="mostrarToast('Se ha enviado la invitación correctamente')"></UsuariosOnline-component>
+            </ion-card-content>
+        </ion-card>
+       
+
+        <ion-card [ngStyle]="{'display': mostrarPersonalizarMapa? 'block' : 'none'}">
+            <ion-card-header>
+              ¡Puedes personalizar tu mapa como mejor prefieras!
+            </ion-card-header>
+            <ion-card-content>
+                <div id="style-selector-control"  class="map-control">
+                   Estilos de mapa:
+                    <select [(ngModel)]="estiloMapaSeleccion" (change)="cerrarModal()" id="style-selector" class="selector-control">
+                      <option value="defecto" >Por defecto</option>
+                      <option value="plateado">Plata</option>
+                      <option value="noche">Noche</option>
+                      <option value="retro" >Retro</option>
+                      <option value="oculto">Oculto</option>
+                    </select>
+                  </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
+    <div id="modal" [ngStyle]="{'display': mostrarCrearRuta || mostrarInvitarUsuarios || mostrarPersonalizarMapa? 'block' : 'none'}"></div>
+      <div id="contMapa" class="contenedorMapa">
+          <div #map id="map"></div>
       </div>
-      <UsuariosOnline-component></UsuariosOnline-component>
-      <div #map id="map"></div>
+
   </ion-content>
   

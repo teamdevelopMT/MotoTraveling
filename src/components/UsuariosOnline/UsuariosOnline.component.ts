@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { IUsuario } from './../../Interfaces/IUsuario';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -12,7 +12,7 @@ import { Storage } from '@ionic/storage';
 })
 export class UsuariosOnlineComponent {
  listaUsuariosOnline : IUsuario[];
- 
+ @Output() usuarioCreado = new EventEmitter(); 
  nombreUsuarioSession : string;
 
   constructor(private afDB: AngularFireDatabase, public alertCtrl: AlertController,private storage: Storage) {
@@ -25,7 +25,7 @@ export class UsuariosOnlineComponent {
         const resultadoConsultaFire = this.afDB.list('usuarios').valueChanges();
 
         resultadoConsultaFire.subscribe(resp =>{
-            this.listaUsuariosOnline = (resp as IUsuario[]).filter(filtro => filtro.estadoConexion == true);
+            this.listaUsuariosOnline = (resp as IUsuario[]).filter(filtro => filtro.estadoConexion);
             
         });
 
@@ -68,6 +68,7 @@ crearInvitacionMapa(usuarioInvitado, ruta, usuarioCreadorRuta){
                 
                   let promesa = new Promise((resolve, reject) => {
                     this.afDB.list('invitacionesRuta/'+usuarioInvitadoIdentidad).push(invitacionRutaDTO).then(res => {
+                      this.usuarioCreado.emit(true);
                       resolve();
                     });
                     

@@ -1,6 +1,31 @@
 
 
 
-<ion-content padding>
-notificaciones
-</ion-content>
+<ion-list>
+        <ion-item-group>
+            <ion-item-divider color="light">Pendientes</ion-item-divider>
+            <ion-item *ngFor="let invitacionPendiente of invitacionesRutaPendientes" (click)="mostrarAlertaConfirmacion(invitacionPendiente)">
+                <ion-thumbnail item-start>
+                    <img src="assets/img/imagen_ruta.jpg">
+                </ion-thumbnail>
+                <h2>{{invitacionPendiente.usuarioInvitacion}}</h2>
+                <p>Te ha invitado a unirte a una nueva ruta</p>
+            </ion-item>
+            <ion-item *ngIf="invitacionesRutaPendientes.length == 0">
+                No tienes invitaciones pendientes
+            </ion-item>
+        </ion-item-group>
+        <ion-item-group>
+                <ion-item-divider color="light">Respondidas</ion-item-divider>
+                <ion-item *ngFor="let invitacionContestadas of invitacionesRutaContestadas">
+                    <ion-thumbnail item-start>
+                        <img src="assets/img/imagen_ruta.jpg">
+                    </ion-thumbnail>
+                    <h2>{{invitacionContestadas.usuarioInvitacion}}</h2>
+                    <p>Te invito a unirte a una nueva ruta , Accion : {{invitacionContestadas.estado}}</p>
+                </ion-item>
+                <ion-item *ngIf="invitacionesRutaContestadas.length == 0">
+                        No tienes invitaciones respondidas
+                    </ion-item>
+            </ion-item-group>
+</ion-list>

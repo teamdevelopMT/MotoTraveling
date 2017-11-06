@@ -32,9 +32,12 @@ import { MapaComponent } from '../../../Components/Mapa/Mapa.component'
 })
 export class NotificacionesPage {
 
-  invitacionesRuta: Array<invitacionesRuta> = new Array<invitacionesRuta>();
+  
+  invitacionesRutaPendientes: Array<invitacionesRuta> = new Array<invitacionesRuta>();
+  invitacionesRutaContestadas: Array<invitacionesRuta> = new Array<invitacionesRuta>();
   rutaUsuario: rutaUsuarios;
   rootPage: any;
+  nombreUsuarioSession : string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -45,19 +48,15 @@ export class NotificacionesPage {
 
    
     /*Subscripcion de invitaciones*/
-    storage.get('nombreUsuario').then((val) => {
+    storage.get('nombreUsuario').then((nombreUsuario) => {
+      this.nombreUsuarioSession = nombreUsuario;
     let promesa = new Promise((resolve, reject) => {
-      const resultadoConsultaFire = this.afDB.list('invitacionesRuta/'+val).valueChanges();
-
+      const resultadoConsultaFire = this.afDB.list('invitacionesRuta/'+this.nombreUsuarioSession).valueChanges();
+      var fechaActual = new Date();
+      
       resultadoConsultaFire.subscribe(resp =>{
-          this.invitacionesRuta = (resp as Array<invitacionesRuta>);
-
-          if(this.invitacionesRuta!= null)
-          {
-            this.invitacionesRuta.forEach(inivitacion => {
-                console.log(inivitacion);
-            });
-          }
+          this.invitacionesRutaPendientes = (resp as Array<invitacionesRuta>).filter(filtro => filtro.estado == "pendiente");
+          this.invitacionesRutaContestadas = (resp as Array<invitacionesRuta>).filter(filtro => filtro.estado != "pendiente");
         });
       });
 
@@ -72,8 +71,6 @@ export class NotificacionesPage {
 
   mostrarAlertaConfirmacion(invitacionRuta) {
     
-        this.storage.get('nombreUsuario').then(nombreUsuarioSession => {
-    
           const alert = this.alertCtrl.create({
             title: 'Confirmacion de ubicacion',
             message: 'Tu amigo ' + invitacionRuta.usuarioInvitacion + ' te acaba de invitar a una ruta. ¿desea aceptar la invitacion?',
@@ -82,23 +79,23 @@ export class NotificacionesPage {
                 text: 'Rechazar',
                 role: 'cancel',
                 handler: () => {
-                  invitacionRuta.estado = "Rechazada";
-                  this.afDB.object('invitacionesRuta/' + nombreUsuarioSession).update(invitacionRuta);
+                  this.afDB.object('invitacionesRuta/' + this.nombreUsuarioSession+'/'+invitacionRuta.$key)
+                  .update({ estado: "Rechazada"}); 
                 }
               },
               {
                 text: 'Aceptar',
                 handler: () => {
                   invitacionRuta.estado = "Aceptada";
-                  this.afDB.object('invitacionesRuta/' + nombreUsuarioSession).update(invitacionRuta);
+                  this.afDB.object('invitacionesRuta/' + this.nombreUsuarioSession).update(invitacionRuta);
     
                   this.rutaUsuario = new rutaUsuarios();
                   this.rutaUsuario.latitud = "0";
                   this.rutaUsuario.longitud = "0";
-                  this.rutaUsuario.nombre = nombreUsuarioSession;
+                  this.rutaUsuario.nombre = this.nombreUsuarioSession;
     
                   let promesa = new Promise((resolve, reject) => {
-                    this.afDB.list('rutas/josedaniel9_5hotmailcom/rutaUsuarios').set(nombreUsuarioSession, this.rutaUsuario).then(res => {
+                    this.afDB.list('rutas/josedaniel9_5hotmailcom/rutaUsuarios').set(this.nombreUsuarioSession, this.rutaUsuario).then(res => {
                       this.rootPage = RutasPage;
                       resolve();
                     }).catch(err => {
@@ -112,7 +109,6 @@ export class NotificacionesPage {
           });
           alert.present();
     
-        });
       }
 
 }
