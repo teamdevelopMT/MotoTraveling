@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController, Platform, ToastController } from 'ionic-angular';
 
 import { rutaUsuarios } from './../../../Interfaces/rutaUsuarios';
 import { invitacionesRuta } from './../../../Interfaces/invitacionesRuta';
@@ -37,14 +37,17 @@ export class NotificacionesPage {
   invitacionesRutaContestadas: Array<invitacionesRuta> = new Array<invitacionesRuta>();
   rutaUsuario: rutaUsuarios;
   rootPage: any;
+  paginaRuta : RutasPage;
   nombreUsuarioSession : string;
 
-  constructor(public navCtrl: NavController,
+  constructor(
     public navParams: NavParams,
     private _fireAuth: AngularFireAuth,
     private storage: Storage,
     private afDB: AngularFireDatabase,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public navCtrl: NavController,
+    public toastCtrl: ToastController) {
 
    
     /*Subscripcion de invitaciones*/
@@ -64,10 +67,6 @@ export class NotificacionesPage {
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NotificacionesPage');
-  }
-
 
   mostrarAlertaConfirmacion(invitacionRuta) {
     
@@ -79,7 +78,7 @@ export class NotificacionesPage {
                 text: 'Rechazar',
                 role: 'cancel',
                 handler: () => {
-                  this.afDB.object('invitacionesRuta/' + this.nombreUsuarioSession+'/'+invitacionRuta.$key)
+                  this.afDB.object('invitacionesRuta/' + this.nombreUsuarioSession+'/'+this.nombreUsuarioSession+invitacionRuta.ruta)
                   .update({ estado: "Rechazada"}); 
                 }
               },
@@ -87,7 +86,8 @@ export class NotificacionesPage {
                 text: 'Aceptar',
                 handler: () => {
                   invitacionRuta.estado = "Aceptada";
-                  this.afDB.object('invitacionesRuta/' + this.nombreUsuarioSession).update(invitacionRuta);
+                  this.afDB.object('invitacionesRuta/' + this.nombreUsuarioSession+'/'+this.nombreUsuarioSession+invitacionRuta.ruta)
+                  .update({ estado: "Aceptada"}); 
     
                   this.rutaUsuario = new rutaUsuarios();
                   this.rutaUsuario.latitud = "0";
@@ -96,7 +96,8 @@ export class NotificacionesPage {
     
                   let promesa = new Promise((resolve, reject) => {
                     this.afDB.list('rutas/josedaniel9_5hotmailcom/rutaUsuarios').set(this.nombreUsuarioSession, this.rutaUsuario).then(res => {
-                      this.rootPage = RutasPage;
+                      this.mostrarToast('Invitación aceptada correctamente');
+                      
                       resolve();
                     }).catch(err => {
                       console.error(err);
@@ -109,6 +110,16 @@ export class NotificacionesPage {
           });
           alert.present();
     
+      }
+
+
+      mostrarToast(mensaje){
+        let toast = this.toastCtrl.create({
+         message: mensaje,
+         duration: 3000,
+         position: 'top'
+       });
+       toast.present();
       }
 
 }

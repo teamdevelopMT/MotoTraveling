@@ -106,11 +106,11 @@ export class MapaComponent {
 
 
                             var image = new google.maps.MarkerImage(
-                              'assets/img/moto_animada.GIF',
-                              new google.maps.Size(100, 100),
+                              'assets/img/moto_250.PNG',
+                              new google.maps.Size(85, 85),
                               new google.maps.Point(0, 0),
                               new google.maps.Point(17, 34),
-                              new google.maps.Size(80, 80));
+                              new google.maps.Size(60, 60));
                               
 
                                 this.marker = new google.maps.Marker({
@@ -207,17 +207,6 @@ export class MapaComponent {
 
             this.afDB.object('rutas/josedaniel9_5hotmailcom/rutaUsuarios/'+val).update(parent.rutaUsuario);
 
-
-
-        }
-        else
-        {
-            //Si se abrio el mapa por solitario se obtiene y actualiza la ubicacion en los datos generales del usuario
-            parent.ubicacionActualGuardar.latitud = parseFloat(data.coords.latitude.toString());
-            parent.ubicacionActualGuardar.longitud = parseFloat(data.coords.longitude.toString());
-            parent.ubicacionActualGuardar.fechaUltimaUbicacion = new Date().toString();
-            
-            this.afDB.object('ubicacionUsuarios/'+val).update(parent.ubicacionActualGuardar);
         }
       });
     });
@@ -258,10 +247,11 @@ export class MapaComponent {
 
   calculateAndDisplayRoute() {
     this.cerrarModal();
-
+    var latlng = new google.maps.LatLng(parseFloat("4.6097100"), parseFloat("-74.0817500"));
+    var latlngdes = new google.maps.LatLng(parseFloat("6.217"), parseFloat("-75.567"));
     this.directionsService.route({
-      origin: this.start,
-      destination: this.end,
+      origin: latlng,
+      destination: latlngdes,
       travelMode: 'DRIVING',
     }, (response, status) => {
       if (status === 'OK') {
@@ -278,11 +268,13 @@ export class MapaComponent {
    this.mostrarPersonalizarMapa = false;
 
    if(this.mostrarCrearRuta){
+    this.aplicarEstilosUbicacionActual(false);
     this.cambiarColorFondoCardActivo("none");
     this.mostrarCrearRuta = false;
   }
   else
   {
+    this.aplicarEstilosUbicacionActual(true);
     this.cambiarColorFondoCardActivo("cardCrearRuta");
     this.mostrarCrearRuta = true;
   }
@@ -293,11 +285,13 @@ export class MapaComponent {
     this.mostrarCrearRuta = false;
 
     if(this.mostrarInvitarUsuarios){
+      this.aplicarEstilosUbicacionActual(false);
       this.cambiarColorFondoCardActivo("none");
       this.mostrarInvitarUsuarios = false;
     }
     else
     {
+      this.aplicarEstilosUbicacionActual(true);
       this.cambiarColorFondoCardActivo("cardinvitarUsuarios");
       this.mostrarInvitarUsuarios = true;
     }
@@ -308,17 +302,21 @@ export class MapaComponent {
     this.mostrarCrearRuta = false
 
     if(this.mostrarPersonalizarMapa){
+      this.aplicarEstilosUbicacionActual(false);
       this.cambiarColorFondoCardActivo("none");
       this.mostrarPersonalizarMapa = false;
     }
     else
     {
+      this.aplicarEstilosUbicacionActual(true);
       this.cambiarColorFondoCardActivo("cardpersonalizarMapa");
       this.mostrarPersonalizarMapa = true;
     }
    }
 
    cerrarModal(){
+    this.aplicarEstilosUbicacionActual(false);
+    this.cambiarColorFondoCardActivo("none");
     this.mostrarInvitarUsuarios = false;
     this.mostrarCrearRuta = false
     this.mostrarPersonalizarMapa = false;
@@ -344,5 +342,46 @@ export class MapaComponent {
       console.log(cardActivo);
       document.getElementById(cardActivo).style.backgroundColor = "rgb(255, 152, 0)";
     }
+   }
+
+
+   validarRespuestaInvitacionUsuario(respuestaInvitacionUsuario)
+   {
+        if(respuestaInvitacionUsuario)
+        {
+            this.mostrarToast('Se ha enviado la invitacion correctamente');
+        }
+        else
+        {
+            this.mostrarToast('El usuario ya aceptado la invitación');
+        }
+   }
+
+   centrarUbicacion()
+   {
+    var latlng = new google.maps.LatLng(parseFloat(this.rutaUsuario.latitud), parseFloat(this.rutaUsuario.longitud));
+    this.map.setOptions({
+        center : latlng,
+        zoom : 19
+    });
+   }
+
+
+   aplicarEstilosUbicacionActual(modalAbierta)
+   {
+    var divubicacionActual = document.getElementById("ubicacionActual"); 
+     if(modalAbierta)
+     {
+      divubicacionActual.style.position = "relative";
+      divubicacionActual.style.top = "120px";
+      divubicacionActual.style.left = "1%";
+     }
+     else
+     {
+      divubicacionActual.style.position = "fixed";
+      divubicacionActual.style.top = "150px";
+      divubicacionActual.style.left = "5%";
+     }
+    
    }
 }
