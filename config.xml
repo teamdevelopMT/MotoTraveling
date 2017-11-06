@@ -104,4 +104,7 @@
     <plugin name="com.unarin.cordova.beacon" spec="~3.5.2" />
     <plugin name="cordova-plugin-gyroscope" spec="^0.1.4" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1" />
+    <plugin name="com.synconset.imagepicker" spec="~2.1.8">
+        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="Galeria de imagenes" />
+    </plugin>
 </widget>

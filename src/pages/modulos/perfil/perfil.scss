@@ -1,3 +1,38 @@
 page-perfil {
-
+  .toolbar-title,
+  .back-button {
+    color: #212121 !important;
+  }
+  .fondo-perfil {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/moto-traveling.appspot.com/o/Moto%20Traveling%2Ffondo-perfil.jpg?alt=media&token=ffc5ee5f-f4fb-4c00-9980-5820116f4dcf');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    position: relative;
+    height: 160px;
+   
+  }
+  .nombre-perfil {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 42%;
+    color: white;
+    padding: 5px 15px;
+    
+   
+  }
+  .nombre-perfil img {
+    margin-right: 5px;
+    border: 2px solid #FF9800;
+    background-color: #ffffff !important;
+  }
+  .main-content {
+    top:170px;
+    background-color: white;
+    position: absolute;
+    width: 100%;
+   
+  }
 }
