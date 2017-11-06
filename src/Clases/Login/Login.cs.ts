@@ -1,6 +1,7 @@
 import { ILogin } from "../../Interfaces/ILogin";
 import { Platform } from "ionic-angular";
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app'
 import { Injectable } from '@angular/core';
 import { IUsuario } from '../../Interfaces/IUsuario'
@@ -22,7 +23,8 @@ export class Login {
         private facebook: Facebook,
         private google: GooglePlus,
         private storage: Storage,
-        private usuarios: Usuarios) {
+        private usuarios: Usuarios,
+        private afDB: AngularFireDatabase) {
     }
 
     RegistrarUsuario(datos: ILogin) {
@@ -58,6 +60,10 @@ export class Login {
                 var nombreUsuario = usuario.correo.replace(/\@/g, '');
                 nombreUsuario = nombreUsuario.replace(/\./g, '');
                 this.storage.set("nombreUsuario", nombreUsuario);
+
+                this.afDB.object('usuarios/' + nombreUsuario)
+                .update({ estadoConexion: true});
+
                 resolve();
             }).catch(err => {
                 console.log(err);
@@ -69,9 +75,15 @@ export class Login {
 
     CerrarSesion() {
         let promise = new Promise((resolve, reject) => {
+            this.storage.get('nombreUsuario').then((nombreUsu) => {
+
+            this.afDB.object('usuarios/' + nombreUsu)
+            .update({ estadoConexion: false}); 
+
             this.afAuth.auth.signOut().then(res => {
                 console.log(res);
                 resolve();
+            });
 
             }).catch(err => {
                 console.error(err);
@@ -102,6 +114,10 @@ export class Login {
                         }
 
                         this.usuarios.CrearUsuarios(usuario).then(res => {
+
+                            this.afDB.object('usuarios/' + usuario.idUsuario)
+                            .update({ estadoConexion: true});
+
                             resolve();
                         });
 
@@ -122,6 +138,10 @@ export class Login {
                     }
 
                     this.usuarios.CrearUsuarios(usuario).then(res => {
+
+                        this.afDB.object('usuarios/' + usuario.idUsuario)
+                        .update({ estadoConexion: true});
+
                         resolve();
                     });
 
@@ -155,6 +175,10 @@ export class Login {
                             estadoConexion: true
                         }
                         this.usuarios.CrearUsuarios(usuario).then(res => {
+
+                            this.afDB.object('usuarios/' + usuario.idUsuario)
+                            .update({ estadoConexion: true});
+
                             resolve();
                         });
                     }).catch(err => {
@@ -179,6 +203,10 @@ export class Login {
                     }
 
                     this.usuarios.CrearUsuarios(usuario).then(res => {
+
+                        this.afDB.object('usuarios/' + usuario.idUsuario)
+                        .update({ estadoConexion: true});
+                        
                         resolve();
                     });
 

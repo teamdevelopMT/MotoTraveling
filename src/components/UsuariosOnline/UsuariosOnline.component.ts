@@ -15,6 +15,9 @@ export class UsuariosOnlineComponent {
  @Output() usuarioCreado = new EventEmitter(); 
  nombreUsuarioSession : string;
 
+ result : any;
+ resultadoConsultaFire: any
+
   constructor(private afDB: AngularFireDatabase, public alertCtrl: AlertController,private storage: Storage) {
 
     storage.get("nombreUsuario").then(respuesta => {
@@ -37,7 +40,7 @@ export class UsuariosOnlineComponent {
 
 crearInvitacionMapa(usuarioInvitado, ruta, usuarioCreadorRuta){
 
-    var usuarioInvitadoIdentidad = usuarioInvitado.replace("@","").replace(".","");
+    var usuarioInvitadoIdentidad = usuarioInvitado.replace(/\@/g, '').replace(/\./g, '');
 
         const alert = this.alertCtrl.create({
           title: 'Confirmacion de invitacion',
@@ -104,6 +107,8 @@ crearInvitacionMapa(usuarioInvitado, ruta, usuarioCreadorRuta){
         alert.present();
       }
 
-
+      ngDestroy(){
+              this.resultadoConsultaFire.unsubscribe();
+        }
     
 }

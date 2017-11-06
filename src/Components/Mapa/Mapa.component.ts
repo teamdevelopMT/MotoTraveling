@@ -22,6 +22,7 @@ import {
  /*Estilo Mapa*/
  import { estilosMapa } from "../../Clases/Mapa/estilosMapa";
 
+
 declare var google;
 
 
@@ -44,8 +45,8 @@ export class MapaComponent {
 
   metodoMapa = "ruta";
 
-  start="chicago, il";
-  end = "st louis, mo";
+  origen="";
+  destino = "";
 
   estiloMapaSeleccion = "defecto";
 
@@ -60,6 +61,7 @@ export class MapaComponent {
   mapaCreado: boolean = false;
   marcadoresCreados : boolean = false;
   objRutasCasteoFire : AngularFireObject<rutas>;
+  
   constructor(public navCtrl: NavController, public toastCtrl: ToastController, private geolocation: Geolocation, private afDB: AngularFireDatabase, private storage: Storage) {
     
     const watch = this.geolocation.watchPosition();
@@ -245,20 +247,18 @@ export class MapaComponent {
 
   }
 
-  calculateAndDisplayRoute() {
+  calcularRuta() {
     this.cerrarModal();
-    var latlng = new google.maps.LatLng(parseFloat("4.6097100"), parseFloat("-74.0817500"));
-    var latlngdes = new google.maps.LatLng(parseFloat("6.217"), parseFloat("-75.567"));
     this.directionsService.route({
-      origin: latlng,
-      destination: latlngdes,
+      origin: this.origen,
+      destination: this.destino,
       travelMode: 'DRIVING',
     }, (response, status) => {
       if (status === 'OK') {
 
         this.directionsDisplay.setDirections(response);
       } else {
-        window.alert('Directions request failed due to ' + status);
+        this.mostrarToast('No hemos encontrado esa ubicación');
       }
     });
   }
@@ -384,4 +384,6 @@ export class MapaComponent {
      }
     
    }
+
+
 }

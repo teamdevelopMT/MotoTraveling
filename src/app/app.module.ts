@@ -63,6 +63,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { FacebookProvider } from '../providers/facebook/facebook';
 import { Gyroscope } from '@ionic-native/gyroscope';
 
+import { GeoCoderProvider } from '../providers/googleMaps-GeoCoder/GeoCoder';
 import { GoogleProvider } from '../providers/google/google';
 import { CerrarSesionProvider } from '../providers/cerrar-sesion/cerrar-sesion';
 import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
@@ -149,6 +150,7 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
     CerrarSesionProvider,
     CrearUsuarioProvider,
     LoginProvider,
+    GeoCoderProvider,
     Gyroscope,
     Camera,
     ImagePicker,
