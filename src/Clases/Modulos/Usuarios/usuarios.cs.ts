@@ -53,11 +53,11 @@ export class Usuarios {
         let promise = new Promise((resolve, reject) => {
             let usuario: Observable<IUsuario> = this.afDB.object('usuarios/' + idUsuario).valueChanges();
 
-            usuario.subscribe(res => {
+           let usuarioData = usuario.subscribe(res => {
                 let usuarios :IUsuario = res;
-                console.log(usuarios);
+                usuarioData.unsubscribe();
                 resolve(usuarios);
-            })  
+            })   
         });
 
         return promise;

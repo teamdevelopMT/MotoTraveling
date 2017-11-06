@@ -24,10 +24,11 @@ export class PerfilPage {
     this.storage.get('nombreUsuario').then(res => {
       this.usuarios.ConsultarUsuario(res).then(usu => {
         if (usu["foto"] == '')
-          usu["foto"] = "https://firebasestorage.googleapis.com/v0/b/moto-traveling.appspot.com/o/Moto%20Traveling%2Ffoto-perfil-default.jpg?alt=media&token=9f9a8c03-d662-424a-9d26-70bf6b03a66f";
+          usu["foto"] = "https://firebasestorage.googleapis.com/v0/b/moto-traveling.appspot.com/o/Moto%20Traveling%2Fperfil-motocilista.png?alt=media&token=a30c4856-aff4-4c98-b4de-86e0b3ae9805";
 
         this.usuario = usu;
       })
+
     });
 
   }

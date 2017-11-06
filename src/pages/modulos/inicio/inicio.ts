@@ -1,54 +1,34 @@
 
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
-
-import { Gyroscope, GyroscopeOrientation, GyroscopeOptions } from '@ionic-native/gyroscope';
+import { IonicPage, NavController, NavParams, Platform, ModalController } from 'ionic-angular';
+import { NormalPage } from "../inicio/post/normal/normal";
+import { Observable } from 'rxjs/Observable';
+import { Normal } from "../../../Clases/Modulos/Posts/Normal.cs";
 @IonicPage()
 @Component({
   selector: 'page-inicio',
   templateUrl: 'inicio.html',
 })
 export class InicioPage {
-  options: GyroscopeOptions = {
-    frequency: 1000
-  }
 
-  orientacionX: number;
-  oritentacionY: number;
-  orientationZ: number;
-  tiempo: number;
-
+  posts: Observable<any[]>
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private gyroscope: Gyroscope,
-    private platfrom: Platform) {
-
+    private platfrom: Platform,
+    private modalCtrl: ModalController,
+    private normal: Normal) {
+    this.posts = this.normal.ConsultarPost();
+    console.log(this.posts);
+  }
+  PostNormal() {
+    let modal = this.modalCtrl.create(NormalPage);
+    modal.present();
   }
 
-  iniciarCarrera() {
-
-    if (this.platfrom.is('cordova')) {
-      this.gyroscope.getCurrent(this.options)
-        .then((orientation: GyroscopeOrientation) => {
-          this.orientacionX = orientation.x;
-          this.oritentacionY = orientation.y;
-          this.orientationZ = orientation.z;
-          this.tiempo = orientation.timestamp;
-        })
-        .catch()
+  ConsultarPost() {
 
 
-      this.gyroscope.watch()
-        .subscribe((orientation: GyroscopeOrientation) => {
-          this.orientacionX = orientation.x;
-          this.oritentacionY = orientation.y;
-          this.orientationZ = orientation.z;
-          this.tiempo = orientation.timestamp;
-        });
-
-    }
   }
-
 
 }

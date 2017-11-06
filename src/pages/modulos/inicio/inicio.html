@@ -1,16 +1,59 @@
-<ion-content padding  >
+<ion-content>
+  <div class="post">
+    <ion-card *ngFor="let post of posts | async">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="{{(post.usuario |async)?.foto}}">
+        </ion-avatar>
+        <h2>{{(post.usuario | async)?.nombre}}</h2>
+        <p>{{post.fecha}}</p>
+      </ion-item>
+      <img [src]="post.foto">
+      <ion-card-content>
+        <p>{{post.descripcion}}</p>
+      </ion-card-content>
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-left clear small>
+            <ion-icon name="thumbs-up"></ion-icon>
+            <div>0 Likes</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-left clear small>
+            <ion-icon name="text"></ion-icon>
+            <div>0 Comments</div>
+          </button>
+        </ion-col>
+        <ion-col center text-center>
+          <ion-note>
+            11h ago
+          </ion-note>
+        </ion-col>
+      </ion-row>
+    </ion-card>
 
-  <h1 color="moto">Hola bienvenido </h1>
+
+  </div>
 
 
-
-  <ion-fab bottom right >
-    <button ion-fab color="dark"><ion-icon name="add" color="moto"></ion-icon></button>
+  <ion-fab bottom right>
+    <button ion-fab color="dark">
+      <ion-icon name="add" color="moto"></ion-icon>
+    </button>
     <ion-fab-list side="top">
-      <button ion-fab color="dark"><ion-icon name="logo-facebook"></ion-icon></button>
-      <button ion-fab color="dark"><ion-icon name="logo-twitter"></ion-icon></button>
-      <button ion-fab color="dark"><ion-icon name="logo-vimeo"></ion-icon></button>
-      <button ion-fab color="dark"><ion-icon name="logo-googleplus"></ion-icon></button>
+      <button ion-fab color="primary" (click)="PostNormal()">
+        <ion-icon name="ios-paper"></ion-icon>
+      </button>
+      <button ion-fab color="secondary">
+        <ion-icon name="ios-pricetag"></ion-icon>
+      </button>
+      <button ion-fab color="moto">
+        <ion-icon name="ios-pulse"></ion-icon>
+      </button>
+      <button ion-fab color="danger">
+        <ion-icon name="ios-nuclear"></ion-icon>
+      </button>
     </ion-fab-list>
   </ion-fab>
 </ion-content>

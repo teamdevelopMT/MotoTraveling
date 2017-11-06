@@ -4,10 +4,11 @@ import { ActionSheetController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Storage } from '@ionic/storage';
-
+import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 import { IUsuario } from '../../../Interfaces/IUsuario'
 import { Usuarios } from "../../../Clases/Modulos/Usuarios/usuarios.cs";
 import { TabsPage } from "../../tabs/tabs";
+
 
 
 
@@ -23,7 +24,7 @@ export class RegistroUsuarioPage implements AfterViewInit {
 
   formulario: FormGroup;
   titulo: string = "Registro de perfil";
-  imgPreview: string = "https://firebasestorage.googleapis.com/v0/b/moto-traveling.appspot.com/o/Moto%20Traveling%2Ffoto-perfil-default.jpg?alt=media&token=9f9a8c03-d662-424a-9d26-70bf6b03a66f";
+  imgPreview: string = "https://firebasestorage.googleapis.com/v0/b/moto-traveling.appspot.com/o/Moto%20Traveling%2Fperfil-motocilista.png?alt=media&token=a30c4856-aff4-4c98-b4de-86e0b3ae9805";
   foto: string;
   nombre: string;
 
@@ -33,7 +34,8 @@ export class RegistroUsuarioPage implements AfterViewInit {
     public actionSheetCtrl: ActionSheetController,
     private camera: Camera,
     private storage: Storage,
-    private usuarios: Usuarios) {
+    private usuarios: Usuarios,
+    private imagePicker: ImagePicker) {
 
     this.formulario = this.fb.group({
       nombre: ['', [Validators.required, Validators.pattern(/^([a-zA-Zñáéíóú]+[\s]*){4,25}$/)]]
@@ -62,7 +64,7 @@ export class RegistroUsuarioPage implements AfterViewInit {
         idUsuario: idUsuario,
         correo: res,
         nombre: this.nombre,
-        foto: this.foto == undefined ? '' : this.foto,
+        foto: this.foto == undefined ? 'https://firebasestorage.googleapis.com/v0/b/moto-traveling.appspot.com/o/Moto%20Traveling%2Fperfil-motocilista.png?alt=media&token=a30c4856-aff4-4c98-b4de-86e0b3ae9805' : this.foto,
         estadoConexion: true
       }
       this.usuarios.CrearUsuarios(usuario).then(res => {
@@ -90,7 +92,7 @@ export class RegistroUsuarioPage implements AfterViewInit {
           }
         }, {
           text: 'Galeria',
-          icon: 'ios-image',
+          icon: 'ios-images',
           cssClass: 'galeria',
           handler: () => {
 
@@ -119,6 +121,26 @@ export class RegistroUsuarioPage implements AfterViewInit {
     }, (err) => {
       // this.mostrar_mensaje("no se puede mostrar la camara en el navegador");
       console.log("error");
+    });
+
+  }
+
+  Galeria(){
+    let option: ImagePickerOptions = {
+      maximumImagesCount: 1,
+      quality: 50,
+      outputType: 1
+    }
+
+    this.imagePicker.getPictures(option).then((results) => {
+      for (let img of results) {
+        this.imgPreview = 'data:image/jpeg;base64,' + img;
+        this.foto = img;
+        break;
+      }
+
+    }, (err) => {
+
     });
 
   }

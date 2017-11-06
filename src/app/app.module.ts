@@ -42,13 +42,22 @@ import { RegistroPage } from '../pages/Login/registro/registro'
 import { RedesSocialesPage } from "../pages/Login/redes-sociales/redes-sociales";
 import { RecordarContrasenaPage } from "../pages/Login/recordar-contrasena/recordar-contrasena";
 
+//Post
+import { NormalPage } from "../pages/modulos/inicio/post/normal/normal";
+
+
 //clases
 import { Login } from '../Clases/Login/Login.cs'
-import {Usuarios} from '../Clases/Modulos/Usuarios/usuarios.cs'
+import { Usuarios } from '../Clases/Modulos/Usuarios/usuarios.cs'
+import { Normal } from "../Clases/Modulos/Posts/Normal.cs";
+
 //Components
 import { MapaComponent } from "../Components/Mapa/Mapa.component";
 import { EncabezadoComponent } from "../components/encabezado/encabezado";
 import { UsuariosOnlineComponent } from "../Components/UsuariosOnline/UsuariosOnline.component";
+
+//Directivas
+import { ElasticHeaderDirective } from "../directives/elastic-header/elastic-header";
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { FacebookProvider } from '../providers/facebook/facebook';
@@ -57,7 +66,8 @@ import { Gyroscope } from '@ionic-native/gyroscope';
 import { GoogleProvider } from '../providers/google/google';
 import { CerrarSesionProvider } from '../providers/cerrar-sesion/cerrar-sesion';
 import { CrearUsuarioProvider } from '../providers/crear-usuario/crear-usuario';
-import {Camera} from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
 import { LoginProvider } from '../providers/login/login';
 import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
 
@@ -72,6 +82,7 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
     TabsPage,
     RegistroUsuarioPage,
     InicioPage,
+    NormalPage,
     RutasPage,
     NotificacionesPage,
     MapaComponent,
@@ -79,11 +90,12 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
     PerfilPage,
     PrincipalPage,
     MensajesPage,
-    UsuariosOnlineComponent
-   
+    UsuariosOnlineComponent,
+    ElasticHeaderDirective
+
   ],
   imports: [
-  
+
     BrowserModule,
     IonicModule.forRoot(MyApp, {
       platforms: {
@@ -110,6 +122,7 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
     TabsPage,
     RegistroUsuarioPage,
     InicioPage,
+    NormalPage,
     RutasPage,
     NotificacionesPage,
     MapaComponent,
@@ -123,6 +136,7 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
     StatusBar,
     Login,
     Usuarios,
+    Normal,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     GoogleMaps,
@@ -137,6 +151,7 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
     LoginProvider,
     Gyroscope,
     Camera,
+    ImagePicker,
     SubirFotosProvider
   ]
 })
