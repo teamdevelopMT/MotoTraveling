@@ -379,7 +379,7 @@ export class MapaComponent {
      else
      {
       divubicacionActual.style.position = "fixed";
-      divubicacionActual.style.top = "150px";
+      divubicacionActual.style.top = "180px";
       divubicacionActual.style.left = "5%";
      }
     

@@ -76,7 +76,6 @@ export class NotificacionesPage {
             buttons: [
               {
                 text: 'Rechazar',
-                role: 'cancel',
                 handler: () => {
                   this.afDB.object('invitacionesRuta/' + this.nombreUsuarioSession+'/'+this.nombreUsuarioSession+invitacionRuta.ruta)
                   .update({ estado: "Rechazada"}); 
@@ -98,6 +97,7 @@ export class NotificacionesPage {
                     this.afDB.list('rutas/josedaniel9_5hotmailcom/rutaUsuarios').set(this.nombreUsuarioSession, this.rutaUsuario).then(res => {
                       this.mostrarToast('Invitación aceptada correctamente');
                       
+                      this.navCtrl.parent.select(1);
                       resolve();
                     }).catch(err => {
                       console.error(err);
