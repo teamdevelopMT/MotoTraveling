@@ -12,7 +12,7 @@
     "ionic:serve": "ionic-app-scripts serve"
   },
   "dependencies": {
-    "@angular/animations": "^5.0.0",
+    "@angular/animations": "^5.0.1",
     "@angular/common": "4.4.3",
     "@angular/compiler": "4.4.3",
     "@angular/compiler-cli": "4.4.3",
@@ -37,6 +37,7 @@
     "@ionic-native/status-bar": "4.3.0",
     "@ionic/storage": "^2.0.1",
     "angularfire2": "^5.0.0-rc.3",
+    "com.synconset.imagepicker": "~2.1.8",
     "com.unarin.cordova.beacon": "~3.5.2",
     "cordova-android": "6.3.0",
     "cordova-android-support-gradle-release": "^1.1.4",
@@ -65,8 +66,7 @@
     "promise-polyfill": "^6.0.2",
     "rxjs": "5.4.3",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.18",
-    "com.synconset.imagepicker": "~2.1.8"
+    "zone.js": "0.8.18"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.0.0",

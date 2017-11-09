@@ -1,6 +1,6 @@
 <ion-content>
   <div class="post">
-    <ion-card *ngFor="let post of posts | async">
+    <ion-card *ngFor="let post of posts | async"  [@itemState]="in">
       <ion-item>
         <ion-avatar item-start>
           <img src="{{(post.usuario |async)?.foto}}">

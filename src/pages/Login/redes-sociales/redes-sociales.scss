@@ -1,31 +1,29 @@
 page-redes-sociales {
   @font-face {
     font-family: 'satisfy';
-    src: url('../../../assets/fonts/Satisfy/Satisfy-Regular.ttf') format('truetype');
+    src: url('../assets/fonts/Satisfy/Satisfy-Regular.ttf');
   }
   h2 {
     font-family: 'satisfy' !important;
-   
   }
-#titulo{
-    width:100%;
+  #titulo {
+    width: 100%;
     position: absolute;
-    top:60px;
-    color:white !important;
+    top: 60px;
+    color: white !important;
     z-index: 999;
-}
-
- .fondo {
-    background-image: url('../../../assets/img/fondo-login.jpg');
+    font-family: 'satisfy' !important;
+  }
+  .fondo {
+    background-image: url('../assets/img/fondo-login.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
-    width:100vw;
+    width: 100vw;
     height: 100vh;
     z-index: 999;
   }
-
- .fondo::after{
+  .fondo::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -37,8 +35,6 @@ page-redes-sociales {
     transition: all 1s;
     -webkit-transition: all 1s;
   }
-
-
   #botones {
     position: absolute !important;
     bottom: 80px;

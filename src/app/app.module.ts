@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
 import { Keyboard } from "@ionic-native/keyboard";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Local Storage
 import { IonicStorageModule } from '@ionic/storage';
@@ -98,6 +99,7 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
   imports: [
 
     BrowserModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(MyApp, {
       platforms: {
         android: {
