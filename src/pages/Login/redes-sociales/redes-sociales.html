@@ -1,15 +1,26 @@
-<ion-content padding>
-  <button ion-button outline item-end icon-left color="facebook" (click)="IniciarSesionFacebook()">
-    <ion-icon name="logo-facebook"></ion-icon>
-    Acceder con facebook
-  </button>
-  <button ion-button outline item-end icon-left color="google" (click)="IniciarSesionGoogle()">
-    <ion-icon name="logo-google" ></ion-icon>
-    Acceder con google
-  </button>
+<ion-content>
+  <div class="fondo">
+    <div id="titulo" text-center>
+      <h2>Moto Traveling</h2>
+    </div>
 
-  <button ion-button outline item-end icon-left [navPush]="registroPage">
-    <ion-icon name="mail"></ion-icon>
-    Acceder con tu email
-  </button>
+    <div id="botones" text-center>
+      <h3>Inicia una nueva aventura</h3>
+
+      <button ion-button icon-only outline color="moto" (click)="IniciarSesionFacebook()">
+        <ion-icon name="logo-facebook"></ion-icon>
+
+      </button>
+      <button ion-button icon-only outline color="moto" (click)="IniciarSesionGoogle()">
+        <ion-icon name="logo-google"></ion-icon>
+      </button>
+
+      <button ion-button icon-only outline color="moto" [navPush]="registroPage">
+        <ion-icon name="mail"></ion-icon>
+
+      </button>
+
+    </div>
+  </div>
+
 </ion-content>
