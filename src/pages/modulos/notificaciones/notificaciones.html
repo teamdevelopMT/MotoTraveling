@@ -1,7 +1,7 @@
 
 
-
-<ion-list>
+<ion-content>
+    <ion-list>
         <ion-item-group>
             <ion-item-divider color="light">Pendientes</ion-item-divider>
             <ion-item *ngFor="let invitacionPendiente of invitacionesRutaPendientes" (click)="mostrarAlertaConfirmacion(invitacionPendiente)">
@@ -29,3 +29,4 @@
                     </ion-item>
             </ion-item-group>
 </ion-list>
+</ion-content>
