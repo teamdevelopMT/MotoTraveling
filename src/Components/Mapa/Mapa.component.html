@@ -20,37 +20,21 @@
               ¡Crea una ruta y empieza a rodar!
             </ion-card-header>
             <ion-card-content>
-                <div id="floating-panel">
-                    <b>Punto inicial: </b>
-                    <select  id="start" (change)="calculateAndDisplayRoute()">
-                      <option value="chicago, il">Chicago</option>
-                      <option value="bogota, mo">Bogota</option>
-                      <option value="cali, mo">Cali</option>
-                      <option value="oklahoma city, ok">Oklahoma City</option>
-                      <option value="amarillo, tx">Amarillo</option>
-                      <option value="gallup, nm">Gallup, NM</option>
-                      <option value="flagstaff, az">Flagstaff, AZ</option>
-                      <option value="winona, az">Winona</option>
-                      <option value="kingman, az">Kingman</option>
-                      <option value="barstow, ca">Barstow</option>
-                      <option value="san bernardino, ca">San Bernardino</option>
-                      <option value="los angeles, ca">Los Angeles</option>
-                    </select><br>
-                    <b>Punto final: </b>
-                    <select [(ngModel)]="end" id="end" (change)="calculateAndDisplayRoute()">
-                      <option value="chicago, il">Chicago</option>
-                      <option value="st louis, mo">St Louis</option>
-                      <option value="joplin, mo">Joplin, MO</option>
-                      <option value="oklahoma city, ok">Oklahoma City</option>
-                      <option value="amarillo, tx">Amarillo</option>
-                      <option value="gallup, nm">Gallup, NM</option>
-                      <option value="flagstaff, az">Flagstaff, AZ</option>
-                      <option value="winona, az">Winona</option>
-                      <option value="kingman, az">Kingman</option>
-                      <option value="barstow, ca">Barstow</option>
-                      <option value="san bernardino, ca">San Bernardino</option>
-                      <option value="los angeles, ca">Los Angeles</option>
-                    </select>
+                  <ion-list>
+                      <ion-item>
+                          <ion-label stacked>Origen:</ion-label>
+                        <ion-input placeholder="Escriba el nombre del lugar de su origen:" [(ngModel)]="origen" type="text"></ion-input>
+                      </ion-item>
+                    
+                      <ion-item>
+                          <ion-label stacked>Destino:</ion-label>
+                        <ion-input placeholder="Escriba el nombre del lugar de su destino:" [(ngModel)]="destino" type="text"></ion-input>
+                      </ion-item>
+                    
+                    </ion-list>
+
+                    <div padding>
+                      <button ion-button style="background-color: rgb(255, 152, 0);" (click)="calcularRuta()" block>Calcular ruta</button>
                     </div>
             </ion-card-content>
         </ion-card>
@@ -60,7 +44,7 @@
               ¡Puedes invitar a tus amigos que se encuentren en linea!
             </ion-card-header>
             <ion-card-content>
-              <UsuariosOnline-component (usuarioCreado)="mostrarToast('Se ha enviado la invitación correctamente')"></UsuariosOnline-component>
+              <UsuariosOnline-component (usuarioCreado)="validarRespuestaInvitacionUsuario($event)"></UsuariosOnline-component>
             </ion-card-content>
         </ion-card>
        
@@ -85,6 +69,11 @@
     </div>
     <div id="modal" [ngStyle]="{'display': mostrarCrearRuta || mostrarInvitarUsuarios || mostrarPersonalizarMapa? 'block' : 'none'}"></div>
       <div id="contMapa" class="contenedorMapa">
+          <div id="ubicacionActual">
+              <button ion-button style="width: 40px; background-color: white;" (click)="centrarUbicacion()">
+              <ion-icon style="font-size: 2.5em; color:blue;" ios="ios-disc" md="md-disc"></ion-icon>
+              </button>
+          </div>
           <div #map id="map"></div>
       </div>
 

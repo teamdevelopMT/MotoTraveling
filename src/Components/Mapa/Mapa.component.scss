@@ -51,4 +51,12 @@ Mapa-component {
     z-index: 1000;
     position: inherit;
   }
+
+  #ubicacionActual
+  {
+   position: fixed;
+   top: 150px;
+   z-index: 900;
+   left: 5%;
+  }
 }

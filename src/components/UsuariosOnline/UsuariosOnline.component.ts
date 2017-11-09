@@ -15,6 +15,9 @@ export class UsuariosOnlineComponent {
  @Output() usuarioCreado = new EventEmitter(); 
  nombreUsuarioSession : string;
 
+ result : any;
+ resultadoConsultaFire: any
+
   constructor(private afDB: AngularFireDatabase, public alertCtrl: AlertController,private storage: Storage) {
 
     storage.get("nombreUsuario").then(respuesta => {
@@ -37,7 +40,7 @@ export class UsuariosOnlineComponent {
 
 crearInvitacionMapa(usuarioInvitado, ruta, usuarioCreadorRuta){
 
-    var usuarioInvitadoIdentidad = usuarioInvitado.replace("@","").replace(".","");
+    var usuarioInvitadoIdentidad = usuarioInvitado.replace(/\@/g, '').replace(/\./g, '');
 
         const alert = this.alertCtrl.create({
           title: 'Confirmacion de invitacion',
@@ -55,24 +58,47 @@ crearInvitacionMapa(usuarioInvitado, ruta, usuarioCreadorRuta){
               handler: () => {
                
                 var list : Array<invitacionesRuta> = new Array<invitacionesRuta>();
-
+                
                 var invitacionRutaDTO : invitacionesRuta = new invitacionesRuta();
-                
-                  invitacionRutaDTO.estado = "pendiente";
-                  invitacionRutaDTO.fecha = new Date().toString();
-                  invitacionRutaDTO.usuarioInvitacion = usuarioCreadorRuta;
-                  invitacionRutaDTO.ruta = ruta;
+                                
+                invitacionRutaDTO.estado = "pendiente";
+                invitacionRutaDTO.fecha = new Date().toString();
+                invitacionRutaDTO.usuarioInvitacion = usuarioCreadorRuta;
+                invitacionRutaDTO.ruta = ruta;
+                                  
+                list.push(invitacionRutaDTO);
 
-                  
-                  list.push(invitacionRutaDTO);
-                
-                  let promesa = new Promise((resolve, reject) => {
-                    this.afDB.list('invitacionesRuta/'+usuarioInvitadoIdentidad).push(invitacionRutaDTO).then(res => {
-                      this.usuarioCreado.emit(true);
-                      resolve();
+                let promesa = new Promise((resolve, reject) => {
+                const result = this.afDB.object('invitacionesRuta/' + usuarioInvitadoIdentidad+"/"+ usuarioInvitadoIdentidad+ruta+'/estado').valueChanges();
+
+                result.subscribe((res) => {
+                  console.log(res);
+                  if (res == null) {
+
+                    this.afDB.list('invitacionesRuta/'+usuarioInvitadoIdentidad).set(usuarioInvitadoIdentidad+invitacionRutaDTO.ruta,invitacionRutaDTO).then(res => {
+                          this.usuarioCreado.emit(true);
+                           resolve();
                     });
+                  } else if (res != "Aceptada") {
+                       this.afDB.list('invitacionesRuta/'+usuarioInvitadoIdentidad).set(usuarioInvitadoIdentidad+invitacionRutaDTO.ruta,invitacionRutaDTO).then(res => {
+                          this.usuarioCreado.emit(true);
+                          resolve();
+                       });
+                    }
+                  else
+                  {
+                       this.usuarioCreado.emit(false);
+                      resolve();
+                  }
+                }, err => {
+                  resolve();
+                  console.error("error" + err);
+                });
+
+              });
+
+                
                     
-                  });
     
               }
             }
@@ -81,6 +107,8 @@ crearInvitacionMapa(usuarioInvitado, ruta, usuarioCreadorRuta){
         alert.present();
       }
 
-
+      ngDestroy(){
+              this.resultadoConsultaFire.unsubscribe();
+        }
     
 }

@@ -17,6 +17,10 @@
     <ion-tab tabIcon="ios-map-outline" [root]="rutas"></ion-tab>
     <ion-tab tabIcon="ios-chatbubbles-outline" [root]="mensajes"></ion-tab>
     <ion-tab tabIcon="ios-pricetags-outline" [root]="tiendas"></ion-tab>
+    <div *ngIf="cantidadInvitacionesRutaPendientes > 0" class="circulo">
+        <label id="lblCantidadInvitacionesPendientes">{{cantidadInvitacionesRutaPendientes}}</label>
+    </div>
     <ion-tab tabIcon="ios-notifications-outline" [root]="notificaciones"></ion-tab>
+    
   </ion-tabs>
 </ion-content>
