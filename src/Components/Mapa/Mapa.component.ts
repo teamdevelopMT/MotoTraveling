@@ -151,7 +151,7 @@ export class MapaComponent {
                             {
 
                               var image = new google.maps.MarkerImage(
-                                'assets/img/moto_animada.GIF',
+                                'assets/img/moto_250.PNG',
                                 new google.maps.Size(100, 100),
                                 new google.maps.Point(0, 0),
                                 new google.maps.Point(17, 34),
