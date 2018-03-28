@@ -14,12 +14,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'rutas.html',
 })
 export class RutasPage {
-
+  validarMapa : boolean = false;
+  flagLeavePage : boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RutasPage');
+
+  ionViewDidEnter(){
+    if(this.flagLeavePage)
+    {
+      this.validarMapa=true;
+    }
+    
+  }
+  ionViewDidLeave(){
+    this.flagLeavePage=true;
+    this.validarMapa=false;
   }
 
 }

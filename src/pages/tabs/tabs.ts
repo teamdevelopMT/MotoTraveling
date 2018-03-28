@@ -36,6 +36,7 @@ export class TabsPage {
   perfil: any = PerfilPage;
   nombreUsuarioSession : string;
   cantidadInvitacionesRutaPendientes: any
+  suscripcionResultadoConsultaFire: any;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,      
@@ -47,22 +48,29 @@ export class TabsPage {
     this.mensajes = MensajesPage;
     this.notificaciones = NotificacionesPage;
 
-
-        /*Subscripcion de invitaciones*/
-        storage.get('nombreUsuario').then((nombreUsuario) => {
-          this.nombreUsuarioSession = nombreUsuario;
-        let promesa = new Promise((resolve, reject) => {
-          const resultadoConsultaFire = this.afDB.list('invitacionesRuta/'+this.nombreUsuarioSession).valueChanges();
-          var fechaActual = new Date();
-          
-          resultadoConsultaFire.subscribe(resp =>{
-              this.cantidadInvitacionesRutaPendientes = (resp as Array<invitacionesRuta>).filter(filtro => filtro.estado == "pendiente").length;
-            });
-          });
-    
-        });
-
   }
+
+  ngOnInit() {
+       /*Subscripcion de invitaciones*/
+       this.storage.get('nombreUsuario').then((nombreUsuario) => {
+        this.nombreUsuarioSession = nombreUsuario;
+      let promesa = new Promise((resolve, reject) => {
+        const resultadoConsultaFire = this.afDB.list('invitacionesRuta/'+this.nombreUsuarioSession).valueChanges();
+        var fechaActual = new Date();
+        
+        this.suscripcionResultadoConsultaFire = resultadoConsultaFire.subscribe(resp =>{
+            this.cantidadInvitacionesRutaPendientes = (resp as Array<invitacionesRuta>).filter(filtro => filtro.estado == "pendiente").length;
+          });
+        });
+  
+      });
+  }
+
+  ngOnDestroy() {
+    this.suscripcionResultadoConsultaFire.unsubscribe();
+}
+
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad TabsPage');
   }

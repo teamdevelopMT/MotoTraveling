@@ -17,6 +17,7 @@ import * as firebase from 'firebase';
 
 //Components
 import { MapaComponent } from '../../../Components/Mapa/Mapa.component'
+import { Subscribe } from '@firebase/util';
 
 /**
  * Generated class for the NotificacionesPage page.
@@ -32,14 +33,14 @@ import { MapaComponent } from '../../../Components/Mapa/Mapa.component'
 })
 export class NotificacionesPage {
 
-  
+  resultadoConsultaFire: any;
   invitacionesRutaPendientes: Array<invitacionesRuta> = new Array<invitacionesRuta>();
   invitacionesRutaContestadas: Array<invitacionesRuta> = new Array<invitacionesRuta>();
   rutaUsuario: rutaUsuarios;
   rootPage: any;
   paginaRuta : RutasPage;
   nombreUsuarioSession : string;
-
+  suscripcionResultadoConsultaFire: any;
   constructor(
     public navParams: NavParams,
     private _fireAuth: AngularFireAuth,
@@ -47,17 +48,21 @@ export class NotificacionesPage {
     private afDB: AngularFireDatabase,
     public alertCtrl: AlertController,
     public navCtrl: NavController,
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController,
+  ) {
 
-   
+  }
+
+
+  ngOnInit() {
     /*Subscripcion de invitaciones*/
-    storage.get('nombreUsuario').then((nombreUsuario) => {
+    this.storage.get('nombreUsuario').then((nombreUsuario) => {
       this.nombreUsuarioSession = nombreUsuario;
     let promesa = new Promise((resolve, reject) => {
-      const resultadoConsultaFire = this.afDB.list('invitacionesRuta/'+this.nombreUsuarioSession).valueChanges();
+      this.resultadoConsultaFire = this.afDB.list('invitacionesRuta/'+this.nombreUsuarioSession).valueChanges();
       var fechaActual = new Date();
       
-      resultadoConsultaFire.subscribe(resp =>{
+      this.suscripcionResultadoConsultaFire = this.resultadoConsultaFire.subscribe(resp =>{
           this.invitacionesRutaPendientes = (resp as Array<invitacionesRuta>).filter(filtro => filtro.estado == "pendiente");
           this.invitacionesRutaContestadas = (resp as Array<invitacionesRuta>).filter(filtro => filtro.estado != "pendiente");
         });
@@ -65,6 +70,10 @@ export class NotificacionesPage {
 
     });
 
+  }
+  
+  ngOnDestroy() {
+      this.suscripcionResultadoConsultaFire.unsubscribe();
   }
 
 
@@ -94,10 +103,11 @@ export class NotificacionesPage {
                   this.rutaUsuario.nombre = this.nombreUsuarioSession;
     
                   let promesa = new Promise((resolve, reject) => {
-                    this.afDB.list('rutas/josedaniel9_5hotmailcom/rutaUsuarios').set(this.nombreUsuarioSession, this.rutaUsuario).then(res => {
+                    this.afDB.list('rutas/'+invitacionRuta.ruta+'/rutaUsuarios').set(this.nombreUsuarioSession, this.rutaUsuario).then(res => {
                       this.mostrarToast('Invitación aceptada correctamente');
                       
-                      this.navCtrl.parent.select(1);
+                      this.storage.set("nombreRutaAceptada",invitacionRuta.ruta);
+                      this.navCtrl.parent.select(1,{test:"si"});
                       resolve();
                     }).catch(err => {
                       console.error(err);

@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, ElementRef, Output, EventEmitter, Input } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { IUsuario } from './../../Interfaces/IUsuario';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -13,7 +13,9 @@ import { Storage } from '@ionic/storage';
 export class UsuariosOnlineComponent {
  listaUsuariosOnline : IUsuario[];
  @Output() usuarioCreado = new EventEmitter(); 
+ @Input() ruta: string;
  nombreUsuarioSession : string;
+ suscripcionResultadoConsultaFire : any;
 
  result : any;
  resultadoConsultaFire: any
@@ -24,21 +26,27 @@ export class UsuariosOnlineComponent {
       this.nombreUsuarioSession = respuesta;
     })
 
-    let promesa = new Promise((resolve, reject) => {
-        const resultadoConsultaFire = this.afDB.list('usuarios').valueChanges();
-
-        resultadoConsultaFire.subscribe(resp =>{
-            this.listaUsuariosOnline = (resp as IUsuario[]).filter(filtro => filtro.estadoConexion);
-            
-        });
-
-    });
-    
-
   }
 
 
-crearInvitacionMapa(usuarioInvitado, ruta, usuarioCreadorRuta){
+  ngOnInit() {
+    let promesa = new Promise((resolve, reject) => {
+      const resultadoConsultaFire = this.afDB.list('usuarios').valueChanges();
+
+      this.suscripcionResultadoConsultaFire = resultadoConsultaFire.subscribe(resp =>{
+          this.listaUsuariosOnline = (resp as IUsuario[]).filter(filtro => filtro.estadoConexion);
+          
+      });
+
+  });
+  }
+
+  ngOnDestroy() {
+    this.suscripcionResultadoConsultaFire.unsubscribe();
+}
+
+
+crearInvitacionMapa(usuarioInvitado, usuarioCreadorRuta){
 
     var usuarioInvitadoIdentidad = usuarioInvitado.replace(/\@/g, '').replace(/\./g, '');
 
@@ -64,38 +72,37 @@ crearInvitacionMapa(usuarioInvitado, ruta, usuarioCreadorRuta){
                 invitacionRutaDTO.estado = "pendiente";
                 invitacionRutaDTO.fecha = new Date().toString();
                 invitacionRutaDTO.usuarioInvitacion = usuarioCreadorRuta;
-                invitacionRutaDTO.ruta = ruta;
+                invitacionRutaDTO.ruta = this.ruta;
                                   
                 list.push(invitacionRutaDTO);
 
-                let promesa = new Promise((resolve, reject) => {
-                const result = this.afDB.object('invitacionesRuta/' + usuarioInvitadoIdentidad+"/"+ usuarioInvitadoIdentidad+ruta+'/estado').valueChanges();
+               // let promesa = new Promise((resolve, reject) => {
+                //const result = this.afDB.object('invitacionesRuta/' + usuarioInvitadoIdentidad+"/"+ usuarioInvitadoIdentidad+this.ruta+'/estado').valueChanges();
 
-                result.subscribe((res) => {
-                  console.log(res);
-                  if (res == null) {
+               // result.subscribe((res) => {
+                  //if (res == null) {
 
                     this.afDB.list('invitacionesRuta/'+usuarioInvitadoIdentidad).set(usuarioInvitadoIdentidad+invitacionRutaDTO.ruta,invitacionRutaDTO).then(res => {
                           this.usuarioCreado.emit(true);
-                           resolve();
+                        //   resolve();
                     });
-                  } else if (res != "Aceptada") {
-                       this.afDB.list('invitacionesRuta/'+usuarioInvitadoIdentidad).set(usuarioInvitadoIdentidad+invitacionRutaDTO.ruta,invitacionRutaDTO).then(res => {
-                          this.usuarioCreado.emit(true);
-                          resolve();
-                       });
-                    }
-                  else
-                  {
-                       this.usuarioCreado.emit(false);
-                      resolve();
-                  }
-                }, err => {
-                  resolve();
-                  console.error("error" + err);
-                });
+                  //} else if (res != "Aceptada") {
+                    //   this.afDB.list('invitacionesRuta/'+usuarioInvitadoIdentidad).set(usuarioInvitadoIdentidad+invitacionRutaDTO.ruta,invitacionRutaDTO).then(res => {
+                      //    this.usuarioCreado.emit(true);
+                         // resolve();
+                      // });
+                    //}
+                 // else
+                  //{
+                    //   this.usuarioCreado.emit(false);
+                   //   resolve();
+                 // }
+               // }, err => {
+                 // resolve();
+                //  console.error("error" + err);
+               // });
 
-              });
+             // });
 
                 
                     

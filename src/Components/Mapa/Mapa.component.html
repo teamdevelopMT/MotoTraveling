@@ -22,6 +22,11 @@
             <ion-card-content>
                   <ion-list>
                       <ion-item>
+                          <ion-label stacked>Nombre:</ion-label>
+                        <ion-input placeholder="Escriba el nombre de la ruta:" [(ngModel)]="nombreRuta" type="text"></ion-input>
+                      </ion-item>
+
+                      <ion-item>
                           <ion-label stacked>Origen:</ion-label>
                         <ion-input placeholder="Escriba el nombre del lugar de su origen:" [(ngModel)]="origen" type="text"></ion-input>
                       </ion-item>
@@ -34,7 +39,7 @@
                     </ion-list>
 
                     <div padding>
-                      <button ion-button style="background-color: rgb(255, 152, 0);" (click)="calcularRuta()" block>Calcular ruta</button>
+                      <button ion-button style="background-color: rgb(255, 152, 0);" (click)="crearRuta()" block>Calcular ruta</button>
                     </div>
             </ion-card-content>
         </ion-card>
@@ -44,7 +49,7 @@
               ¡Puedes invitar a tus amigos que se encuentren en linea!
             </ion-card-header>
             <ion-card-content>
-              <UsuariosOnline-component (usuarioCreado)="validarRespuestaInvitacionUsuario($event)"></UsuariosOnline-component>
+              <UsuariosOnline-component [ruta]="nombreRuta" (usuarioCreado)="validarRespuestaInvitacionUsuario($event)"></UsuariosOnline-component>
             </ion-card-content>
         </ion-card>
        
@@ -69,8 +74,8 @@
     </div>
     <div id="modal" [ngStyle]="{'display': mostrarCrearRuta || mostrarInvitarUsuarios || mostrarPersonalizarMapa? 'block' : 'none'}"></div>
       <div id="contMapa" class="contenedorMapa">
-          <div id="ubicacionActual">
-              <button ion-button style="width: 40px; background-color: white;" (click)="centrarUbicacion()">
+          <div  id="ubicacionActual">
+              <button [ngStyle]="{'display':mapaCreado?'block':'none'}" ion-button style="width: 40px; background-color: white;" (click)="centrarUbicacion()">
               <ion-icon style="font-size: 2.5em; color:blue;" ios="ios-disc" md="md-disc"></ion-icon>
               </button>
           </div>
