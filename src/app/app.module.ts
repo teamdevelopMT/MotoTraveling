@@ -36,6 +36,8 @@ import { MensajesPage } from '../pages/modulos/mensajes/mensajes';
 import { PrincipalPage } from "../pages/modulos/tiendas/principal/principal";
 import { PerfilPage } from '../pages/modulos/perfil/perfil';
 import { RegistroUsuarioPage } from "../pages/modulos/registro-usuario/registro-usuario";
+import { MotosPage } from "../pages/modulos/perfil/opciones/motos/motos";
+import {  } from "module";
 
 //Login
 import { EmailPage } from "../pages/Login/email/email";
@@ -45,7 +47,7 @@ import { RecordarContrasenaPage } from "../pages/Login/recordar-contrasena/recor
 
 //Post
 import { NormalPage } from "../pages/modulos/inicio/post/normal/normal";
-
+import { EmergenciaPage } from "../pages/modulos/inicio/post/emergencia/emergencia";
 
 //clases
 import { Login } from '../Clases/Login/Login.cs'
@@ -85,6 +87,7 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
     RegistroUsuarioPage,
     InicioPage,
     NormalPage,
+    EmergenciaPage,
     RutasPage,
     NotificacionesPage,
     MapaComponent,
@@ -93,7 +96,8 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
     PrincipalPage,
     MensajesPage,
     UsuariosOnlineComponent,
-    ElasticHeaderDirective
+    ElasticHeaderDirective,
+    MotosPage
 
   ],
   imports: [
@@ -126,6 +130,7 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
     RegistroUsuarioPage,
     InicioPage,
     NormalPage,
+    EmergenciaPage,
     RutasPage,
     NotificacionesPage,
     MapaComponent,
@@ -133,7 +138,8 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
     PerfilPage,
     PrincipalPage,
     MensajesPage,
-    UsuariosOnlineComponent
+    UsuariosOnlineComponent,
+    MotosPage
   ],
   providers: [
     StatusBar,

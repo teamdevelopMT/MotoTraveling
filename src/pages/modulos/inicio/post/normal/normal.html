@@ -5,36 +5,37 @@
         <ion-icon name="ios-close-outline"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Cuéntanos algo interesante</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only [disabled]="decripcion == ''" (click)="SubirPost()">
-        Publicar
-      </button>
-    </ion-buttons>
+    <ion-title>Cuéntanos algo</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <div>
-    <img [src]="imgPreview" />
+  <div class="post-container">  
   </div>
-  <div padding>
-    <ion-textarea [(ngModel)]="decripcion" placeholder="¿Qué quieres compartir a la comunidad?">
-    </ion-textarea>
-  </div>
+  <div class="post">
+      <div>
+        <img [src]="imgPreview" *ngIf="imgPreview != null" />
+      </div>
+      <div padding>
+        <ion-textarea [(ngModel)]="decripcion" placeholder="Escribe aquí">
+        </ion-textarea>
+      </div>
+    </div>
   <div>
     <ion-card>
       <ion-list>
         <button ion-item (click)="Camara()">
-          <ion-icon name="ios-camera-outline" item-start color="moto"></ion-icon>
-          Tomar una foto
+          <ion-icon name="ios-camera-outline" item-start color="primary"></ion-icon>
+          Toma una foto
         </button>
-
         <button ion-item (click)="Galeria()">
-          <ion-icon name="ios-images" item-start color="moto"></ion-icon>
-          Subir una imagen
+          <ion-icon name="ios-images" item-start color="primary"></ion-icon>
+          Sube una imagen
         </button>
-
       </ion-list>
     </ion-card>
+  </div>
+  <div padding>
+
+      <button ion-button full (click)="SubirPost" [disabled]="decripcion.length == 0 || imgPreview != null " >Plublicar</button>
   </div>
 </ion-content>

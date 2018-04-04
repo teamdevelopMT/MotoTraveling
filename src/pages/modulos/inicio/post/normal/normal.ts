@@ -28,6 +28,7 @@ export class NormalPage {
     this.storage.get('nombreUsuario').then(res => {
       this.idusuario = res;
     });
+
   }
 
   ionViewDidLoad() {

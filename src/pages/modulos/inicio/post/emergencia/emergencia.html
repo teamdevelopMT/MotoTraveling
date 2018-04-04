@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar color="moto">
+    <ion-title>Que emergencia tienes</ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="cerrar()">
+        <ion-icon name="ios-close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+
+  <ion-segment [(ngModel)]="tipEmergencia" color="moto">
+    <ion-segment-button value="propio">
+      Mi emergencia
+    </ion-segment-button>
+    <ion-segment-button value="motero">
+      Ayuda a motero
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="tipEmergencia">
+    <ion-list *ngSwitchCase="'propio'">
+
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-start>
+            <img [src]="navParams.data.foto">
+          </ion-avatar>
+          <h2>{{navParams.data.nombre}}</h2>
+          {{navParams.data.hora}}
+        </ion-item>
+
+        <div id="map_canvas"></div>
+      </ion-card>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'motero'">
+      <ion-item>
+        <h2>mi amigo se accidento</h2>
+      </ion-item>
+
+    </ion-list>
+  </div>
+
+</ion-content>

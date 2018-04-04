@@ -1,6 +1,24 @@
 page-normal {
-  textarea {
-    min-height: 15vh;
-    max-height: 80vh;
+  ion-textarea {
+   max-height: 80vh;
   }
+  ion-textarea textarea {
+    min-height: 15vh;
+  }
+  .post-container{
+    background-image: url('../../../../../assets/img/fontos-post-normal.jpg');
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: 100%;
+    height: 35vh;
+    width: 100%;
+    opacity: 0.5;
+    position: absolute;
+    
+  }
+  .post{
+    z-index: 2 !important;
+    opacity: 1 !important;
+  }
+
 }

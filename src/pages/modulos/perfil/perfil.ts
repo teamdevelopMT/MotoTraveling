@@ -5,6 +5,7 @@ import { RedesSocialesPage } from "../../Login/redes-sociales/redes-sociales";
 import { Usuarios } from '../../../Clases/Modulos/Usuarios/usuarios.cs';
 import { Storage } from '@ionic/storage';
 import { IUsuario } from "../../../Interfaces/IUsuario";
+import { MotosPage } from "../perfil/opciones/motos/motos";
 
 @IonicPage()
 @Component({
@@ -14,6 +15,8 @@ import { IUsuario } from "../../../Interfaces/IUsuario";
 export class PerfilPage {
 
   usuario: IUsuario = {};
+  misMotos:any = MotosPage;
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private loadingCtrl: LoadingController,
