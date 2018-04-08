@@ -13,11 +13,10 @@ import { Normal } from "../../../../../Clases/Modulos/Posts/Normal.cs";
   templateUrl: 'normal.html',
 })
 export class NormalPage {
-  imgPreview: any;
+  imgPreview: string = '';
   foto: any = '';
   decripcion: string ='';
   idusuario: string
- 
 
   constructor(private viewCtrl: ViewController,
     private camera: Camera,
@@ -45,7 +44,7 @@ export class NormalPage {
 
   Camara() {
     const options: CameraOptions = {
-      quality: 50,
+      quality: 80,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -77,7 +76,6 @@ export class NormalPage {
         this.foto = img;
         break;
       }
-
     }, (err) => {
 
     });

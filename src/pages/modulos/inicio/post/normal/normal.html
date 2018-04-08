@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-buttons start>
+  <ion-toolbar color="primary">
+    <ion-title>Cuéntanos algo</ion-title>
+    <ion-buttons end>
       <button ion-button icon-only (click)="cerrar()">
         <ion-icon name="ios-close-outline"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Cuéntanos algo</ion-title>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 <ion-content>
   <div class="post-container">  
@@ -35,7 +35,6 @@
     </ion-card>
   </div>
   <div padding>
-
-      <button ion-button full (click)="SubirPost" [disabled]="decripcion.length == 0 || imgPreview != null " >Plublicar</button>
+      <button ion-button full (click)="SubirPost()" [disabled]="decripcion.length == 0" >Publicar</button>
   </div>
 </ion-content>

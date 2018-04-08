@@ -13,14 +13,12 @@
 </ion-header>
 
 <ion-content class="card-background-page">
-
-
   <ion-card>
     <img src="./assets/img/moto-crear.jpg" />
     <div class="card-title">Aun no tienes motos</div>
   </ion-card>
   <ion-fab right bottom>
-    <button ion-fab color="moto">
+    <button ion-fab color="moto" [navPush]="pageCrearMoto">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>

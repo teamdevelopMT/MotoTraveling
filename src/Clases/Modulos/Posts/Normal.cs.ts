@@ -20,7 +20,6 @@ export class Normal {
     }
 
     ConsultarPost() {
-
         let result: Observable<any[]> = this.af.list('post/normal').valueChanges().map(posts => {
             for (let post of posts) {
                 post["usuario"] = this.af.object('/usuarios/' + post["idUsuario"]).valueChanges();          

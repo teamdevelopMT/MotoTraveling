@@ -37,7 +37,7 @@ import { PrincipalPage } from "../pages/modulos/tiendas/principal/principal";
 import { PerfilPage } from '../pages/modulos/perfil/perfil';
 import { RegistroUsuarioPage } from "../pages/modulos/registro-usuario/registro-usuario";
 import { MotosPage } from "../pages/modulos/perfil/opciones/motos/motos";
-import {  } from "module";
+import { CrearMotoPage } from "../pages/modulos/perfil/opciones/motos/crear-moto/crear-moto";
 
 //Login
 import { EmailPage } from "../pages/Login/email/email";
@@ -74,6 +74,7 @@ import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { LoginProvider } from '../providers/login/login';
 import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
+import { FotoGaleriaProvider } from '../providers/foto-galeria/foto-galeria';
 
 
 @NgModule({
@@ -97,11 +98,10 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
     MensajesPage,
     UsuariosOnlineComponent,
     ElasticHeaderDirective,
-    MotosPage
-
+    MotosPage,
+    CrearMotoPage
   ],
   imports: [
-
     BrowserModule,
     BrowserAnimationsModule,
     IonicModule.forRoot(MyApp, {
@@ -111,7 +111,6 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
           pageTransition: 'md-transition'
         }
       }
-
     }),
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(OPTIONS),
@@ -139,7 +138,8 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
     PrincipalPage,
     MensajesPage,
     UsuariosOnlineComponent,
-    MotosPage
+    MotosPage,
+    CrearMotoPage
   ],
   providers: [
     StatusBar,
@@ -162,7 +162,8 @@ import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
     Gyroscope,
     Camera,
     ImagePicker,
-    SubirFotosProvider
+    SubirFotosProvider,
+    FotoGaleriaProvider
   ]
 })
 export class AppModule { }

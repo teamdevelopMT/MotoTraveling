@@ -1,9 +1,12 @@
 export interface IMoto{
     placas:string,
     marca:string,
-    referencia:string,
+    modelo:string,
     fechaUltimoMantimiento?:string,
     fechaTecnomecanica?:string,
     FechaSoat?:string,
-    kilometraje?:number 
+    kilometraje?:string,
+    nombreMoto:string, 
+    cambioAceite?:string,
+    fotoMoto?:string
 }

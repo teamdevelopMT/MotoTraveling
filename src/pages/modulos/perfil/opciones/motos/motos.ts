@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the MotosPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, NavController, NavParams, ToastController, NavOptions } from 'ionic-angular';
+import { CrearMotoPage } from "../../opciones/motos/crear-moto/crear-moto";
 
 @IonicPage()
 @Component({
@@ -15,11 +9,28 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MotosPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  pageCrearMoto: any = CrearMotoPage;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private toastCtrl: ToastController) {
+
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MotosPage');
+    if (this.navParams.get('crearMoto') != undefined && this.navParams.get('crearMoto') != null) {
+      this.CargarToast();
+    }
+  }
+
+  CargarToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Se creo tu moto de manera correcta',
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.present();
   }
 
 }
