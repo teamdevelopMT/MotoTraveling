@@ -64,22 +64,26 @@ export class NormalPage {
   }
 
   Galeria() {
-    let option: ImagePickerOptions = {
-      maximumImagesCount: 1,
-      quality: 50,
-      outputType: 1
+    const options: CameraOptions = {
+      quality: 80,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      sourceType:this.camera.PictureSourceType.SAVEDPHOTOALBUM
     }
 
-    this.imagePicker.getPictures(option).then((results) => {
-      for (let img of results) {
-        this.imgPreview = 'data:image/jpeg;base64,' + img;
-        this.foto = img;
-        break;
-      }
-    }, (err) => {
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      this.imgPreview = 'data:image/jpeg;base64,' + imageData;
+      this.foto = imageData;
 
+    }, (err) => {
+      // this.mostrar_mensaje("no se puede mostrar la camara en el navegador");
+      console.log("error");
     });
-  }
+  }  
 
   SubirPost() {
     let today: any = new Date();

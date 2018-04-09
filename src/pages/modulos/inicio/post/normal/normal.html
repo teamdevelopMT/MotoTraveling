@@ -9,17 +9,17 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div class="post-container">  
+  <div class="post-container">
   </div>
   <div class="post">
-      <div>
-        <img [src]="imgPreview" *ngIf="imgPreview != null" />
-      </div>
-      <div padding>
-        <ion-textarea [(ngModel)]="decripcion" placeholder="Escribe aquí">
-        </ion-textarea>
-      </div>
+    <div>
+      <img [src]="imgPreview" *ngIf="imgPreview != null" />
     </div>
+    <div padding>
+      <ion-textarea [(ngModel)]="decripcion" placeholder="Escribe aquí">
+      </ion-textarea>
+    </div>
+  </div>
   <div>
     <ion-card>
       <ion-list>
@@ -34,7 +34,9 @@
       </ion-list>
     </ion-card>
   </div>
-  <div padding>
-      <button ion-button full (click)="SubirPost()" [disabled]="decripcion.length == 0" >Publicar</button>
-  </div>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+      <button ion-button full (click)="SubirPost()" [disabled]="decripcion.length == 0">Publicar</button>
+  </ion-toolbar>
+</ion-footer>
