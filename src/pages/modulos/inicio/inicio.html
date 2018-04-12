@@ -1,5 +1,6 @@
 <ion-content>
   <div class="post">
+    
     <ion-card *ngFor="let post of posts | async"  [@itemState]="in">
       <ion-item>
         <ion-avatar item-start>
@@ -32,8 +33,6 @@
         </ion-col>
       </ion-row>
     </ion-card>
-
-
   </div>
   <ion-fab bottom right>
     <button ion-fab color="dark">
@@ -43,7 +42,7 @@
       <button ion-fab color="primary" (click)="PostNormal()">
         <ion-icon name="ios-paper"></ion-icon>
       </button>
-      <button ion-fab color="secondary">
+      <button ion-fab color="secondary" (click)="PostTienda()">
         <ion-icon name="ios-pricetag"></ion-icon>
       </button>
       <button ion-fab color="moto" (click)="PostEmergencia()">

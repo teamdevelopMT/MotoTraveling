@@ -2,5 +2,28 @@
 
 
 <ion-content padding>
-     <img style="height: 100%; width: 100%;" src="assets/img/web_en_proceso.png"/>
+        <div class="post">
+                
+                <ion-card *ngFor="let post of ventas | async"  [@itemState]="in">
+                  <ion-item>
+                    <ion-avatar item-start>
+                      <img src="{{(post.usuario |async)?.foto}}">
+                    </ion-avatar>
+                    <h2>{{(post.usuario | async)?.nombre}}</h2>
+                    <p>{{post.fecha}}</p>
+                  </ion-item>
+                  <img [src]="post.foto">
+                  <ion-card-content>
+                    <p>{{post.descripcion}}</p>
+                  </ion-card-content>
+                  <ion-card-content>
+                        Valor : {{post.valor}}
+                   </ion-card-content>
+                   <ion-card-content>
+                        Telefono : {{post.numeroContacto}}
+                   </ion-card-content>
+                 
+
+                </ion-card>
+              </div>
 </ion-content>

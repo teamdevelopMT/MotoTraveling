@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, ModalController } from 'ionic-angular';
 import { NormalPage } from "../inicio/post/normal/normal";
 import { EmergenciaPage } from "../inicio/post/emergencia/emergencia";
+import { TiendaPage } from "../inicio/post/tienda/tienda";
 import { Observable } from 'rxjs/Observable';
 import { Normal } from "../../../Clases/Modulos/Posts/Normal.cs";
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -33,6 +34,7 @@ import { Storage } from '@ionic/storage';
 export class InicioPage {
 
   posts: Observable<any[]>
+  ventas: Observable<any[]>
   data: any = {};
 
   constructor(public navCtrl: NavController,
@@ -62,6 +64,11 @@ export class InicioPage {
 
   PostEmergencia() {
     let modal = this.modalCtrl.create(EmergenciaPage, this.data)
+    modal.present();
+  }
+
+  PostTienda(){
+    let modal = this.modalCtrl.create(TiendaPage)
     modal.present();
   }
 

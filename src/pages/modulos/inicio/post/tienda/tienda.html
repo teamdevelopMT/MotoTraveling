@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>Publica tu clasificado</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="cerrar()">
+        <ion-icon name="ios-close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="post-container">
+  </div>
+  <div class="post">
+    <div>
+      <img [src]="imgPreview" *ngIf="imgPreview != null" />
+    </div>
+    <div padding>
+      <ion-textarea [(ngModel)]="decripcion" placeholder="Escribe aquí">
+      </ion-textarea>
+      <ion-input type="number" [(ngModel)]="valor" placeholder="Valor"></ion-input>
+      <ion-input type="number" [(ngModel)]="numeroContacto" placeholder="Numero de contacto"></ion-input>
+    </div>
+    
+    
+  </div>
+  <div>
+    <ion-card>
+      <ion-list>
+        <button ion-item (click)="Camara()">
+          <ion-icon name="ios-camera-outline" item-start color="secondary"></ion-icon>
+          Toma una foto
+        </button>
+        <button ion-item (click)="Galeria()">
+          <ion-icon name="ios-images" item-start color="secondary"></ion-icon>
+          Sube una imagen
+        </button>
+      </ion-list>
+    </ion-card>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+      <button ion-button full color="secondary" (click)="SubirPost()" [disabled]="decripcion.length == 0 || valor == null || valor == 0 || numeroContacto == null || numeroContacto == 0">Publicar</button>
+  </ion-toolbar>
+</ion-footer>

@@ -48,11 +48,13 @@ import { RecordarContrasenaPage } from "../pages/Login/recordar-contrasena/recor
 //Post
 import { NormalPage } from "../pages/modulos/inicio/post/normal/normal";
 import { EmergenciaPage } from "../pages/modulos/inicio/post/emergencia/emergencia";
+import { TiendaPage } from "../pages/modulos/inicio/post/tienda/tienda";
 
 //clases
 import { Login } from '../Clases/Login/Login.cs'
 import { Usuarios } from '../Clases/Modulos/Usuarios/usuarios.cs'
 import { Normal } from "../Clases/Modulos/Posts/Normal.cs";
+import { Tienda } from "../Clases/Modulos/Posts/Tienda.cs";
 
 //Components
 import { MapaComponent } from "../Components/Mapa/Mapa.component";
@@ -89,6 +91,7 @@ import { FotoGaleriaProvider } from '../providers/foto-galeria/foto-galeria';
     InicioPage,
     NormalPage,
     EmergenciaPage,
+    TiendaPage,
     RutasPage,
     NotificacionesPage,
     MapaComponent,
@@ -130,6 +133,7 @@ import { FotoGaleriaProvider } from '../providers/foto-galeria/foto-galeria';
     InicioPage,
     NormalPage,
     EmergenciaPage,
+    TiendaPage,
     RutasPage,
     NotificacionesPage,
     MapaComponent,
@@ -146,6 +150,7 @@ import { FotoGaleriaProvider } from '../providers/foto-galeria/foto-galeria';
     Login,
     Usuarios,
     Normal,
+    Tienda,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     GoogleMaps,
