@@ -1,46 +1,33 @@
 <ion-header>
   <ion-navbar color="moto">
-    <ion-title>Que emergencia tienes</ion-title>
-    <ion-buttons start>
+    <ion-title> Que emergencia tienes</ion-title>
+    <ion-buttons end>
       <button ion-button icon-only (click)="cerrar()">
         <ion-icon name="ios-close-outline"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content padding>
+<ion-content>
+  <ion-card>
 
-  <!-- <ion-segment [(ngModel)]="tipEmergencia" color="moto">
-    <ion-segment-button value="propio">
-      Mi emergencia
-    </ion-segment-button>
-    <ion-segment-button value="motero">
-      Ayuda a motero
-    </ion-segment-button>
-  </ion-segment>
+    <img [src]="mapa" alt="">
+    <ion-fab right top>
+      <button ion-fab>
+        <ion-icon name="pin"></ion-icon>
+      </button>
+    </ion-fab>
 
-  <div [ngSwitch]="tipEmergencia">
-    <ion-list *ngSwitchCase="'propio'">
-
-      <ion-card>
-        <ion-item>
-          <ion-avatar item-start>
-            <img [src]="navParams.data.foto">
-          </ion-avatar>
-          <h2>{{navParams.data.nombre}}</h2>
-          {{navParams.data.hora}}
-        </ion-item>
-
-        <div id="map_canvas"></div>
-      </ion-card>
-    </ion-list>
-
-    <ion-list *ngSwitchCase="'motero'">
-      <ion-item>
-        <h2>mi amigo se accidento</h2>
-      </ion-item>
-
-    </ion-list>
-  </div> -->
-
+    <ion-item>
+      <ion-icon name="ios-map" item-start large></ion-icon>
+      <h2>{{nombreCIudad}}</h2>
+      <p>{{direccion}}</p>
+    </ion-item>
+  </ion-card>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <button ion-button full color="moto" (click)="PedirAyuda()">Pedir Ayuda</button>
+  </ion-toolbar>
+</ion-footer>

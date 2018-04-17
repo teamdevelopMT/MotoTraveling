@@ -16,15 +16,26 @@
   <div class="main-content">
     <ion-card>
       <ion-list>
+        <button ion-item>
+          <ion-icon name="ios-contact" item-start color="moto"></ion-icon>
+          Información
+        </button>
+
         <button ion-item [navPush]="misMotos">
           <ion-icon name="ios-speedometer-outline" item-start color="moto"></ion-icon>
-          Mis motos
+          Garaje
         </button>
 
         <button ion-item>
           <ion-icon name="ios-people-outline" item-start color="moto"></ion-icon>
           Amigos
         </button>
+
+        <button ion-item>
+          <ion-icon name="ios-map-outline" item-start color="moto"></ion-icon>
+          Rutas
+        </button>
+
 
         <button ion-item (click)="CerrarSesion()">
           <ion-icon name="ios-log-out" color="moto" item-start></ion-icon>

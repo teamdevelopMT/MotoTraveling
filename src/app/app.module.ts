@@ -38,6 +38,7 @@ import { PerfilPage } from '../pages/modulos/perfil/perfil';
 import { RegistroUsuarioPage } from "../pages/modulos/registro-usuario/registro-usuario";
 import { MotosPage } from "../pages/modulos/perfil/opciones/motos/motos";
 import { CrearMotoPage } from "../pages/modulos/perfil/opciones/motos/crear-moto/crear-moto";
+import { MiInformacionPage } from "../pages/modulos/perfil/opciones/mi-informacion/mi-informacion";
 
 //Login
 import { EmailPage } from "../pages/Login/email/email";
@@ -65,6 +66,8 @@ import { UsuariosOnlineComponent } from "../Components/UsuariosOnline/UsuariosOn
 import { ElasticHeaderDirective } from "../directives/elastic-header/elastic-header";
 
 import { Geolocation } from '@ionic-native/geolocation';
+import { NativeGeocoder } from "@ionic-native/native-geocoder";
+import { SMS } from "@ionic-native/sms";
 import { FacebookProvider } from '../providers/facebook/facebook';
 import { Gyroscope } from '@ionic-native/gyroscope';
 
@@ -102,7 +105,8 @@ import { FotoGaleriaProvider } from '../providers/foto-galeria/foto-galeria';
     UsuariosOnlineComponent,
     ElasticHeaderDirective,
     MotosPage,
-    CrearMotoPage
+    CrearMotoPage,
+    MiInformacionPage
   ],
   imports: [
     BrowserModule,
@@ -143,7 +147,8 @@ import { FotoGaleriaProvider } from '../providers/foto-galeria/foto-galeria';
     MensajesPage,
     UsuariosOnlineComponent,
     MotosPage,
-    CrearMotoPage
+    CrearMotoPage,
+    MiInformacionPage
   ],
   providers: [
     StatusBar,
@@ -155,11 +160,13 @@ import { FotoGaleriaProvider } from '../providers/foto-galeria/foto-galeria';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     GoogleMaps,
     Geolocation,
+    SMS,
     Facebook,
     GooglePlus,
     Keyboard,
     FacebookProvider,
     GoogleProvider,
+    NativeGeocoder,
     CerrarSesionProvider,
     CrearUsuarioProvider,
     LoginProvider,

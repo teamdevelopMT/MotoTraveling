@@ -109,5 +109,7 @@
     <plugin name="com.unarin.cordova.beacon" spec="^3.5.6" />
     <plugin name="cordova-plugin-gyroscope" spec="^0.1.4" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1" />
+    <plugin name="cordova-plugin-nativegeocoder" spec="^3.1.1" />
+    <plugin name="cordova-sms-plugin" spec="^0.1.11" />
     <engine name="android" spec="6.3.0" />
 </widget>
