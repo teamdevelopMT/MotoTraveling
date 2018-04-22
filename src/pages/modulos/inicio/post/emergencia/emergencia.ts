@@ -110,8 +110,7 @@ export class EmergenciaPage {
   }
 
   PedirAyuda() {
-
-    
     this.sms.send('3508777293', 'Hola acabo de tener accidente necesito de tu ayuda, te envio la ubicacion donde me encuentro: https://www.google.com/maps/dir/?api=1&destination=' + this.latitud + ',' + this.logitud);
   }
 }
+ 

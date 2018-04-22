@@ -39,6 +39,7 @@ import { RegistroUsuarioPage } from "../pages/modulos/registro-usuario/registro-
 import { MotosPage } from "../pages/modulos/perfil/opciones/motos/motos";
 import { CrearMotoPage } from "../pages/modulos/perfil/opciones/motos/crear-moto/crear-moto";
 import { MiInformacionPage } from "../pages/modulos/perfil/opciones/mi-informacion/mi-informacion";
+import { RoboPage } from "../pages/modulos/inicio/post/robo/robo";
 
 //Login
 import { EmailPage } from "../pages/Login/email/email";
@@ -106,7 +107,8 @@ import { FotoGaleriaProvider } from '../providers/foto-galeria/foto-galeria';
     ElasticHeaderDirective,
     MotosPage,
     CrearMotoPage,
-    MiInformacionPage
+    MiInformacionPage,
+    RoboPage
   ],
   imports: [
     BrowserModule,
@@ -148,7 +150,8 @@ import { FotoGaleriaProvider } from '../providers/foto-galeria/foto-galeria';
     UsuariosOnlineComponent,
     MotosPage,
     CrearMotoPage,
-    MiInformacionPage
+    MiInformacionPage,
+    RoboPage
   ],
   providers: [
     StatusBar,

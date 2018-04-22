@@ -13,17 +13,49 @@
 
     <img [src]="mapa" alt="">
     <ion-fab right top>
-      <button ion-fab>
-        <ion-icon name="pin"></ion-icon>
+      <button ion-fab color="moto">
+        <ion-icon name="ios-map"></ion-icon>
       </button>
     </ion-fab>
 
     <ion-item>
-      <ion-icon name="ios-map" item-start large></ion-icon>
+      <ion-icon name="pin" item-start large></ion-icon>
       <h2>{{nombreCIudad}}</h2>
       <p>{{direccion}}</p>
     </ion-item>
   </ion-card>
+
+  <ion-list radio-group>
+    <ion-list-header>
+      Tipo de Emergencia
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Llanta Pinchada</ion-label>
+      <ion-radio value="1"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Falla mecánica</ion-label>
+      <ion-radio value="2"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Caída Inesperada</ion-label>
+      <ion-radio value="3"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Colisión</ion-label>
+      <ion-radio value="4"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Olvido de Documentos</ion-label>
+      <ion-radio value="5"></ion-radio>
+    </ion-item>
+
+  </ion-list>
 </ion-content>
 
 <ion-footer>

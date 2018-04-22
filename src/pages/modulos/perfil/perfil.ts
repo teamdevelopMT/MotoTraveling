@@ -6,6 +6,7 @@ import { Usuarios } from '../../../Clases/Modulos/Usuarios/usuarios.cs';
 import { Storage } from '@ionic/storage';
 import { IUsuario } from "../../../Interfaces/IUsuario";
 import { MotosPage } from "../perfil/opciones/motos/motos";
+import { MiInformacionPage } from "../perfil/opciones/mi-informacion/mi-informacion";
 
 @IonicPage()
 @Component({
@@ -16,6 +17,7 @@ export class PerfilPage {
 
   usuario: IUsuario = {};
   misMotos:any = MotosPage;
+  emergencia:any = MiInformacionPage;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -28,7 +30,6 @@ export class PerfilPage {
       this.usuarios.ConsultarUsuario(res).then(usu => {
         if (usu["foto"] == '')
           usu["foto"] = "https://firebasestorage.googleapis.com/v0/b/moto-traveling.appspot.com/o/Moto%20Traveling%2Fperfil-motocilista.png?alt=media&token=a30c4856-aff4-4c98-b4de-86e0b3ae9805";
-
         this.usuario = usu;
       })
 
@@ -53,9 +54,9 @@ export class PerfilPage {
       cerrar.dismiss();
       console.error(err);
     })
+  }
 
-
-
-
+  DatosEmergencia(){
+    this.navCtrl.push(this.emergencia, this.usuario);
   }
 }

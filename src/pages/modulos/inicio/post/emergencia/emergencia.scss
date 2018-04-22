@@ -1,2 +1,11 @@
 page-emergencia {
+  .item-radio-checked ion-label {
+    color: #FF9800 !important;
+  }
+  .radio-md .radio-checked {
+    border-color: #FF9800;
+  }
+  .radio-md .radio-checked .radio-inner {
+    background-color: #FF9800;
+  }
 }

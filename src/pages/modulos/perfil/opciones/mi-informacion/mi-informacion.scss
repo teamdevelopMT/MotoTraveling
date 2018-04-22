@@ -1,3 +1,11 @@
 page-mi-informacion {
-
+  
+    ion-card-header{
+        position: relative;
+    }
+    ion-fab {
+    position: absolute;
+    right: 0;
+    top: -5px;
+  }
 }

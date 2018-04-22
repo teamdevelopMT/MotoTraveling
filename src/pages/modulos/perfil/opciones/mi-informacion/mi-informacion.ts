@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the MiInformacionPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IUsuario } from "../../../../../Interfaces/IUsuario"
 
 @IonicPage()
 @Component({
@@ -15,11 +9,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MiInformacionPage {
 
+  usuario:IUsuario;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.usuario = this.navParams.data;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MiInformacionPage');
   }
 
 }

@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams, Platform, ModalController } from '
 import { NormalPage } from "../inicio/post/normal/normal";
 import { EmergenciaPage } from "../inicio/post/emergencia/emergencia";
 import { TiendaPage } from "../inicio/post/tienda/tienda";
+import { RoboPage } from "../inicio/post/robo/robo";
 import { Observable } from 'rxjs/Observable';
 import { Normal } from "../../../Clases/Modulos/Posts/Normal.cs";
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -67,8 +68,13 @@ export class InicioPage {
     modal.present();
   }
 
-  PostTienda(){
+  PostTienda() {
     let modal = this.modalCtrl.create(TiendaPage)
+    modal.present();
+  }
+
+  PostRobo(){
+    let modal = this.modalCtrl.create(RoboPage)
     modal.present();
   }
 
