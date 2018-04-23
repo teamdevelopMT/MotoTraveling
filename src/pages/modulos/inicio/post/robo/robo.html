@@ -6,28 +6,28 @@
 -->
 <ion-header>
 
-  <ion-navbar color="google">
-    <ion-title>Alerta de Robo</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="Cerrar()">
+    <ion-navbar color="google">
+        <ion-title>Alerta de Robo</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="Cerrar()">
         <ion-icon name="ios-close-outline"></ion-icon>
       </button>
-    </ion-buttons>
-  </ion-navbar>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content>
-  <div class="btn-containter">
-    <div class="border-btn animated infinite pulse">
-      <div class="btn">
-        <p>Toca si te ocurrió un
-          <strong>ROBO</strong>
-        </p>
-      </div>
-    </div>
+    <div class="btn-containter">
+        <div class="border-btn animated infinite pulse">
+            <div class="btn" (click)="AlertaRobo()">
+                <p>Toca si te ocurrió un
+                    <strong>ROBO</strong>
+                </p>
+            </div>
+        </div>
 
-  </div>
+    </div>
 
 
 </ion-content>

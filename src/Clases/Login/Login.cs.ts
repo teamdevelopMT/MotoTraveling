@@ -159,7 +159,7 @@ export class Login {
         let promesa = new Promise((resolve, reject) => {
             if (this.platform.is('cordova')) {
                 this.google.login({
-                    'webClientId': '732314916080-ps2bss7aebhv06hcv1j96h1aqmdl2ern.apps.googleusercontent.com',
+                    'webClientId': '732314916080-hokdt7j8e4247t63g7ueurc6jb6gkmc7.apps.googleusercontent.com',
                     'offline': true
                 }).then(res => {
                     firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken)).then(res => {

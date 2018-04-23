@@ -81,6 +81,9 @@ import { ImagePicker } from '@ionic-native/image-picker';
 import { LoginProvider } from '../providers/login/login';
 import { SubirFotosProvider } from '../providers/subir-fotos/subir-fotos';
 import { FotoGaleriaProvider } from '../providers/foto-galeria/foto-galeria';
+import { OneSignal } from '@ionic-native/onesignal';
+import { PushnotificationProvider } from '../providers/pushnotification/pushnotification';
+
 
 
 @NgModule({
@@ -178,7 +181,9 @@ import { FotoGaleriaProvider } from '../providers/foto-galeria/foto-galeria';
     Camera,
     ImagePicker,
     SubirFotosProvider,
-    FotoGaleriaProvider
+    FotoGaleriaProvider,
+    OneSignal,
+    PushnotificationProvider
   ]
 })
 export class AppModule { }

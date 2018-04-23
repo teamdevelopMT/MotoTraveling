@@ -24,7 +24,7 @@ import * as firebase from 'firebase';
 
 //Components
 import { MapaComponent } from '../Components/Mapa/Mapa.component'
-
+import { PushnotificationProvider } from "../providers/pushnotification/pushnotification";
 
 @Component({
   templateUrl: 'app.html'
@@ -44,7 +44,8 @@ export class MyApp {
     private storage: Storage,
     private afDB: AngularFireDatabase,
     public alertCtrl: AlertController,
-    private usuarios: Usuarios) {
+    private usuarios: Usuarios,
+    private pushProvider: PushnotificationProvider) {
 
     const AUTENTICACION = _fireAuth.authState.subscribe((user: firebase.User) => {
 
@@ -58,7 +59,7 @@ export class MyApp {
           var nombreUsuario = user.email.replace(/\@/g, '');
           nombreUsuario = nombreUsuario.replace(/\./g, '');
           this.storage.set('_correo_', user.email);
-          
+
           this.usuarios.ValidarUsuarioRegistrado(nombreUsuario).then(res => {
             if (res == true)
               this.rootPage = TabsPage;
@@ -73,10 +74,11 @@ export class MyApp {
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
+      this.pushProvider.InitNotification();
     });
 
   }
 
-  
+
 }
 
