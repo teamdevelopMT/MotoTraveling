@@ -83,7 +83,7 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-facebook4": {
-        "APP_ID": "519370415083614",
+        "APP_ID": "620933341597259",
         "APP_NAME": "Moto Traveling"
       },
       "cordova-plugin-device": {},
@@ -164,7 +164,7 @@
     "cordova": {
       "plugins": {
         "cordova-plugin-facebook4": {
-          "APP_ID": "519370415083614",
+          "APP_ID": "620933341597259",
           "APP_NAME": "Moto Traveling"
         },
         "cordova-plugin-device": {},
