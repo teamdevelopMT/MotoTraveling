@@ -16,14 +16,25 @@
                   <ion-card-content>
                     <p>{{post.descripcion}}</p>
                   </ion-card-content>
-                  <ion-card-content>
-                        Valor : {{post.valor}}
-                   </ion-card-content>
                    <ion-card-content>
-                        Telefono : {{post.numeroContacto}}
+                      <ion-icon ios="ios-call" md="md-call"></ion-icon>
+                      <label id="lblNumContacto"> : {{post.numeroContacto}}</label>
+                      <ion-icon ios="ios-cash" md="md-cash"></ion-icon>
+                     <label > : {{post.valor}} $</label>
                    </ion-card-content>
                  
 
                 </ion-card>
+                <ion-fab bottom right>
+                  <button ion-fab color="secondary">
+                    <ion-icon name="add" color="white"></ion-icon>
+                  </button>
+            
+                  <ion-fab-list side="top">
+                      <button ion-fab color="secondary" (click)="PostTienda()">
+                          <ion-icon name="ios-pricetag"></ion-icon>
+                      </button>
+                  </ion-fab-list>
+              </ion-fab>
               </div>
 </ion-content>

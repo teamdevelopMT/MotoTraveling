@@ -66,4 +66,10 @@ export class PrincipalPage {
     console.log('ionViewDidLoad PrincipalPage');
   }
 
+  PostTienda() {
+    let modal = this.modalCtrl.create(TiendaPage)
+    modal.present();
+  }
+
+
 }

@@ -81,6 +81,7 @@
     },
     "description": "An Ionic project",
     "cordova": {
+<<<<<<< HEAD
         "plugins": {
             "cordova-plugin-facebook4": {
                 "APP_ID": "620933341597259",
@@ -118,6 +119,12 @@
             "cordova-plugin-nativegeocoder": {},
             "cordova-sms-plugin": {},
             "onesignal-cordova-plugin": {}
+=======
+      "plugins": {
+        "cordova-plugin-facebook4": {
+          "APP_ID": "620933341597259",
+          "APP_NAME": "Moto Traveling"
+>>>>>>> fc831ade9061fd26f120c1d74a14c9daf1dbd9fe
         },
         "dependencies": {
             "@angular/animations": "^5.0.1",
@@ -265,4 +272,9 @@
             }
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+}
+>>>>>>> fc831ade9061fd26f120c1d74a14c9daf1dbd9fe

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar color="moto">
+    <ion-title>
+        <ion-icon ios="ios-map" md="md-map" color="white" style="padding-right:5px;"></ion-icon>Mis Rutas
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content style="padding:5px">
+  <ion-card *ngFor="let ruta of rutasRealizada">
+    <ion-card-content>
+      <div id="divImagenRuta">
+        <img [src]="ruta.rutaImagen" alt="">
+      </div>
+      <div style="text-align: center;">
+          <label>
+              Origen(O): {{ruta.objRuta.origen}}
+            </label>
+            <label style="margin-left: 15%;">
+              Destino(D): {{ruta.objRuta.destino}}
+              </label>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="rutasRealizada.length == 0">
+      <ion-card-header>
+        No haz realizado ninguna ruta.
+      </ion-card-header>
+    </ion-card>
+</ion-content>
