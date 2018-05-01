@@ -1,8 +1,8 @@
 export const OPTIONS = {
-    apiKey: "AIzaSyAYu8pcd9ScVMKPW1fwSjsGggioMsMBxQ0",
-    authDomain: "moto-traveling.firebaseapp.com",
-    databaseURL: "https://moto-traveling.firebaseio.com",
-    projectId: "moto-traveling",
-    storageBucket: "moto-traveling.appspot.com",
-    messagingSenderId: "732314916080"
+    apiKey: "AIzaSyA7k02c-QfuyWxz1wG-c7Z0btdzV1ikTmE",
+    authDomain: "moto-traveling-app.firebaseapp.com",
+    databaseURL: "https://moto-traveling-app.firebaseio.com",
+    projectId: "moto-traveling-app",
+    storageBucket: "moto-traveling-app.appspot.com",
+    messagingSenderId: "1017500417926"
 };
