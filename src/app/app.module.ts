@@ -39,6 +39,7 @@ import { RegistroUsuarioPage } from "../pages/modulos/registro-usuario/registro-
 import { MotosPage } from "../pages/modulos/perfil/opciones/motos/motos";
 import { CrearMotoPage } from "../pages/modulos/perfil/opciones/motos/crear-moto/crear-moto";
 import { MiInformacionPage } from "../pages/modulos/perfil/opciones/mi-informacion/mi-informacion";
+import { MisRutasPage } from "../pages/modulos/perfil/opciones/mis-rutas/mis-rutas";
 import { RoboPage } from "../pages/modulos/inicio/post/robo/robo";
 
 //Login
@@ -111,6 +112,7 @@ import { PushnotificationProvider } from '../providers/pushnotification/pushnoti
     MotosPage,
     CrearMotoPage,
     MiInformacionPage,
+    MisRutasPage,
     RoboPage
   ],
   imports: [
@@ -154,6 +156,7 @@ import { PushnotificationProvider } from '../providers/pushnotification/pushnoti
     MotosPage,
     CrearMotoPage,
     MiInformacionPage,
+    MisRutasPage,
     RoboPage
   ],
   providers: [

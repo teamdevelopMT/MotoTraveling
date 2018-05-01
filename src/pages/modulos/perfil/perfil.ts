@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 import { IUsuario } from "../../../Interfaces/IUsuario";
 import { MotosPage } from "../perfil/opciones/motos/motos";
 import { MiInformacionPage } from "../perfil/opciones/mi-informacion/mi-informacion";
+import { MisRutasPage } from "../perfil/opciones/mis-rutas/mis-rutas";
 
 @IonicPage()
 @Component({
@@ -18,6 +19,7 @@ export class PerfilPage {
   usuario: IUsuario = {};
   misMotos: any = MotosPage;
   emergencia: any = MiInformacionPage;
+  misRutas : any = MisRutasPage;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -57,5 +59,9 @@ export class PerfilPage {
 
   DatosEmergencia() {
     this.navCtrl.push(this.emergencia, this.usuario);
+  }
+
+  envioMisRutas(){
+    this.navCtrl.push(this.misRutas, this.usuario);
   }
 }
