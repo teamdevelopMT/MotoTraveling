@@ -112,5 +112,4 @@
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.732314916080-hokdt7j8e4247t63g7ueurc6jb6gkmc7" />
     </plugin>
     <plugin name="onesignal-cordova-plugin" spec="^2.3.3" />
-    <engine name="android" spec="6.3.0" />
 </widget>

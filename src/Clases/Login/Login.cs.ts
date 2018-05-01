@@ -1,5 +1,5 @@
 import { ILogin } from "../../Interfaces/ILogin";
-import { Platform } from "ionic-angular";
+import { Platform, AlertController } from "ionic-angular";
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app'
@@ -24,13 +24,18 @@ export class Login {
         private google: GooglePlus,
         private storage: Storage,
         private usuarios: Usuarios,
-        private afDB: AngularFireDatabase) {
+        private afDB: AngularFireDatabase,
+        private alertCtrl: AlertController) {
     }
 
     RegistrarUsuario(datos: ILogin) {
         let promise = new Promise((resolve, reject) => {
             this.afAuth.auth.createUserWithEmailAndPassword(datos.correo, datos.contrasena).then(res => {
+                var idUsuario = datos.correo.replace(/\@/g, '');
+                idUsuario = idUsuario.replace(/\./g, '');
+                debugger;
                 this.storage.set('_correo_', datos.correo);
+                this.storage.set('nombreUsuario', idUsuario);
                 resolve();
             }).catch(err => {
                 console.log(err);
@@ -62,7 +67,7 @@ export class Login {
                 this.storage.set("nombreUsuario", nombreUsuario);
 
                 this.afDB.object('usuarios/' + nombreUsuario)
-                .update({ estadoConexion: true});
+                    .update({ estadoConexion: true });
 
                 resolve();
             }).catch(err => {
@@ -77,13 +82,13 @@ export class Login {
         let promise = new Promise((resolve, reject) => {
             this.storage.get('nombreUsuario').then((nombreUsu) => {
 
-            this.afDB.object('usuarios/' + nombreUsu)
-            .update({ estadoConexion: false}); 
+                this.afDB.object('usuarios/' + nombreUsu)
+                    .update({ estadoConexion: false });
 
-            this.afAuth.auth.signOut().then(res => {
-                console.log(res);
-                resolve();
-            });
+                this.afAuth.auth.signOut().then(res => {
+                    console.log(res);
+                    resolve();
+                });
 
             }).catch(err => {
                 console.error(err);
@@ -97,7 +102,7 @@ export class Login {
         let promise = new Promise((resolve, reject) => {
 
             if (this.platform.is('cordova')) {
-                this.facebook.login(['public_profile', 'user_friends', 'email']).then((res: FacebookLoginResponse) => {
+                this.facebook.login(['public_profile', 'email']).then((res: FacebookLoginResponse) => {
                     const FACEBOOKCREDENTIAL = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
                     firebase.auth().signInWithCredential(FACEBOOKCREDENTIAL).then(res => {
 
@@ -116,39 +121,40 @@ export class Login {
                         this.usuarios.CrearUsuarios(usuario).then(res => {
 
                             this.afDB.object('usuarios/' + usuario.idUsuario)
-                            .update({ estadoConexion: true});
-
+                                .update({ estadoConexion: true });
                             resolve();
                         });
 
                     });
                 });
-            } else {
-                return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(res => {
-                    var nombreUsuario = res.user.email.replace(/\@/g, '');
-                    nombreUsuario = nombreUsuario.replace(/\./g, '');
-                    this.storage.set("nombreUsuario", nombreUsuario);
-                    
-                    let usuario: IUsuario = {
-                        idUsuario: nombreUsuario,
-                        nombre: res.user.displayName,
-                        correo: res.user.email,
-                        foto: res.user.photoURL,
-                        estadoConexion: true
-                    }
+            }
+            else {
+                this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+                    .then(res => {
+                        var nombreUsuario = res.user.email.replace(/\@/g, '');
+                        nombreUsuario = nombreUsuario.replace(/\./g, '');
+                        this.storage.set("nombreUsuario", nombreUsuario);
 
-                    this.usuarios.CrearUsuarios(usuario).then(res => {
+                        let usuario: IUsuario = {
+                            idUsuario: nombreUsuario,
+                            nombre: res.user.displayName,
+                            correo: res.user.email,
+                            foto: res.user.photoURL,
+                            estadoConexion: true
+                        }
 
-                        this.afDB.object('usuarios/' + usuario.idUsuario)
-                        .update({ estadoConexion: true});
+                        this.usuarios.CrearUsuarios(usuario).then(res => {
 
-                        resolve();
+                            this.afDB.object('usuarios/' + usuario.idUsuario)
+                                .update({ estadoConexion: true });
+
+                            resolve();
+                        });
+
+                    }).catch(err => {
+                        console.error(err);
+                        reject(err);
                     });
-
-                }).catch(err => {
-                    console.error(err);
-                    reject(err);
-                });
             }
         });
 
@@ -159,7 +165,7 @@ export class Login {
         let promesa = new Promise((resolve, reject) => {
             if (this.platform.is('cordova')) {
                 this.google.login({
-                    'webClientId': '732314916080-hokdt7j8e4247t63g7ueurc6jb6gkmc7.apps.googleusercontent.com',
+                    'webClientId': '732314916080-5gmhvj44lt0u0ls83n25giunqq4vq546.apps.googleusercontent.com',
                     'offline': true
                 }).then(res => {
                     firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken)).then(res => {
@@ -175,10 +181,8 @@ export class Login {
                             estadoConexion: true
                         }
                         this.usuarios.CrearUsuarios(usuario).then(res => {
-
-                            this.afDB.object('usuarios/' + usuario.idUsuario)
-                            .update({ estadoConexion: true});
-
+                            this.afDB.object('usuarios/' + nombreUsuario)
+                                .update({ estadoConexion: true });
                             resolve();
                         });
                     }).catch(err => {
@@ -205,13 +209,19 @@ export class Login {
                     this.usuarios.CrearUsuarios(usuario).then(res => {
 
                         this.afDB.object('usuarios/' + usuario.idUsuario)
-                        .update({ estadoConexion: true});
-                        
+                            .update({ estadoConexion: true });
+
                         resolve();
                     });
 
                 }).catch(err => {
                     console.error(err);
+                    let alert = this.alertCtrl.create({
+                        title: 'Algo paso!',
+                        subTitle: err,
+                        buttons: ['Aceptar']
+                    });
+                    alert.present();
                     reject(err);
                 });;
             }

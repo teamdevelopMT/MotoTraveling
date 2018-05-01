@@ -8,17 +8,11 @@ import { SubirFotosProvider } from "../../../providers/subir-fotos/subir-fotos";
 
 @Injectable()
 export class Usuarios {
-
-
     constructor(private afDB: AngularFireDatabase,
         private subirFotosService: SubirFotosProvider) {
     }
 
-    // ModificarUsuario(usuario: IUsuario) {
-
-    // }
     ValidarUsuarioRegistrado(idUsuario: string) {
-
         let promise = new Promise((resolve, reject) => {
             let validacion = this.afDB.object('usuarios/' + idUsuario).valueChanges().subscribe(res => {
                 if (res == null) {

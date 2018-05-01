@@ -52,12 +52,6 @@ export class RegistroPage {
 
     this.login.RegistrarUsuario(this.usuario).then(res => {
       creandoUsuario.dismiss();
-      this.alertCtrl.create({
-        title: "Bienvenido",
-        subTitle: "Felicidades, ahora haces parte de la comunidad mas grande de moteros del mundo!",
-        buttons: ["Aceptar"]
-      }).present();
-
     }).catch(err => {
 
       creandoUsuario.dismiss();

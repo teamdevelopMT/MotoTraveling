@@ -42,8 +42,6 @@ export class CrearUsuarioProvider {
         console.error("error" + err);
       });
 
-
-
     });
 
     return promesa;

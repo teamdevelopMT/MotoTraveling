@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 
 import { Login } from "../../../Clases/Login/Login.cs";
 import { RegistroPage } from "../registro/registro";
@@ -17,7 +17,8 @@ export class RedesSocialesPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private login: Login,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController) {
   }
 
 
@@ -37,8 +38,17 @@ export class RedesSocialesPage {
       cargando.dismiss();
 
     }).catch(err => {
+      console.log(err)
+
+      if (err.code == 'auth/account-exists-with-different-credential') {
+        let alert = this.alertCtrl.create({
+          title: 'Algo paso!',
+          subTitle: 'Ya has creado una cuenta con el correo que intentas registrar con Facebook!',
+          buttons: ['Aceptar']
+        });
+        alert.present();
+      }
       cargando.dismiss();
-      console.error("erorrrrr" + err);
     })
   }
 
@@ -46,8 +56,8 @@ export class RedesSocialesPage {
     let cargando = this.loadingCtrl.create({
       content: "Iniciando sesión con google"
     });
-
     cargando.present();
+    
     this.login.IniciarSesionGoogle().then(res => {
       cargando.dismiss();
       this.navCtrl.setRoot(TabsPage);

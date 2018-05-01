@@ -37,6 +37,7 @@ export class InicioPage {
   posts: Observable<any[]>
   ventas: Observable<any[]>
   data: any = {};
+  seccion: string= 'noticias';
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,

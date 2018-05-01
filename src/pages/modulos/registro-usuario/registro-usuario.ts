@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, Slides } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, Slides, AlertController } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -35,7 +35,8 @@ export class RegistroUsuarioPage implements AfterViewInit {
     private camera: Camera,
     private storage: Storage,
     private usuarios: Usuarios,
-    private imagePicker: ImagePicker) {
+    private imagePicker: ImagePicker,
+    private alertCtrl: AlertController) {
 
     this.formulario = this.fb.group({
       nombre: ['', [Validators.required, Validators.pattern(/^([a-zA-Zñáéíóú]+[\s]*){4,25}$/)]]
@@ -57,18 +58,29 @@ export class RegistroUsuarioPage implements AfterViewInit {
   }
 
   RegistrarUsuario() {
-    this.storage.get("_correo_").then(res => {
-      let idUsuario = res.replace(/\@/g, '');
-      idUsuario = idUsuario.replace(/\./g, '')
-      let usuario: IUsuario = {
-        idUsuario: idUsuario,
-        correo: res,
-        nombre: this.nombre,
-        foto: this.foto == undefined ? 'https://firebasestorage.googleapis.com/v0/b/moto-traveling.appspot.com/o/Moto%20Traveling%2Fperfil-motocilista.png?alt=media&token=a30c4856-aff4-4c98-b4de-86e0b3ae9805' : this.foto,
-        estadoConexion: true
-      }
-      this.usuarios.CrearUsuarios(usuario).then(res => {
-        this.navCtrl.setRoot(TabsPage);
+
+
+
+    this.storage.get("nombreUsuario").then(res => {
+      this.storage.get("_correo_").then(correo => {
+        let usuario: IUsuario = {
+          idUsuario: res,
+          correo: correo,
+          nombre: this.nombre,
+          foto: this.foto == undefined ? 'https://firebasestorage.googleapis.com/v0/b/moto-traveling.appspot.com/o/Moto%20Traveling%2Fperfil-motocilista.png?alt=media&token=a30c4856-aff4-4c98-b4de-86e0b3ae9805' : this.foto,
+          estadoConexion: true
+        }
+        this.usuarios.CrearUsuarios(usuario).then(res => {
+
+          this.alertCtrl.create({
+            title: "Bienvenido",
+            subTitle: "Felicidades, ahora haces parte de la comunidad mas grande de moteros del mundo!",
+            buttons: ["Aceptar"]
+          }).present();
+
+          this.navCtrl.setRoot(TabsPage);
+        });
+
       });
     });
   }
@@ -125,14 +137,14 @@ export class RegistroUsuarioPage implements AfterViewInit {
 
   }
 
-  Galeria(){
+  Galeria() {
     const options: CameraOptions = {
       quality: 80,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true,
-      sourceType:this.camera.PictureSourceType.SAVEDPHOTOALBUM
+      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM
     }
 
     this.camera.getPicture(options).then((imageData) => {

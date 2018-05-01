@@ -16,8 +16,8 @@ import { MiInformacionPage } from "../perfil/opciones/mi-informacion/mi-informac
 export class PerfilPage {
 
   usuario: IUsuario = {};
-  misMotos:any = MotosPage;
-  emergencia:any = MiInformacionPage;
+  misMotos: any = MotosPage;
+  emergencia: any = MiInformacionPage;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -34,7 +34,6 @@ export class PerfilPage {
       })
 
     });
-
   }
 
   ionViewDidLoad() {
@@ -56,7 +55,7 @@ export class PerfilPage {
     })
   }
 
-  DatosEmergencia(){
+  DatosEmergencia() {
     this.navCtrl.push(this.emergencia, this.usuario);
   }
 }

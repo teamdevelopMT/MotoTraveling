@@ -34,14 +34,14 @@ export class TabsPage {
   tiendas: any;
   notificaciones: any;
   perfil: any = PerfilPage;
-  nombreUsuarioSession : string;
+  nombreUsuarioSession: string;
   cantidadInvitacionesRutaPendientes: any
   suscripcionResultadoConsultaFire: any;
 
-  constructor(public navCtrl: NavController, 
-              public navParams: NavParams,      
-              private storage: Storage, 
-              private afDB: AngularFireDatabase) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private storage: Storage,
+    private afDB: AngularFireDatabase) {
     this.inicio = InicioPage;
     this.rutas = RutasPage;
     this.tiendas = PrincipalPage;
@@ -51,24 +51,25 @@ export class TabsPage {
   }
 
   ngOnInit() {
-       /*Subscripcion de invitaciones*/
-       this.storage.get('nombreUsuario').then((nombreUsuario) => {
-        this.nombreUsuarioSession = nombreUsuario;
+    /*Subscripcion de invitaciones*/
+    this.storage.get('nombreUsuario').then((nombreUsuario) => {
+      this.nombreUsuarioSession = nombreUsuario;
       let promesa = new Promise((resolve, reject) => {
-        const resultadoConsultaFire = this.afDB.list('invitacionesRuta/'+this.nombreUsuarioSession).valueChanges();
+        const resultadoConsultaFire = this.afDB.list('invitacionesRuta/' + this.nombreUsuarioSession).valueChanges();
         var fechaActual = new Date();
-        
-        this.suscripcionResultadoConsultaFire = resultadoConsultaFire.subscribe(resp =>{
-            this.cantidadInvitacionesRutaPendientes = (resp as Array<invitacionesRuta>).filter(filtro => filtro.estado == "pendiente").length;
-          });
+
+        this.suscripcionResultadoConsultaFire = resultadoConsultaFire.subscribe(resp => {
+          this.cantidadInvitacionesRutaPendientes = (resp as Array<invitacionesRuta>).filter(filtro => filtro.estado == "pendiente").length;
         });
-  
       });
+
+    });
   }
 
   ngOnDestroy() {
-    this.suscripcionResultadoConsultaFire.unsubscribe();
-}
+    if (this.suscripcionResultadoConsultaFire != undefined)
+      this.suscripcionResultadoConsultaFire.unsubscribe();
+  }
 
 
   ionViewDidLoad() {
