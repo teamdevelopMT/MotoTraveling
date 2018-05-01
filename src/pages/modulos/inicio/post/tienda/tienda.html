@@ -15,14 +15,20 @@
     <div>
       <img [src]="imgPreview" *ngIf="imgPreview != null" />
     </div>
-    <div padding>
-      <ion-textarea [(ngModel)]="decripcion" placeholder="Escribe aquí">
-      </ion-textarea>
-      <ion-input type="number" [(ngModel)]="valor" placeholder="Valor"></ion-input>
-      <ion-input type="number" [(ngModel)]="numeroContacto" placeholder="Numero de contacto"></ion-input>
+    <div padding id="divIngresoDatos">
+        <ion-list>
+            <ion-item>
+                <ion-textarea [(ngModel)]="decripcion" placeholder="Escribe aquí una descripción">
+                  </ion-textarea>
+            </ion-item>
+            <ion-item>
+              <ion-input type="number" [(ngModel)]="valor" placeholder="Valor"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input type="number" [(ngModel)]="numeroContacto" placeholder="Numero de contacto"></ion-input>
+            </ion-item>
+        </ion-list>
     </div>
-    
-    
   </div>
   <div>
     <ion-card>

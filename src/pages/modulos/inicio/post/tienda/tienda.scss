@@ -10,7 +10,7 @@ page-tienda {
     background-repeat: no-repeat;
     background-position: center; 
     background-size: 100%;
-    height: 35vh;
+    height: 58.5vh;
     width: 100%;
     opacity: 0.5;
     position: absolute;
@@ -19,6 +19,10 @@ page-tienda {
   .post{
     z-index: 2 !important;
     opacity: 1 !important;
+  }
+
+  #divIngresoDatos{
+    padding-bottom: 2px;
   }
 
 }
