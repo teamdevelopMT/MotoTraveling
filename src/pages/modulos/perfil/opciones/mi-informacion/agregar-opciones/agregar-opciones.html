@@ -1,0 +1,87 @@
+<ion-header>
+    <ion-toolbar [color]="color">
+        <ion-title>{{tipo}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="Cerrar()">
+            <ion-icon name="ios-close-outline"></ion-icon>
+          </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+    <div *ngIf="tipoDatoEmergencia=='contacto'">
+        <ion-card>
+            <ion-card-header>
+                <div style="display:flex; justify-content: center; align-items: center; padding-bottom: 8px">
+                    <img src="./assets/img/contact.png">
+                </div>
+                <strong>Información de Contacto</strong>
+            </ion-card-header>
+            <ion-card-content>
+                <small>Esta información de contactos de emergencia es utilizada únicamente para notificar si tuviste un accidente o robo de motocicleta por medio de un mensaje de texto.</small>
+            </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <ion-card-content>
+                <ion-list>
+                    <ion-item>
+                        <ion-label floating>Nombre</ion-label>
+                        <ion-input type="text" maxLength="25"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label floating>Telefono</ion-label>
+                        <ion-input type="number" maxLength="10"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Parentesco</ion-label>
+                        <ion-select [(ngModel)]="parentesco">
+                            <ion-option value="Padre/Madre">Padre/Madre</ion-option>
+                            <ion-option value="Familar">Familiar</ion-option>
+                            <ion-option value="Conyugue">Conyugue</ion-option>
+                            <ion-option value="Amigo">Amigo</ion-option>
+                        </ion-select>
+                    </ion-item>
+
+
+                </ion-list>
+
+
+            </ion-card-content>
+
+        </ion-card>
+    </div>
+    <div *ngIf="tipoDatoEmergencia=='medicamentos'">
+        <ion-card>
+            <ion-card-header>
+                <div style="display:flex; justify-content: center; align-items: center; padding-bottom: 8px">
+                    <img src="./assets/img/medicamento.png">
+                </div>
+                <strong>Información de Medicamentos</strong>
+            </ion-card-header>
+            <ion-card-content>
+                <small>Esta información de medicamentos es utilizada en caso de accidente, esto permite a la persona de primeros auxilios identificar que medicamentos poder aplicar</small>
+            </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <ion-card-content>
+                <ion-list>
+                    <ion-item>
+                        <ion-label floating>Nombre</ion-label>
+                        <ion-input type="text"></ion-input>
+                    </ion-item>
+                </ion-list>
+
+                <ion-label>¿Por qué tomas este medicamento?</ion-label>
+                <ion-textarea #msgInput rows="3" maxLength="500"></ion-textarea>
+
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <button ion-button full [color]="color" (click)="Guardar()">{{msgBoton}}</button>
+    </ion-toolbar>
+</ion-footer>

@@ -7,6 +7,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase';
 import { IUsuario } from '../../Interfaces/IUsuario';
+import { IInfoSalud } from "../../Interfaces/IEmergencia";
 
 @Injectable()
 export class CrearUsuarioProvider {
@@ -46,6 +47,52 @@ export class CrearUsuarioProvider {
 
     return promesa;
     //validar que exista usuario:
+  }
+
+  ConsultarInfoSalud(idUsuario: string) {
+    let iinfoSalud: IInfoSalud;
+    let promise = new Promise((resolve, reject) => {
+      let infoSalud: Observable<IInfoSalud> = this.afDB.object('usuarios/' + idUsuario + '/emergencia/infosalud').valueChanges();
+      infoSalud.subscribe(res => {
+        if (res != null) {
+          iinfoSalud = res;
+        }
+        resolve(iinfoSalud);
+
+      })
+    });
+    return promise;
+  }
+
+  InsertarInfoSalud(idUsuario: string, infoSalud: IInfoSalud) {
+    let promesa = new Promise((resolve, reject) => {
+
+      const result = this.afDB.object('usuarios/' + idUsuario + '/emergencia/infoSalud').valueChanges();
+      result.subscribe(res => {
+        if (res == null) {
+          this.afDB.list('usuarios/' + idUsuario)
+            .set("emergencia",
+              {"infosalud":{ "EPS": infoSalud.EPS, "TipoSangre": infoSalud.TipoSangre, "Documento": infoSalud.Documento }})
+            .then(resp => {
+              resolve();
+            })
+            .catch(err => reject(err));
+        } else {
+          this.afDB.list('usuarios/' + idUsuario + '/emergencia')
+            .update("infosalud", { "EPS": infoSalud.EPS, "TipoSangre": infoSalud.TipoSangre, "Documento": infoSalud.Documento })
+            .then(resp => {
+              resolve();
+            })
+            .catch(err => {
+              reject(err);
+            });
+        }
+      })
+
+    });
+    return promesa;
+
+
   }
 
 }

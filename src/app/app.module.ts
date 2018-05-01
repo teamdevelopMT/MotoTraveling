@@ -51,6 +51,7 @@ import { RecordarContrasenaPage } from "../pages/Login/recordar-contrasena/recor
 import { NormalPage } from "../pages/modulos/inicio/post/normal/normal";
 import { EmergenciaPage } from "../pages/modulos/inicio/post/emergencia/emergencia";
 import { TiendaPage } from "../pages/modulos/inicio/post/tienda/tienda";
+// import {AgregarOpcionesPage  } from "../pages/modulos/perfil/opciones/mi-informacion/agregar-opciones/agregar-opciones";
 
 //clases
 import { Login } from '../Clases/Login/Login.cs'
