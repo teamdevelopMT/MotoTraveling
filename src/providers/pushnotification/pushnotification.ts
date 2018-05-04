@@ -11,7 +11,7 @@ export class PushnotificationProvider {
 
   InitNotification() {
     if (this.platform.is('cordova')) {
-      this.oneSignal.startInit('0bc711c8-0f08-4a2b-90c5-bc37812cb9b9', '732314916080');
+      this.oneSignal.startInit('0bc711c8-0f08-4a2b-90c5-bc37812cb9b9', '1017500417926');
 
       this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
 

@@ -1,22 +1,22 @@
 <ion-header>
-  <ion-toolbar color="moto">
+    <ion-toolbar color="moto">
 
-    <ion-buttons end>
+        <ion-buttons end>
 
-      <button ion-button color="primary" [navPush]="perfil">
-        perfil
+            <button ion-button [navPush]="perfil">
+       <img [src]="foto" class="avatar animated bounceIn" >
       </button>
 
-    </ion-buttons>
-  </ion-toolbar>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-tabs color="asphalt">
-    <ion-tab tabIcon="ios-home-outline" [root]="inicio"></ion-tab>
-    <ion-tab tabIcon="ios-map-outline" [root]="rutas"></ion-tab>
-    <ion-tab tabIcon="ios-chatbubbles-outline" [root]="mensajes"></ion-tab>
-    <ion-tab tabIcon="ios-pricetags-outline" [root]="tiendas"></ion-tab>
-    <ion-tab tabIcon="ios-notifications-outline" [root]="notificaciones" tabBadge="{{cantidadInvitacionesRutaPendientes}}" tabBadgeStyle="danger"></ion-tab>
-  </ion-tabs>
+    <ion-tabs color="asphalt">
+        <ion-tab tabIcon="ios-home-outline" [root]="inicio"></ion-tab>
+        <ion-tab tabIcon="ios-map-outline" [root]="rutas"></ion-tab>
+        <ion-tab tabIcon="ios-chatbubbles-outline" [root]="mensajes"></ion-tab>
+        <ion-tab tabIcon="ios-pricetags-outline" [root]="tiendas"></ion-tab>
+        <ion-tab tabIcon="ios-notifications-outline" [root]="notificaciones" tabBadge="{{cantidadInvitacionesRutaPendientes}}" tabBadgeStyle="danger"></ion-tab>
+    </ion-tabs>
 </ion-content>
