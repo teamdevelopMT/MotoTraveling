@@ -105,7 +105,7 @@
                 "REVERSED_CLIENT_ID": "com.googleusercontent.apps.1017500417926-gnkf6qo1q51at29q798obb0lm6cphbd7"
             },
             "cordova-android-support-gradle-release": {
-                "ANDROID_SUPPORT_VERSION": "21.+"
+                "ANDROID_SUPPORT_VERSION": "26.+"
             },
             "cordova-plugin-compat": {},
             "com.unarin.cordova.beacon": {},
