@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.mototravelingApp.mt" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>MyApp</name>
+    <name>Moto Traveling</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
@@ -98,7 +98,6 @@
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyAA4Hcdr0d_fu6TlLResbNfVmTIUWj3-B4" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyAA4Hcdr0d_fu6TlLResbNfVmTIUWj3-B4" />
     </plugin>
-    <plugin name="cordova-sqlite-storage" spec="^2.3.0" />
     <plugin name="cordova-plugin-network-information" spec="^1.3.4" />
     <plugin name="cordova-android-support-gradle-release" spec="^1.3.0">
         <variable name="ANDROID_SUPPORT_VERSION" value="26.+" />
@@ -111,5 +110,6 @@
     <plugin name="cordova-plugin-googleplus" spec="^5.2.3">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.732314916080-hokdt7j8e4247t63g7ueurc6jb6gkmc7" />
     </plugin>
+    <plugin name="cordova-sqlite-storage" spec="^2.2.0" />
     <plugin name="onesignal-cordova-plugin" spec="^2.3.3" />
 </widget>
