@@ -79,4 +79,10 @@ export class InicioPage {
     modal.present();
   }
 
+  likearPublicacion(postLikeado)
+  {
+    postLikeado.likes = (isNaN(postLikeado.likes )?  1 : postLikeado.likes + 1);
+    //this.normal.actualizar(postLikeado);
+  }
+
 }

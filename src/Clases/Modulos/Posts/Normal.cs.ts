@@ -20,14 +20,25 @@ export class Normal {
     }
 
     ConsultarPost() {
+        /*return this.af.list('post/normal').snapshotChanges().map(posts => {
+            return posts.map(action => ({ key: action.key, ...action.payload.val() }));
+        });*/
         let result: Observable<any[]> = this.af.list('post/normal').valueChanges().map(posts => {
             for (let post of posts) {
-                // console.log("hola"+post.key);
                 post["usuario"] = this.af.object('/usuarios/' + post["idUsuario"]).valueChanges();          
             }
             return posts.reverse();
         });
         return result;
+    }
+
+    actualizar(post:any){
+        let promise = new Promise((resolve, reject) => {
+            this.af.object('/post/normal/'+post.key).update(post).then(res => {
+                resolve();
+            });
+        });
+        return promise;
     }
 
 }

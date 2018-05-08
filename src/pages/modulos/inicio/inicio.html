@@ -27,9 +27,9 @@
                     </ion-card-content>
                     <ion-row>
                         <ion-col>
-                            <button ion-button icon-left clear small>
+                            <button ion-button icon-left clear small (click)="likearPublicacion(post)">
             <ion-icon name="thumbs-up"></ion-icon>
-            <div>0 Likes</div>
+            <div>{{post.likes}} Likes</div>
           </button>
                         </ion-col>
                         <ion-col>
