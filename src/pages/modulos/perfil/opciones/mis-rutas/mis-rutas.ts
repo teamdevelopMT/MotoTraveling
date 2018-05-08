@@ -24,6 +24,10 @@ export class MisRutasPage {
           listRutas.forEach(ruta => {
             let rutaObj = (ruta as rutas);
             
+            if(rutaObj.rutaUsuarios != undefined)
+            {
+
+            
             var listaRutaUsuarios = Object.keys(rutaObj.rutaUsuarios).map(function (key) { return rutaObj.rutaUsuarios[key]; });
            if(listaRutaUsuarios.find(f => f.nombre == this.usuario.idUsuario) != undefined)
            {
@@ -55,7 +59,11 @@ export class MisRutasPage {
                rutaImagen :this.imagenRutaMaps
               });
            }
+
+          }
           });
+
+        
 
           suscripcionResultadoRutaFire.unsubscribe();
       });
