@@ -64,6 +64,7 @@ import { Tienda } from "../Clases/Modulos/Posts/Tienda.cs";
 import { MapaComponent } from "../Components/Mapa/Mapa.component";
 import { EncabezadoComponent } from "../components/encabezado/encabezado";
 import { UsuariosOnlineComponent } from "../Components/UsuariosOnline/UsuariosOnline.component";
+import { comentariosComponent } from "../Components/comentarios/comentarios";
 
 //Directivas
 import { ElasticHeaderDirective } from "../directives/elastic-header/elastic-header";
@@ -109,6 +110,7 @@ import { PushnotificationProvider } from '../providers/pushnotification/pushnoti
     PrincipalPage,
     MensajesPage,
     UsuariosOnlineComponent,
+    comentariosComponent,
     ElasticHeaderDirective,
     MotosPage,
     CrearMotoPage,
@@ -154,6 +156,7 @@ import { PushnotificationProvider } from '../providers/pushnotification/pushnoti
     PrincipalPage,
     MensajesPage,
     UsuariosOnlineComponent,
+    comentariosComponent,
     MotosPage,
     CrearMotoPage,
     MiInformacionPage,

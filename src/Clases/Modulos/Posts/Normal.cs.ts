@@ -20,9 +20,11 @@ export class Normal {
     }
 
     ConsultarPost() {
-        /*return this.af.list('post/normal').snapshotChanges().map(posts => {
+        /*var a = this.af.list('post/normal').snapshotChanges().map(posts => {
+           
             return posts.map(action => ({ key: action.key, ...action.payload.val() }));
         });*/
+
         let result: Observable<any[]> = this.af.list('post/normal').valueChanges().map(posts => {
             for (let post of posts) {
                 post["usuario"] = this.af.object('/usuarios/' + post["idUsuario"]).valueChanges();          
