@@ -1,97 +1,99 @@
 <ion-content>
-    <div padding>
-        <ion-segment [(ngModel)]="seccion">
-            <ion-segment-button value="noticias">
-                Noticias
-            </ion-segment-button>
-            <ion-segment-button value="publicaciones">
-                Publicaciones
-            </ion-segment-button>
+  <div padding>
+    <ion-segment [(ngModel)]="seccion">
+      <ion-segment-button value="noticias">
+        Noticias
+      </ion-segment-button>
+      <ion-segment-button value="publicaciones">
+        Publicaciones
+      </ion-segment-button>
 
-        </ion-segment>
+    </ion-segment>
+  </div>
+  <div class="post">
+    <div [ngSwitch]="seccion">
+      <div *ngSwitchCase="'publicaciones'">
+        <ion-card *ngFor="let post of posts | async" [@itemState]="in">
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="{{(post.usuario |async)?.foto}}">
+            </ion-avatar>
+            <h2>{{(post.usuario | async)?.nombre}}</h2>
+            <p>{{post.fecha}}</p>
+          </ion-item>
+          <img [src]="post.foto">
+          <ion-card-content>
+            <p>{{post.descripcion}}</p>
+          </ion-card-content>
+          <ion-row>
+            <ion-col>
+              <button ion-button icon-left clear small>
+                <ion-icon name="thumbs-up"></ion-icon>
+                <div>0 Likes</div>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button icon-left clear small>
+                <ion-icon name="text"></ion-icon>
+                <div>0 Comments</div>
+              </button>
+            </ion-col>
+
+          </ion-row>
+        </ion-card>
+
+      </div>
+      <div *ngSwitchCase="'noticias'">
+
+        <ion-card>
+          <img src="./assets/img/noticia.jpg" />
+          <ion-card-content>
+            <ion-card-title>
+            Sustentación Moto Traveling
+            </ion-card-title>
+            <p>
+              En este espacio se compartira aspectos importantes de la aplicación que revolucionará la experiencia motera, los invitamos
+              a que nos acompañen
+            </p>
+          </ion-card-content>
+
+          <ion-row>
+            <ion-col>
+              <button ion-button icon-left clear small color="moto">
+                <ion-icon name="pin"></ion-icon>
+                <div>Universidad Inpahu</div>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button icon-left clear small color="asphalt">
+                <ion-icon name="calendar"></ion-icon>
+                <div>11/05/2018</div>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </div>
     </div>
-    <div class="post">
-        <div [ngSwitch]="seccion">
-            <div *ngSwitchCase="'publicaciones'">
-                <ion-card *ngFor="let post of posts | async" [@itemState]="in">
-                    <ion-item>
-                        <ion-avatar item-start>
-                            <img src="{{(post.usuario |async)?.foto}}">
-                        </ion-avatar>
-                        <h2>{{(post.usuario | async)?.nombre}}</h2>
-                        <p>{{post.fecha}}</p>
-                    </ion-item>
-                    <img [src]="post.foto">
-                    <ion-card-content>
-                        <p>{{post.descripcion}}</p>
-                    </ion-card-content>
-                    <ion-row>
-                        <ion-col>
-                            <button ion-button icon-left clear small>
-            <ion-icon name="thumbs-up"></ion-icon>
-            <div>0 Likes</div>
-          </button>
-                        </ion-col>
-                        <ion-col>
-                            <button ion-button icon-left clear small>
-            <ion-icon name="text"></ion-icon>
-            <div>0 Comments</div>
-          </button>
-                        </ion-col>
+  </div>
 
-                    </ion-row>
-                </ion-card>
+  <ion-fab bottom right *ngIf="seccion == 'publicaciones'">
+    <button ion-fab color="dark">
+      <ion-icon name="add" color="moto"></ion-icon>
+    </button>
 
-            </div>
-            <div *ngSwitchCase="'noticias'">
-                <ion-card>
-                    <img src="./assets/img/noticia.jpg" />
-                    <ion-card-content>
-                        <ion-card-title>
-                            Pre sustentación Moto Traveling
-                        </ion-card-title>
-                        <p>
-                            En este espacio se realizará una pre sustentación de la aplicación que revolucionará la experiencia motera, los invitamos a que nos acompañen
-                        </p>
-                    </ion-card-content>
-
-                    <ion-row>
-                        <ion-col>
-                            <button ion-button icon-left clear small color="moto">
-                                            <ion-icon name="pin"></ion-icon>
-                                            <div>Universidad Inpahu</div>
-                                          </button>
-                        </ion-col>
-                        <ion-col>
-                            <button ion-button icon-left clear small color="asphalt">
-                                            <ion-icon name="calendar"></ion-icon>
-                                            <div>11/05/2018</div>
-                                          </button>
-                        </ion-col>
-                    </ion-row>
-                </ion-card>
-            </div>
-        </div>
-    </div>
-
-    <ion-fab bottom right *ngIf="seccion == 'publicaciones'">
-        <button ion-fab color="dark">
-<ion-icon name="add" color="moto"></ion-icon>
-</button>
-
-        <ion-fab-list side="top">
-            <button ion-fab color="primary" (click)="PostNormal()">
-<ion-icon name="ios-paper"></ion-icon>
-</button>
-            <button ion-fab color="secondary" (click)="PostTienda()">
-<ion-icon name="ios-pricetag"></ion-icon>
-</button>
-            <button ion-fab color="moto" (click)="PostEmergencia()">
-<ion-icon name="ios-pulse"></ion-icon>
-</button>
-            <button ion-fab color="danger" (click)="PostRobo()">
-<ion-icon name="ios-nuclear"></ion-icon>
-</button>
-        </ion-fab-list>
-    </ion-fab>
+    <ion-fab-list side="top">
+      <button ion-fab color="primary" (click)="PostNormal()">
+        <ion-icon name="ios-paper"></ion-icon>
+      </button>
+      <button ion-fab color="secondary" (click)="PostTienda()">
+        <ion-icon name="ios-pricetag"></ion-icon>
+      </button>
+      <button ion-fab color="moto" (click)="PostEmergencia()">
+        <ion-icon name="ios-pulse"></ion-icon>
+      </button>
+      <button ion-fab color="danger" (click)="PostRobo()">
+        <ion-icon name="ios-nuclear"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

@@ -55,6 +55,7 @@ export class TabsPage {
     this.notificaciones = NotificacionesPage;
 
     this.storage.get('nombreUsuario').then((nombreUsuario) => {
+      this.nombreUsuarioSession = nombreUsuario;
       this.usuarios.ConsultarUsuario(nombreUsuario).then(usu => {
         if (usu["foto"] == '')
           usu["foto"] = "https://firebasestorage.googleapis.com/v0/b/moto-traveling.appspot.com/o/Moto%20Traveling%2Fperfil-motocilista.png?alt=media&token=a30c4856-aff4-4c98-b4de-86e0b3ae9805";

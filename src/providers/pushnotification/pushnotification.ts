@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { OneSignal, OSNotification } from '@ionic-native/onesignal';
-import { Platform } from 'ionic-angular';
+import { Platform, App, NavPush, ModalController, Modal } from 'ionic-angular';
+
 
 @Injectable()
 export class PushnotificationProvider {
-
+  nav: any;
   constructor(private oneSignal: OneSignal,
-    private platform: Platform) {
+    private platform: Platform,
+    private app: App,
+    private modalCtrl: ModalController) {
+
+    this.nav = app.getActiveNav();
   }
+
 
   InitNotification() {
     if (this.platform.is('cordova')) {
@@ -15,16 +21,15 @@ export class PushnotificationProvider {
 
       this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
 
-      this.oneSignal.handleNotificationReceived().subscribe(() => {
-        // do something when notification is received
+      this.oneSignal.handleNotificationReceived().subscribe((res) => {
       });
 
-      this.oneSignal.handleNotificationOpened().subscribe(() => {
-        // do something when a notification is opened
+      this.oneSignal.handleNotificationOpened().subscribe((res) => {
+        this.modalCtrl.create('RoboListPage', { data: res }).present();
       });
 
       this.oneSignal.endInit();
-    } 
+    }
   }
 
 

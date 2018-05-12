@@ -33,6 +33,7 @@ export class NormalPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad NormalPage');
   }
+  
   cerrar() {
     this.viewCtrl.dismiss();
 

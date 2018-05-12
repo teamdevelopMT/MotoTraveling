@@ -144,10 +144,11 @@ export class CrearMotoPage {
   CrearToast() {
     let toast = this.toasCtrl.create({
       message: 'Tu moto ha sido creada correctamente',
-      duration: 4000,
-      position: 'bottom',
+      duration: 3000,
       showCloseButton: true,
-      closeButtonText: 'OK'
+      position:'top',
+      closeButtonText: 'OK',
+      cssClass:"guardado"
     });
     toast.present();
   }

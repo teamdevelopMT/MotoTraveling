@@ -38,6 +38,7 @@ export class InicioPage {
   ventas: Observable<any[]>
   data: any = {};
   seccion: string= 'noticias';
+  idUsuario:string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -50,6 +51,7 @@ export class InicioPage {
     this.posts = this.normal.ConsultarPost();
 
     this.storage.get('nombreUsuario').then(res => {
+      this.idUsuario = res;
       this.usuarios.ConsultarUsuario(res).then(usu => {
         if (usu["foto"] == '')
           usu["foto"] = "https://firebasestorage.googleapis.com/v0/b/moto-traveling.appspot.com/o/Moto%20Traveling%2Fperfil-motocilista.png?alt=media&token=a30c4856-aff4-4c98-b4de-86e0b3ae9805";
@@ -75,8 +77,14 @@ export class InicioPage {
   }
 
   PostRobo(){
-    let modal = this.modalCtrl.create(RoboPage)
+    let modal = this.modalCtrl.create(RoboPage, {idUsuario: this.idUsuario})
     modal.present();
+  }
+
+  CargarRobos(){
+    let modal = this.modalCtrl.create('RoboListPage');
+    modal.present();
+
   }
 
 }
