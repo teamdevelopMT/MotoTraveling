@@ -19,8 +19,10 @@
   </ion-card>
 
   <ion-card *ngFor="let moto of motos">
-    
-    <label>{{moto.nombreMoto}}</label>
+      <ion-card-header>
+          <label>{{moto.nombreMoto}}</label>
+      </ion-card-header>
+      <ion-card-content>
     <ion-row id="rowMoto">
       <ion-col>
         <div>
@@ -47,6 +49,7 @@
         </div>
       </ion-col>
     </ion-row>
+  </ion-card-content>
   </ion-card>
 
   <ion-fab right bottom>
