@@ -13,10 +13,42 @@
 </ion-header>
 
 <ion-content class="card-background-page">
-  <ion-card>
+  <ion-card *ngIf="motos.length == 0">
     <img src="./assets/img/moto-crear.jpg" />
     <div class="card-title">Aun no tienes motos</div>
   </ion-card>
+
+  <ion-card *ngFor="let moto of motos">
+    
+    <label>{{moto.nombreMoto}}</label>
+    <ion-row id="rowMoto">
+      <ion-col>
+        <div>
+          <img src="moto.fotoMoto" onerror="this.src='./assets/img/sinImagenMoto.png'" />
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <label class="labelInformacionMoto">Marca: {{moto.marca}}</label>
+          <br/>
+          <label class="labelInformacionMoto">Modelo: {{moto.modelo}}</label>
+          <br/>
+          <label class="labelInformacionMoto">Placas: {{moto.placas}}</label>
+          <br/>
+          <label class="labelInformacionMoto">KM: {{moto.kilometraje}}</label>
+          <br/>
+          <label class="labelInformacionMoto">Cambio de aceite(KM): {{moto.cambioAceite}}</label>
+          <br/>
+          <label class="labelInformacionMoto">Ultimo mantenimiento: {{moto.fechaUltimoMantenimiento}}</label>
+          <br/>
+          <label class="labelInformacionMoto">Tecnomecanica: {{moto.fechaTecnomecanica}}</label>
+          <br/>
+          <label class="labelInformacionMoto">SOAT: {{moto.FechaSOAT}}</label>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
   <ion-fab right bottom>
     <button ion-fab color="moto" [navPush]="pageCrearMoto">
       <ion-icon name="add"></ion-icon>
