@@ -108,7 +108,8 @@ export class NormalPage {
       fecha: today,
       hora: hora,
       idUsuario: this.idusuario,
-      foto: ""
+      foto: "",
+      likes: 0
     }
 
     this.subirFotoService.SubirFotosFirebase('Post/Normal', this.foto).then(res => {

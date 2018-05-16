@@ -47,7 +47,9 @@ export class RoboPage {
 
     const options = new RequestOptions({ headers: headers });
     this.http.post('https://onesignal.com/api/v1/notifications', body, options).subscribe(data => {
+
       this.GuardarRobo().then(resp => {
+
         let toast = this.toastCtrl.create({
           message: 'El robo ya ha sido notificado a tus amigos',
           duration: 3000,
@@ -56,9 +58,9 @@ export class RoboPage {
           closeButtonText: 'OK',
         });
 
-
-        this.viewCtrl.dismiss()
+       
         toast.present();
+        this.viewCtrl.dismiss();
       });
     }, error => {
       console.log(error);
@@ -104,14 +106,14 @@ export class RoboPage {
           detales.idMoto = defaultMoto[0].nombreMoto;
 
           this.af.database.ref('/robos').push(detales).then(res => {
-            resolve();
+           
           })
-          this.listMotos.unsubscribe();
         })
+
+        resolve();
       })
     });
     return promise;
-
   }
 
 

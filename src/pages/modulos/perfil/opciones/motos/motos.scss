@@ -20,5 +20,15 @@ page-motos {
       color: #fff;
     }
 
+    #rowMoto{
+      border-top: solid dashed;
+      border-color: darkgray;
+      border-radius: 2px;
+    }
+
+    .labelInformacionMoto{
+      font-size: 0.8em;
+    }
+
   }
 }

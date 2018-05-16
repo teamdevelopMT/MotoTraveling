@@ -8,5 +8,6 @@ export interface IMoto{
     kilometraje?:string,
     nombreMoto:string, 
     cambioAceite?:string,
-    fotoMoto?:string
+    fotoMoto?:string,
+    default?:boolean
 }

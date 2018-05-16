@@ -25,11 +25,11 @@ export class RoboListPage {
     private viewCtrl: ViewController,
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder) {
-    let robo = navParams.get('robo');
 
-    if (robo == undefined) {
-      this.ConsultarUsuarios();
-    }
+
+
+    this.ConsultarUsuarios();
+
 
   }
 
@@ -45,7 +45,7 @@ export class RoboListPage {
     let promise = new Promise((resolve, reject) => {
       let robos = this.af.list('/robos').valueChanges();
       robos.subscribe(resp => {
-          resolve({"result":resp});  
+        resolve({ "result": resp });
       });
     });
     return promise;
@@ -53,7 +53,7 @@ export class RoboListPage {
   ConsultarUsuarios() {
     this.ConsultarRobos().then(resp => {
       let result: any = resp;
-      for (const item of result) {
+      for (const item of result.result) {
 
         let usuarios: any = this.af.object('/usuarios/' + item.idUsuario).valueChanges();
         usuarios.subscribe(usu => {
@@ -64,10 +64,13 @@ export class RoboListPage {
           data.longitud = item.longitud;
           data.nombre = usu.nombre;
           data.fotoPerfil = usu.foto;
-          let motos = Object.keys(usu.motos).map(function (k) { return usu.motos[k] }).filter(fil => fil.nombreMoto == item.idMoto);
-          data.marca = motos[0].marca;
-          data.modelo = motos[0].modelo;
-          data.placa = motos[0].placas;
+          let motos = usu.motos != undefined && Object.keys(usu.motos).map(function (k) { return usu.motos[k] }).filter(fil => fil.nombreMoto == item.idMoto);
+
+          if (motos != undefined || motos != null) {
+            data.marca = motos[0].marca;
+            data.modelo = motos[0].modelo;
+            data.placa = motos[0].placas;
+          }
 
           this.listRobos.push(data);
         });
@@ -95,8 +98,9 @@ export class RoboListPage {
 
     return staticMapUrl;
   }
-  
-  
+
+
+
 }
 
 

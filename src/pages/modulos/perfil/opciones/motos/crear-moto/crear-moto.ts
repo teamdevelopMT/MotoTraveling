@@ -120,7 +120,8 @@ export class CrearMotoPage {
       FechaSoat: this.formulario.get('soat').value,
       fechaTecnomecanica: this.formulario.get('TecnoMacanica').value,
       fechaUltimoMantimiento: this.formulario.get('mantenimiento').value,
-      cambioAceite: this.formulario.get('cambioAceite').value
+      cambioAceite: this.formulario.get('cambioAceite').value,
+      default: true
     }
 
     if (this.motoFoto != undefined && this.motoFoto != null) {

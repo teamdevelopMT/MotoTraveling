@@ -10,6 +10,7 @@ import { Normal } from "../../../Clases/Modulos/Posts/Normal.cs";
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Usuarios } from '../../../Clases/Modulos/Usuarios/usuarios.cs';
 import { Storage } from '@ionic/storage';
+import { comentariosComponent } from "../../../Components/comentarios/comentarios";
 
 @IonicPage()
 @Component({
@@ -81,10 +82,15 @@ export class InicioPage {
     modal.present();
   }
 
-  CargarRobos(){
-    let modal = this.modalCtrl.create('RoboListPage');
-    modal.present();
+  likearPublicacion(postLikeado)
+  {
+    postLikeado.likes = (isNaN(postLikeado.likes )?  1 : postLikeado.likes + 1);
+    //this.normal.actualizar(postLikeado);
+  }
 
+  abrirComentarios(postComentar){
+    let modal = this.modalCtrl.create(comentariosComponent, { post: postComentar });
+    modal.present();
   }
 
 }
